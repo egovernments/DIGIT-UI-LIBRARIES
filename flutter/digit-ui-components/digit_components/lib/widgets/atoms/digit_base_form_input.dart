@@ -624,7 +624,8 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                       ),
                                     ),
                                   ),
-                                  child: Text(
+                                  child: Center(
+                                    child: Text(
                                     widget.suffixText!,
                                     textAlign: TextAlign.center,
                                     style: widget.suffixTextStyle ??
@@ -760,15 +761,17 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                       left: BorderSide.none,
                                     ),
                                   ),
-                                  child: Text(
-                                    widget.prefixText!,
-                                    textAlign: TextAlign.center,
-                                    style: widget.prefixTextStyle ??
-                                        textTheme.headingL.copyWith(
-                                          color: widget.isDisabled
-                                              ? theme.colorTheme.text.disabled
-                                              : theme.colorTheme.text.secondary,
-                                        ),
+                                  child: Center(
+                                    child: Text(
+                                      widget.prefixText!,
+                                      textAlign: TextAlign.center,
+                                      style: widget.prefixTextStyle ??
+                                          textTheme.headingL.copyWith(
+                                            color: widget.isDisabled
+                                                ? theme.colorTheme.text.disabled
+                                                : theme.colorTheme.text.secondary,
+                                          ),
+                                    ),
                                   ),
                                 ),
                               )

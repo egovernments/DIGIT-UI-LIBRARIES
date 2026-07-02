@@ -302,47 +302,53 @@ class _PopupState extends State<Popup> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          if (widget.onCrossTap != null)
-            Align(
-              alignment: Alignment.topRight,
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  top: 0,
-                  right: 0,
-                ),
-                child: InkWell(
-                  hoverColor: const DigitColors().transparent,
-                  highlightColor: const DigitColors().transparent,
-                  splashColor: const DigitColors().transparent,
-                  onTap: widget.onCrossTap,
-                  child: Icon(
-                    Icons.close,
-                    size: isMobile
-                        ? spacer6
-                        : isTab
-                        ? spacer6
-                        : spacer7,
-                    color: const DigitColors().light.textPrimary,
+          SizedBox(
+            width: double.infinity,
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: SizedBox(
+                    width: 44.0,
+                    height: 38.0,
+                    child: FittedBox(
+                      fit: BoxFit.contain,
+                      child: widget.titleIcon ??
+                          Lottie.asset(
+                            themeData.alertAnimation ??
+                                'assets/animated_json/alert.json',
+                            repeat: false,
+                            fit: BoxFit.cover,
+                          ),
+                    ),
                   ),
                 ),
-              ),
+                if (widget.onCrossTap != null)
+                  Positioned(
+                    top: 0,
+                    right: 0,
+                    child: InkWell(
+                      hoverColor: const DigitColors().transparent,
+                      highlightColor: const DigitColors().transparent,
+                      splashColor: const DigitColors().transparent,
+                      onTap: widget.onCrossTap,
+                      child: Icon(
+                        Icons.close,
+                        size: isMobile
+                            ? spacer6
+                            : isTab
+                            ? spacer6
+                            : spacer7,
+                        color: const DigitColors().light.textPrimary,
+                      ),
+                    ),
+                  ),
+              ],
             ),
-          widget.titleIcon ??
-              Lottie.asset('assets/animated_json/alert.json',
-                  repeat: false,
-                  width: isMobile
-                      ? 56.0
-                      : isTab
-                      ? 64.0
-                      : 72.0,
-                  height: isMobile
-                      ? 56.0
-                      : isTab
-                      ? 64.0
-                      : 72.0,
-                  fit: BoxFit.cover),
+          ),
           const SizedBox(
-            width: spacer2,
+            height: spacer2,
           ),
           RichText(
             textAlign: TextAlign.center,
