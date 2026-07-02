@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useId } from "react";
 import PropTypes from "prop-types";
 import { SVG } from "./SVG";
 import { Colors } from "../constants/colors/colorconstants";
@@ -44,8 +44,10 @@ const Accordion = ({
     }
   }, [isClosed]);
 
-    const contentId = `accordion-panel-${title.replace(/\s+/g, "-").toLowerCase()}`;
-    const headerId = `accordion-header-${title.replace(/\s+/g, "-").toLowerCase()}`;
+    const reactId = useId();
+    const plainTitle = typeof title === "string" ? title.replace(/\s+/g, "-").toLowerCase() : reactId;
+    const contentId = `accordion-panel-${plainTitle}`;
+    const headerId = `accordion-header-${plainTitle}`;
 
   return (
     <div
@@ -92,7 +94,9 @@ const Accordion = ({
             {"."}
           </div>
         )}
-        <div className="digit-accordion-header-title">{StringManipulator("TOSENTENCECASE", title)}</div>
+        <div className="digit-accordion-header-title">
+          {typeof title === "string" ? StringManipulator("TOSENTENCECASE", title) : title}
+        </div>
         <div
           className={`digit-accordion-toggle ${
             isOpen ? "animate-open" : "animate-close"
@@ -119,7 +123,7 @@ const Accordion = ({
 };
 
 Accordion.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
   icon: PropTypes.string,
   iconFill: PropTypes.string,
   iconWidth: PropTypes.string,
