@@ -28,6 +28,7 @@ class DigitIconMapping {
     'AddExpense': Icons.add_card,
     'AddExpenseTwo': Icons.add_card_outlined,
     'AddIcCall': Icons.add_ic_call,
+    'AddIcon': Icons.add,
     'AddLocation': Icons.add_location,
     'AddLocationAlt': Icons.add_location_alt,
     'AddModerator': Icons.add_moderator,
