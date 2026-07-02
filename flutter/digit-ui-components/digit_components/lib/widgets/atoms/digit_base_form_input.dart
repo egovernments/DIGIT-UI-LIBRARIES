@@ -626,14 +626,15 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                   ),
                                   child: Center(
                                     child: Text(
-                                    widget.suffixText!,
-                                    textAlign: TextAlign.center,
-                                    style: widget.suffixTextStyle ??
-                                        textTheme.headingL.copyWith(
-                                          color: widget.isDisabled
-                                              ? theme.colorTheme.text.disabled
-                                              : theme.colorTheme.text.secondary,
-                                        ),
+                                      widget.suffixText!,
+                                      textAlign: TextAlign.center,
+                                      style: widget.suffixTextStyle ??
+                                          textTheme.headingL.copyWith(
+                                            color: widget.isDisabled
+                                                ? theme.colorTheme.text.disabled
+                                                : theme.colorTheme.text.secondary,
+                                          ),
+                                    ),
                                   ),
                                 ),
                               )
