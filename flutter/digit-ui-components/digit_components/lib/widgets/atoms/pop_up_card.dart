@@ -174,6 +174,7 @@ class _PopupState extends State<Popup> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
+          if (widget.title.isNotEmpty || widget.onCrossTap != null || widget.titleIcon != null)
           Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -312,15 +313,17 @@ class _PopupState extends State<Popup> {
                   child: SizedBox(
                     width: 44.0,
                     height: 38.0,
-                    child: FittedBox(
-                      fit: BoxFit.contain,
-                      child: widget.titleIcon ??
-                          Lottie.asset(
-                            themeData.alertAnimation ??
-                                'assets/animated_json/alert.json',
-                            repeat: false,
-                            fit: BoxFit.cover,
-                          ),
+                    child: ClipRect(
+                      child: FittedBox(
+                        fit: BoxFit.contain,
+                        child: widget.titleIcon ??
+                            Lottie.asset(
+                              themeData.alertAnimation ??
+                                  'assets/animated_json/alert.json',
+                              repeat: false,
+                              fit: BoxFit.cover,
+                            ),
+                      ),
                     ),
                   ),
                 ),
