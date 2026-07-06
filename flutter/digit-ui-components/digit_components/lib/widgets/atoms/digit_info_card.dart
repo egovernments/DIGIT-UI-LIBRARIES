@@ -117,20 +117,17 @@ class InfoCard extends StatelessWidget {
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Icon(
                     selectedIcon,
                     size: themeData.iconSize,
                     color: iconColor,
                   ),
-                  const SizedBox(width: spacer2),
+                  const SizedBox(width: spacer4),
                   Expanded(
                     child: Container(
-                      alignment: Alignment.topLeft,
-                      padding: const EdgeInsets.only(
-                        top: spacer3 / 4,
-                      ),
+                      alignment: Alignment.centerLeft,
                       child: Text(
                         capitalizedHeading,
                         style: themeData.titleTextStyle.copyWith(
