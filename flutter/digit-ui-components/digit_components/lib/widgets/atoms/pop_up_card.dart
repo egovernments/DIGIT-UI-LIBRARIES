@@ -311,8 +311,8 @@ class _PopupState extends State<Popup> {
                 Align(
                   alignment: Alignment.topCenter,
                   child: SizedBox(
-                    width: 44.0,
-                    height: 38.0,
+                    width: 48.0,
+                    height: 48.0,
                     child: ClipRect(
                       child: FittedBox(
                         fit: BoxFit.contain,
