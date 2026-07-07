@@ -1,0 +1,52 @@
+# DIGIT Accessibility Scanner — docker-compose for local & demo deployments.
+#
+# Usage:
+#   1. (optional) create .env in this directory if you want API key auth:
+#        API_KEY=somethingsecret
+#   2. docker compose up --build
+#   3. open http://localhost:5173
+#
+# Without an API_KEY in .env, the API runs without auth — fine for local
+# development and behind-firewall demos. For internet-facing deployments
+# you MUST set an API_KEY (uncomment the API_KEY line in the api service
+# below and remove the default-empty value).
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: digit-a11y-agent:latest
+    command: ["pnpm", "--filter", "@digit-a11y/api", "start"]
+    environment:
+      - NODE_ENV=production
+      - API_HOST=0.0.0.0
+      - API_PORT=3000
+      - API_KEY=${API_KEY:-}                      # empty = no auth (dev/demo)
+      - CORS_ORIGINS=http://localhost:5173,http://127.0.0.1:5173
+      - LOG_LEVEL=info
+      - SCAN_TIMEOUT_MS=${SCAN_TIMEOUT_MS:-120000}  # 2 minutes by default
+    ports:
+      - "3000:3000"
+    volumes:
+      - artifacts:/app/artifacts
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:3000/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  ui:
+    image: digit-a11y-agent:latest
+    command: ["pnpm", "--filter", "@digit-a11y/ui", "exec", "vite", "preview", "--host", "0.0.0.0", "--port", "5173"]
+    depends_on:
+      api:
+        condition: service_healthy
+    ports:
+      - "5173:5173"
+    restart: unless-stopped
+
+volumes:
+  artifacts:

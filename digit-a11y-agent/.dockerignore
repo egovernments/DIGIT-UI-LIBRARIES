@@ -1,0 +1,54 @@
+# Keep the Docker build context small and predictable.
+# Without this file, every `docker build` copies node_modules / .git / artifacts
+# into the build context, which is slow and risks leaking local state.
+
+# Dependencies — re-installed inside the image
+**/node_modules
+.pnpm-store
+
+# Build outputs — re-generated inside the image
+**/dist
+**/build
+**/.vite
+
+# Runtime artifacts — scan screenshots etc.
+artifacts
+**/artifacts
+/tmp
+
+# Test outputs
+coverage
+**/coverage
+.nyc_output
+
+# Logs
+*.log
+**/*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+
+# Editor and OS noise
+.vscode
+.idea
+.DS_Store
+Thumbs.db
+*.swp
+
+# Git history (image needs source, not history)
+.git
+.gitignore
+.github
+
+# Local env overrides — never bake into images
+.env
+.env.local
+.env.*.local
+
+# Day notes and dev artifacts that don't belong in a production image
+DAY*.md
+
+# Skip docker files themselves (no recursion)
+Dockerfile
+docker-compose.yml
+.dockerignore

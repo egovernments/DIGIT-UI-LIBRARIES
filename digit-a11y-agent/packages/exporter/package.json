@@ -1,0 +1,13 @@
+{
+  "name": "@digit-a11y/exporter",
+  "version": "0.1.0",
+  "private": true,
+  "description": "PDF (via Playwright) and JSON export for scan reports",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "vitest run",
+    "lint": "echo \"(exporter lint pending)\""
+  },
+  "devDependencies": {}
+}

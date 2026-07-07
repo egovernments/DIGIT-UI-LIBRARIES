@@ -1,0 +1,16 @@
+[
+  {
+    "name": "employee-home",
+    "url": "https://unified-uat.digit.org/workbench-ui/employee",
+    "score": 65,
+    "status": "Needs attention",
+    "totalIssues": 5
+  },
+  {
+    "name": "campaign-home",
+    "url": "https://unified-uat.digit.org/workbench-ui/employee/campaign/campaign-home",
+    "score": 47,
+    "status": "Needs major fixes",
+    "totalIssues": 8
+  }
+]

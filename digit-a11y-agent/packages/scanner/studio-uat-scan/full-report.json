@@ -1,0 +1,504 @@
+{
+  "score": 69,
+  "status": "Needs attention",
+  "summaryText": "This page has 1 critical issue that will block some users entirely. Fix these first before moving on to the other 6 issues.",
+  "keySummary": "This page needs attention due to buttons have no readable name and page has more than one banner landmark.",
+  "summary": {
+    "totalIssues": 7,
+    "critical": 1,
+    "serious": 0,
+    "moderate": 5,
+    "minor": 1
+  },
+  "startHere": [
+    {
+      "ruleId": "button-name",
+      "title": "Buttons have no readable name",
+      "severity": "Needs Immediate Fix",
+      "icon": "🚫",
+      "whyItMatters": "If a button contains only an icon or is empty, screen reader users hear \"button\" with no context about what it does.",
+      "whatYouCanDo": "Add visible text inside the button, or use aria-label to provide a description.",
+      "affectedUsers": [
+        {
+          "icon": "👁",
+          "label": "Screen reader users"
+        }
+      ],
+      "targets": [
+        {
+          "selector": ".active.indicator",
+          "boundingBox": {
+            "x": 417,
+            "y": 738,
+            "width": 7,
+            "height": 7
+          }
+        },
+        {
+          "selector": ".indicator:nth-child(2)",
+          "boundingBox": {
+            "x": 436,
+            "y": 739,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "selector": ".indicator:nth-child(3)",
+          "boundingBox": {
+            "x": 454,
+            "y": 739,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "selector": ".indicator:nth-child(4)",
+          "boundingBox": {
+            "x": 472,
+            "y": 739,
+            "width": 6,
+            "height": 6
+          }
+        }
+      ],
+      "standards": {
+        "wcag": [
+          "4.1.2 Name, Role, Value (Level A)"
+        ],
+        "gigw": [
+          "5.2 – Provide accessible names for all interactive elements"
+        ],
+        "ada": [
+          "Title III – Effective Communication"
+        ],
+        "sesmag": [
+          "Section 3 – Operability"
+        ]
+      },
+      "sections": [],
+      "example": "Before: <button><img src=\"search.png\" /></button>\nAfter:  <button aria-label=\"Search\">🔍</button>"
+    }
+  ],
+  "issues": [
+    {
+      "ruleId": "button-name",
+      "title": "Buttons have no readable name",
+      "severity": "Needs Immediate Fix",
+      "icon": "🚫",
+      "whyItMatters": "If a button contains only an icon or is empty, screen reader users hear \"button\" with no context about what it does.",
+      "whatYouCanDo": "Add visible text inside the button, or use aria-label to provide a description.",
+      "affectedUsers": [
+        {
+          "icon": "👁",
+          "label": "Screen reader users"
+        }
+      ],
+      "targets": [
+        {
+          "selector": ".active.indicator",
+          "boundingBox": {
+            "x": 417,
+            "y": 738,
+            "width": 7,
+            "height": 7
+          }
+        },
+        {
+          "selector": ".indicator:nth-child(2)",
+          "boundingBox": {
+            "x": 436,
+            "y": 739,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "selector": ".indicator:nth-child(3)",
+          "boundingBox": {
+            "x": 454,
+            "y": 739,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "selector": ".indicator:nth-child(4)",
+          "boundingBox": {
+            "x": 472,
+            "y": 739,
+            "width": 6,
+            "height": 6
+          }
+        }
+      ],
+      "standards": {
+        "wcag": [
+          "4.1.2 Name, Role, Value (Level A)"
+        ],
+        "gigw": [
+          "5.2 – Provide accessible names for all interactive elements"
+        ],
+        "ada": [
+          "Title III – Effective Communication"
+        ],
+        "sesmag": [
+          "Section 3 – Operability"
+        ]
+      },
+      "sections": [],
+      "example": "Before: <button><img src=\"search.png\" /></button>\nAfter:  <button aria-label=\"Search\">🔍</button>"
+    },
+    {
+      "ruleId": "landmark-no-duplicate-banner",
+      "title": "Page has more than one banner landmark",
+      "severity": "Can Improve",
+      "icon": "🔧",
+      "whyItMatters": "A page should have only one banner. Multiple banners confuse screen reader users navigating the landmark list.",
+      "whatYouCanDo": "Keep one <header> at the page level and remove role=\"banner\" from other elements.",
+      "affectedUsers": [
+        {
+          "icon": "👁",
+          "label": "Screen reader users"
+        }
+      ],
+      "targets": [
+        {
+          "selector": ".digit-form-card-subheader",
+          "boundingBox": {
+            "x": 928,
+            "y": 268,
+            "width": 304,
+            "height": 18
+          }
+        }
+      ],
+      "standards": {
+        "wcag": [],
+        "gigw": [],
+        "ada": [],
+        "sesmag": [
+          "Section 4 – Understandability"
+        ]
+      },
+      "sections": []
+    },
+    {
+      "ruleId": "landmark-one-main",
+      "title": "Page has no main content area marked",
+      "severity": "Can Improve",
+      "icon": "🔧",
+      "whyItMatters": "Screen reader users can jump straight to the main content by pressing a shortcut key. Without a <main> landmark, they have to listen through the entire navigation first.",
+      "whatYouCanDo": "Wrap your page's primary content in a <main> element.",
+      "affectedUsers": [
+        {
+          "icon": "👁",
+          "label": "Screen reader users"
+        },
+        {
+          "icon": "⌨️",
+          "label": "Keyboard-only users"
+        }
+      ],
+      "targets": [
+        {
+          "selector": "html",
+          "boundingBox": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 800
+          }
+        }
+      ],
+      "standards": {
+        "wcag": [
+          "2.4.1 Bypass Blocks (Level A)"
+        ],
+        "gigw": [
+          "4.1 – Provide a skip-to-main-content mechanism"
+        ],
+        "ada": [
+          "Title III – Accessible Design Standards"
+        ],
+        "sesmag": [
+          "Section 3 – Operability"
+        ]
+      },
+      "sections": [],
+      "example": "Before: <div class=\"content\">...</div>\nAfter:  <main>...</main>"
+    },
+    {
+      "ruleId": "landmark-unique",
+      "title": "Two landmarks have the same role and label",
+      "severity": "Can Improve",
+      "icon": "🔧",
+      "whyItMatters": "When two landmarks of the same kind have identical (or no) labels, screen reader users cannot tell them apart in the landmark list.",
+      "whatYouCanDo": "Add a unique aria-label or aria-labelledby to each landmark — e.g. \"Main navigation\" vs \"Footer navigation\".",
+      "affectedUsers": [
+        {
+          "icon": "👁",
+          "label": "Screen reader users"
+        }
+      ],
+      "targets": [
+        {
+          "selector": ".digit-form-card-subheader",
+          "boundingBox": {
+            "x": 928,
+            "y": 268,
+            "width": 304,
+            "height": 18
+          }
+        }
+      ],
+      "standards": {
+        "wcag": [],
+        "gigw": [],
+        "ada": [],
+        "sesmag": [
+          "Section 4 – Understandability"
+        ]
+      },
+      "sections": [],
+      "example": "Before: <nav>...</nav>  <nav>...</nav>\nAfter:  <nav aria-label=\"Main\">...</nav>  <nav aria-label=\"Footer\">...</nav>"
+    },
+    {
+      "ruleId": "page-has-heading-one",
+      "title": "Page is missing a main heading",
+      "severity": "Can Improve",
+      "icon": "🔧",
+      "whyItMatters": "The main heading (H1) tells users what the page is about. Screen reader users often skim headings to navigate — a missing H1 is disorienting.",
+      "whatYouCanDo": "Add one <h1> element that clearly describes the purpose of the page.",
+      "affectedUsers": [
+        {
+          "icon": "👁",
+          "label": "Screen reader users"
+        },
+        {
+          "icon": "🧠",
+          "label": "Users with cognitive disabilities"
+        }
+      ],
+      "targets": [
+        {
+          "selector": "html",
+          "boundingBox": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 800
+          }
+        }
+      ],
+      "standards": {
+        "wcag": [
+          "1.3.1 Info and Relationships (Level A)",
+          "2.4.6 Headings and Labels (Level AA)"
+        ],
+        "gigw": [
+          "4.4 – Use a logical, hierarchical heading structure"
+        ],
+        "ada": [
+          "Title III – Effective Communication"
+        ],
+        "sesmag": []
+      },
+      "sections": [],
+      "example": "Before: <h2>Welcome to our portal</h2>\nAfter:  <h1>Welcome to the Government Services Portal</h1>"
+    },
+    {
+      "ruleId": "region",
+      "title": "Page sections are not labelled for navigation",
+      "severity": "Can Improve",
+      "icon": "🔧",
+      "whyItMatters": "Landmarks like <header>, <nav>, <main>, and <footer> let keyboard and screen reader users jump between sections quickly.",
+      "whatYouCanDo": "Wrap major sections in appropriate semantic HTML elements or add role attributes.",
+      "affectedUsers": [
+        {
+          "icon": "👁",
+          "label": "Screen reader users"
+        },
+        {
+          "icon": "⌨️",
+          "label": "Keyboard-only users"
+        }
+      ],
+      "targets": [
+        {
+          "selector": ".active.carousel-slide",
+          "boundingBox": {
+            "x": 0,
+            "y": 0,
+            "width": 896,
+            "height": 800
+          }
+        },
+        {
+          "selector": ".carousel-slide:nth-child(2)",
+          "boundingBox": {
+            "x": 0,
+            "y": 0,
+            "width": 896,
+            "height": 800
+          }
+        },
+        {
+          "selector": ".carousel-slide:nth-child(3)",
+          "boundingBox": {
+            "x": 0,
+            "y": 0,
+            "width": 896,
+            "height": 800
+          }
+        },
+        {
+          "selector": ".carousel-slide:nth-child(4)",
+          "boundingBox": {
+            "x": 0,
+            "y": 0,
+            "width": 896,
+            "height": 800
+          }
+        },
+        {
+          "selector": ".bannerHeader",
+          "boundingBox": {
+            "x": 928,
+            "y": 201,
+            "width": 304,
+            "height": 51
+          }
+        },
+        {
+          "selector": "div:nth-child(3) > .digit-field > .digit-label-field-pair.digit-formcomposer-fieldpair.removeMargin > .digit-field",
+          "boundingBox": {
+            "x": 928,
+            "y": 324,
+            "width": 304,
+            "height": 40
+          }
+        },
+        {
+          "selector": "#user-login-standalone-core_login_password-field",
+          "boundingBox": {
+            "x": 928,
+            "y": 402,
+            "width": 304,
+            "height": 40
+          }
+        },
+        {
+          "selector": "#privacy-component-check",
+          "boundingBox": {
+            "x": 924,
+            "y": 458,
+            "width": 32,
+            "height": 32
+          }
+        },
+        {
+          "selector": ".digit-text-block-wrap",
+          "boundingBox": {
+            "x": 1012,
+            "y": 722,
+            "width": 136,
+            "height": 22
+          }
+        },
+        {
+          "selector": ".EmployeeLoginFooter",
+          "boundingBox": {
+            "x": 1011,
+            "y": 774,
+            "width": 139,
+            "height": 16
+          }
+        }
+      ],
+      "standards": {
+        "wcag": [
+          "1.3.1 Info and Relationships (Level A)",
+          "2.4.1 Bypass Blocks (Level A)"
+        ],
+        "gigw": [],
+        "ada": [
+          "Title III – Accessible Design Standards"
+        ],
+        "sesmag": []
+      },
+      "sections": [],
+      "example": "Before: <div class=\"nav\">...</div>\nAfter:  <nav aria-label=\"Main navigation\">...</nav>"
+    },
+    {
+      "ruleId": "aria-allowed-role",
+      "title": "Element has a role that is not allowed for that tag",
+      "severity": "Minor",
+      "icon": "💡",
+      "whyItMatters": "Some HTML elements should not have certain ARIA roles applied — e.g. <a href> with role=\"heading\" makes it stop working as a link in some screen readers.",
+      "whatYouCanDo": "Either change the ARIA role to one allowed for this element, or use a different element.",
+      "affectedUsers": [
+        {
+          "icon": "👁",
+          "label": "Screen reader users"
+        }
+      ],
+      "targets": [
+        {
+          "selector": "label[for=\"privacy-component-check\"]",
+          "boundingBox": {
+            "x": 968,
+            "y": 458,
+            "width": 166,
+            "height": 24
+          }
+        }
+      ],
+      "standards": {
+        "wcag": [],
+        "gigw": [],
+        "ada": [],
+        "sesmag": [
+          "Section 5 – Robustness"
+        ]
+      },
+      "sections": []
+    }
+  ],
+  "standardsBreakdown": {
+    "wcag": {
+      "totalRulesChecked": 65,
+      "rulesFailed": 4,
+      "rulesPassed": 61,
+      "compliancePercent": 93.8
+    },
+    "gigw": {
+      "totalRulesChecked": 37,
+      "rulesFailed": 3,
+      "rulesPassed": 34,
+      "compliancePercent": 91.9
+    },
+    "sesmag": {
+      "totalRulesChecked": 82,
+      "rulesFailed": 5,
+      "rulesPassed": 77,
+      "compliancePercent": 93.9
+    },
+    "ada": {
+      "totalRulesChecked": 40,
+      "rulesFailed": 4,
+      "rulesPassed": 36,
+      "compliancePercent": 90
+    }
+  },
+  "meta": {
+    "scanId": "scn_92c4afbfda624b05",
+    "url": "https://unified-uat.digit.org/digit-studio/employee/servicedesigner/LandingPage",
+    "scannedAt": "2026-05-20T15:11:09.606Z",
+    "durationMs": 52392,
+    "axeCoreVersion": "4.11.4",
+    "authenticated": true,
+    "navigationAttempts": 1,
+    "warnings": []
+  }
+}

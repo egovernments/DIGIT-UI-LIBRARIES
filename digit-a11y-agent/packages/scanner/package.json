@@ -1,0 +1,19 @@
+{
+  "name": "@digit-a11y/scanner",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Playwright + axe-core scanner engine",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "vitest run",
+    "test:browser": "vitest run --testNamePattern='\\[browser\\]'",
+    "lint": "echo \"(scanner lint pending)\""
+  },
+  "dependencies": {
+    "playwright": "^1.44.0",
+    "@axe-core/playwright": "^4.9.0",
+    "@digit-a11y/reporter": "workspace:*"
+  },
+  "devDependencies": {}
+}

@@ -1,0 +1,382 @@
+{
+  "score": 78,
+  "status": "Needs some improvement",
+  "summaryText": "This page has 1 critical issue that will block some users entirely. Fix these first before moving on to the other 3 issues.",
+  "keySummary": "This page needs minor improvements due to images are missing descriptions and page has no main content area marked.",
+  "summary": {
+    "totalIssues": 4,
+    "critical": 1,
+    "serious": 0,
+    "moderate": 3,
+    "minor": 0
+  },
+  "startHere": [
+    {
+      "ruleId": "image-alt",
+      "title": "Images are missing descriptions",
+      "severity": "Needs Immediate Fix",
+      "icon": "🚫",
+      "whyItMatters": "People using screen readers cannot tell what an image shows if it has no description. This makes images invisible to blind users.",
+      "whatYouCanDo": "Add an alt attribute to every image that conveys information. For decorative images, use alt=\"\".",
+      "affectedUsers": [
+        {
+          "icon": "👁",
+          "label": "Screen reader users"
+        },
+        {
+          "icon": "🎨",
+          "label": "Low vision users"
+        }
+      ],
+      "targets": [
+        {
+          "selector": "#logo-img-container > img:nth-child(1)",
+          "boundingBox": {
+            "x": -9999,
+            "y": 288,
+            "width": 1781,
+            "height": 512
+          }
+        },
+        {
+          "selector": "img:nth-child(2)",
+          "boundingBox": {
+            "x": -8218,
+            "y": 0,
+            "width": 800,
+            "height": 800
+          }
+        }
+      ],
+      "standards": {
+        "wcag": [
+          "1.1.1 Non-text Content (Level A)"
+        ],
+        "gigw": [
+          "3.1 – Provide text alternatives for all non-text content"
+        ],
+        "ada": [
+          "Title III – Effective Communication"
+        ],
+        "sesmag": [
+          "Section 2 – Perceivability"
+        ]
+      },
+      "sections": [],
+      "example": "Before: <img src=\"chart.png\" />\nAfter:  <img src=\"chart.png\" alt=\"Bar chart showing sales growth from 2020 to 2024\" />"
+    }
+  ],
+  "issues": [
+    {
+      "ruleId": "image-alt",
+      "title": "Images are missing descriptions",
+      "severity": "Needs Immediate Fix",
+      "icon": "🚫",
+      "whyItMatters": "People using screen readers cannot tell what an image shows if it has no description. This makes images invisible to blind users.",
+      "whatYouCanDo": "Add an alt attribute to every image that conveys information. For decorative images, use alt=\"\".",
+      "affectedUsers": [
+        {
+          "icon": "👁",
+          "label": "Screen reader users"
+        },
+        {
+          "icon": "🎨",
+          "label": "Low vision users"
+        }
+      ],
+      "targets": [
+        {
+          "selector": "#logo-img-container > img:nth-child(1)",
+          "boundingBox": {
+            "x": -9999,
+            "y": 288,
+            "width": 1781,
+            "height": 512
+          }
+        },
+        {
+          "selector": "img:nth-child(2)",
+          "boundingBox": {
+            "x": -8218,
+            "y": 0,
+            "width": 800,
+            "height": 800
+          }
+        }
+      ],
+      "standards": {
+        "wcag": [
+          "1.1.1 Non-text Content (Level A)"
+        ],
+        "gigw": [
+          "3.1 – Provide text alternatives for all non-text content"
+        ],
+        "ada": [
+          "Title III – Effective Communication"
+        ],
+        "sesmag": [
+          "Section 2 – Perceivability"
+        ]
+      },
+      "sections": [],
+      "example": "Before: <img src=\"chart.png\" />\nAfter:  <img src=\"chart.png\" alt=\"Bar chart showing sales growth from 2020 to 2024\" />"
+    },
+    {
+      "ruleId": "landmark-one-main",
+      "title": "Page has no main content area marked",
+      "severity": "Can Improve",
+      "icon": "🔧",
+      "whyItMatters": "Screen reader users can jump straight to the main content by pressing a shortcut key. Without a <main> landmark, they have to listen through the entire navigation first.",
+      "whatYouCanDo": "Wrap your page's primary content in a <main> element.",
+      "affectedUsers": [
+        {
+          "icon": "👁",
+          "label": "Screen reader users"
+        },
+        {
+          "icon": "⌨️",
+          "label": "Keyboard-only users"
+        }
+      ],
+      "targets": [
+        {
+          "selector": "html",
+          "boundingBox": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 800
+          }
+        }
+      ],
+      "standards": {
+        "wcag": [
+          "2.4.1 Bypass Blocks (Level A)"
+        ],
+        "gigw": [
+          "4.1 – Provide a skip-to-main-content mechanism"
+        ],
+        "ada": [
+          "Title III – Accessible Design Standards"
+        ],
+        "sesmag": [
+          "Section 3 – Operability"
+        ]
+      },
+      "sections": [],
+      "example": "Before: <div class=\"content\">...</div>\nAfter:  <main>...</main>"
+    },
+    {
+      "ruleId": "page-has-heading-one",
+      "title": "Page is missing a main heading",
+      "severity": "Can Improve",
+      "icon": "🔧",
+      "whyItMatters": "The main heading (H1) tells users what the page is about. Screen reader users often skim headings to navigate — a missing H1 is disorienting.",
+      "whatYouCanDo": "Add one <h1> element that clearly describes the purpose of the page.",
+      "affectedUsers": [
+        {
+          "icon": "👁",
+          "label": "Screen reader users"
+        },
+        {
+          "icon": "🧠",
+          "label": "Users with cognitive disabilities"
+        }
+      ],
+      "targets": [
+        {
+          "selector": "html",
+          "boundingBox": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 800
+          }
+        }
+      ],
+      "standards": {
+        "wcag": [
+          "1.3.1 Info and Relationships (Level A)",
+          "2.4.6 Headings and Labels (Level AA)"
+        ],
+        "gigw": [
+          "4.4 – Use a logical, hierarchical heading structure"
+        ],
+        "ada": [
+          "Title III – Effective Communication"
+        ],
+        "sesmag": []
+      },
+      "sections": [],
+      "example": "Before: <h2>Welcome to our portal</h2>\nAfter:  <h1>Welcome to the Government Services Portal</h1>"
+    },
+    {
+      "ruleId": "region",
+      "title": "Page sections are not labelled for navigation",
+      "severity": "Can Improve",
+      "icon": "🔧",
+      "whyItMatters": "Landmarks like <header>, <nav>, <main>, and <footer> let keyboard and screen reader users jump between sections quickly.",
+      "whatYouCanDo": "Wrap major sections in appropriate semantic HTML elements or add role attributes.",
+      "affectedUsers": [
+        {
+          "icon": "👁",
+          "label": "Screen reader users"
+        },
+        {
+          "icon": "⌨️",
+          "label": "Keyboard-only users"
+        }
+      ],
+      "targets": [
+        {
+          "selector": ".digit-logo-ulb-wrapper",
+          "boundingBox": {
+            "x": 40,
+            "y": 20,
+            "width": 192,
+            "height": 32
+          }
+        },
+        {
+          "selector": ".individual-action-field:nth-child(1) > div > .digit-dropdown-employee-select-wrap > .header-dropdown-label > label",
+          "boundingBox": {
+            "x": 848,
+            "y": 25,
+            "width": 36,
+            "height": 22
+          }
+        },
+        {
+          "selector": ".language-dropdown > .header-dropdown-label > label",
+          "boundingBox": {
+            "x": 948,
+            "y": 25,
+            "width": 52,
+            "height": 22
+          }
+        },
+        {
+          "selector": ".header-dropdown-profile",
+          "boundingBox": {
+            "x": 1064,
+            "y": 20,
+            "width": 32,
+            "height": 32
+          }
+        },
+        {
+          "selector": ".digit-header-img",
+          "boundingBox": {
+            "x": 1160,
+            "y": 27,
+            "width": 80,
+            "height": 19
+          }
+        },
+        {
+          "selector": ".digit-card-component.digit-landing-page-card.right:nth-child(1) > .icon-module-header.right > .ladingcard-moduleName",
+          "boundingBox": {
+            "x": 160,
+            "y": 134,
+            "width": 95,
+            "height": 29
+          }
+        },
+        {
+          "selector": ".digit-card-component.digit-landing-page-card.right:nth-child(1) > .landingpagecard-section",
+          "boundingBox": {
+            "x": 96,
+            "y": 210,
+            "width": 269,
+            "height": 22
+          }
+        },
+        {
+          "selector": ".digit-card-component.digit-landing-page-card.right:nth-child(2) > .icon-module-header.right > .ladingcard-moduleName",
+          "boundingBox": {
+            "x": 501,
+            "y": 134,
+            "width": 148,
+            "height": 29
+          }
+        },
+        {
+          "selector": ".digit-card-component.digit-landing-page-card.right:nth-child(2) > .landingpagecard-section",
+          "boundingBox": {
+            "x": 437,
+            "y": 210,
+            "width": 269,
+            "height": 22
+          }
+        },
+        {
+          "selector": ".employee-home-footer",
+          "boundingBox": {
+            "x": 60,
+            "y": 736,
+            "width": 1197,
+            "height": 40
+          }
+        },
+        {
+          "selector": "#logo-img-container",
+          "boundingBox": {
+            "x": -9999,
+            "y": 0,
+            "width": 2581,
+            "height": 804
+          }
+        }
+      ],
+      "standards": {
+        "wcag": [
+          "1.3.1 Info and Relationships (Level A)",
+          "2.4.1 Bypass Blocks (Level A)"
+        ],
+        "gigw": [],
+        "ada": [
+          "Title III – Accessible Design Standards"
+        ],
+        "sesmag": []
+      },
+      "sections": [],
+      "example": "Before: <div class=\"nav\">...</div>\nAfter:  <nav aria-label=\"Main navigation\">...</nav>"
+    }
+  ],
+  "standardsBreakdown": {
+    "wcag": {
+      "totalRulesChecked": 65,
+      "rulesFailed": 4,
+      "rulesPassed": 61,
+      "compliancePercent": 93.8
+    },
+    "gigw": {
+      "totalRulesChecked": 37,
+      "rulesFailed": 3,
+      "rulesPassed": 34,
+      "compliancePercent": 91.9
+    },
+    "sesmag": {
+      "totalRulesChecked": 82,
+      "rulesFailed": 2,
+      "rulesPassed": 80,
+      "compliancePercent": 97.6
+    },
+    "ada": {
+      "totalRulesChecked": 40,
+      "rulesFailed": 4,
+      "rulesPassed": 36,
+      "compliancePercent": 90
+    }
+  },
+  "meta": {
+    "scanId": "scn_d779de173e594a73",
+    "url": "https://health-demo.digit.org/console/employee",
+    "scannedAt": "2026-05-20T16:12:34.487Z",
+    "durationMs": 37516,
+    "axeCoreVersion": "4.11.4",
+    "authenticated": true,
+    "navigationAttempts": 1,
+    "warnings": []
+  }
+}

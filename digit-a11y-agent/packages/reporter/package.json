@@ -1,0 +1,13 @@
+{
+  "name": "@digit-a11y/reporter",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Translation layer — converts raw axe-core violations to friendly issues with WCAG/GIGW/SesMag/ADA mappings",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "vitest run",
+    "lint": "echo \"(reporter lint pending)\""
+  },
+  "devDependencies": {}
+}

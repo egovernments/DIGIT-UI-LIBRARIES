@@ -1,0 +1,28 @@
+{
+  "name": "digit-a11y-agent",
+  "version": "0.1.0",
+  "private": true,
+  "description": "DIGIT Accessibility Scanner — automated WCAG/GIGW/SesMag compliance checking for Indian government web applications.",
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@9.0.0",
+  "scripts": {
+    "dev":         "pnpm --parallel --filter @digit-a11y/api --filter @digit-a11y/ui run dev",
+    "dev:api":     "pnpm --filter @digit-a11y/api dev",
+    "dev:ui":      "pnpm --filter @digit-a11y/ui dev",
+    "build":       "pnpm --recursive run build",
+    "build:ui":    "pnpm --filter @digit-a11y/ui run build",
+    "start":       "pnpm --filter @digit-a11y/api start",
+    "test":        "vitest run",
+    "test:watch":  "vitest",
+    "test:ui":     "pnpm --filter @digit-a11y/ui test",
+    "test:live":   "cross-env-shell DIGIT_LIVE_TESTS=1 vitest run packages/scanner/tests/digit-live.test.js",
+    "lint":        "pnpm --recursive run lint",
+    "clean":       "rm -rf node_modules packages/*/node_modules"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "vitest":    "^1.6.0"
+  }
+}

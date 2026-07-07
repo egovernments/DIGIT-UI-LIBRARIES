@@ -1,0 +1,29 @@
+{
+  "name": "@digit-a11y/api",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Express HTTP API for the DIGIT Accessibility Scanner",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "dev":   "node --watch src/index.js",
+    "start": "node src/index.js",
+    "test":  "vitest run",
+    "lint":  "echo \"(api lint pending)\""
+  },
+  "dependencies": {
+    "@digit-a11y/reporter": "workspace:*",
+    "@digit-a11y/scanner":  "workspace:*",
+    "@digit-a11y/explorer": "workspace:*",
+    "express":              "^4.21.0",
+    "cors":                 "^2.8.5",
+    "zod":                  "^3.23.8",
+    "pino":                 "^9.4.0",
+    "pino-http":            "^10.3.0",
+    "pino-pretty":          "^11.2.2",
+    "playwright":           "^1.47.2"
+  },
+  "devDependencies": {
+    "supertest": "^7.0.0"
+  }
+}

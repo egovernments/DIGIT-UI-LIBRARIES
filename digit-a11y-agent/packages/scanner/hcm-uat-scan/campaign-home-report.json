@@ -1,0 +1,856 @@
+{
+  "score": 47,
+  "status": "Needs major fixes",
+  "summaryText": "This page has 2 critical issues that will block some users entirely. Fix these first before moving on to the other 6 issues.",
+  "keySummary": "This page needs major fixes due to aria attribute is not allowed for this role and aria role is missing required child elements.",
+  "summary": {
+    "totalIssues": 8,
+    "critical": 2,
+    "serious": 3,
+    "moderate": 3,
+    "minor": 0
+  },
+  "startHere": [
+    {
+      "ruleId": "aria-allowed-attr",
+      "title": "ARIA attribute is not allowed for this role",
+      "severity": "Needs Immediate Fix",
+      "icon": "🚫",
+      "whyItMatters": "Each ARIA role only supports certain attributes. Using disallowed ones means the attribute is ignored — and the developer's intent is not communicated.",
+      "whatYouCanDo": "Look up the role in the ARIA specification and remove any attributes not listed as supported.",
+      "affectedUsers": [
+        {
+          "icon": "👁",
+          "label": "Screen reader users"
+        }
+      ],
+      "targets": [
+        {
+          "selector": "div[aria-label=\"Home\"]",
+          "boundingBox": {
+            "x": 1,
+            "y": 73,
+            "width": 46,
+            "height": 40
+          }
+        },
+        {
+          "selector": "div[aria-label=\"Setup Microplan\"]",
+          "boundingBox": {
+            "x": 1,
+            "y": 137,
+            "width": 46,
+            "height": 40
+          }
+        },
+        {
+          "selector": "div[aria-label=\"CampaignBoundary\"]",
+          "boundingBox": {
+            "x": 1,
+            "y": 201,
+            "width": 46,
+            "height": 40
+          }
+        },
+        {
+          "selector": "div[aria-label=\"Open Microplans\"]",
+          "boundingBox": {
+            "x": 1,
+            "y": 265,
+            "width": 46,
+            "height": 40
+          }
+        },
+        {
+          "selector": "div[aria-label=\"User Management\"]",
+          "boundingBox": {
+            "x": 1,
+            "y": 329,
+            "width": 46,
+            "height": 40
+          }
+        },
+        {
+          "selector": "div[aria-label=\"Microplan home\"]",
+          "boundingBox": {
+            "x": 1,
+            "y": 393,
+            "width": 46,
+            "height": 40
+          }
+        },
+        {
+          "selector": "div[aria-label=\"1HCM\"]",
+          "boundingBox": {
+            "x": 1,
+            "y": 457,
+            "width": 46,
+            "height": 40
+          }
+        },
+        {
+          "selector": ".selectedAsParent",
+          "boundingBox": {
+            "x": 1,
+            "y": 521,
+            "width": 46,
+            "height": 40
+          }
+        },
+        {
+          "selector": "div[aria-label=\"Testing\"]",
+          "boundingBox": {
+            "x": 1,
+            "y": 585,
+            "width": 46,
+            "height": 40
+          }
+        }
+      ],
+      "standards": {
+        "wcag": [
+          "4.1.2 Name, Role, Value (Level A)"
+        ],
+        "gigw": [],
+        "ada": [],
+        "sesmag": [
+          "Section 5 – Robustness"
+        ]
+      },
+      "sections": []
+    },
+    {
+      "ruleId": "aria-required-children",
+      "title": "ARIA role is missing required child elements",
+      "severity": "Needs Immediate Fix",
+      "icon": "🚫",
+      "whyItMatters": "Some roles (like role=\"list\", \"tablist\", \"tree\") expect specific child roles to work. Missing them means screen readers cannot announce the structure.",
+      "whatYouCanDo": "Check the ARIA specification for the role and ensure the required child roles are present.",
+      "affectedUsers": [
+        {
+          "icon": "👁",
+          "label": "Screen reader users"
+        }
+      ],
+      "targets": [
+        {
+          "selector": ".digit-sidebar-items-container",
+          "boundingBox": {
+            "x": 1,
+            "y": 73,
+            "width": 46,
+            "height": 798
+          }
+        }
+      ],
+      "standards": {
+        "wcag": [
+          "1.3.1 Info and Relationships (Level A)"
+        ],
+        "gigw": [],
+        "ada": [],
+        "sesmag": [
+          "Section 5 – Robustness"
+        ]
+      },
+      "sections": [],
+      "example": "Before: <ul role=\"tablist\"><div>...</div></ul>\nAfter:  <ul role=\"tablist\"><li role=\"tab\">...</li></ul>"
+    },
+    {
+      "ruleId": "aria-prohibited-attr",
+      "title": "Element uses an ARIA attribute it should not have",
+      "severity": "Important",
+      "icon": "⚠️",
+      "whyItMatters": "Some elements explicitly forbid certain ARIA attributes — for example, generic elements (role=\"generic\", <span>) should not carry aria-label. Using them silently fails or produces inconsistent screen reader output.",
+      "whatYouCanDo": "Either change the element's role to one that supports the attribute, or remove the attribute and use a child with text instead.",
+      "affectedUsers": [
+        {
+          "icon": "👁",
+          "label": "Screen reader users"
+        }
+      ],
+      "targets": [
+        {
+          "selector": "div[aria-label=\"Home\"]",
+          "boundingBox": {
+            "x": 1,
+            "y": 73,
+            "width": 46,
+            "height": 40
+          }
+        },
+        {
+          "selector": "div[aria-label=\"Setup Microplan\"]",
+          "boundingBox": {
+            "x": 1,
+            "y": 137,
+            "width": 46,
+            "height": 40
+          }
+        },
+        {
+          "selector": "div[aria-label=\"CampaignBoundary\"]",
+          "boundingBox": {
+            "x": 1,
+            "y": 201,
+            "width": 46,
+            "height": 40
+          }
+        },
+        {
+          "selector": "div[aria-label=\"Open Microplans\"]",
+          "boundingBox": {
+            "x": 1,
+            "y": 265,
+            "width": 46,
+            "height": 40
+          }
+        },
+        {
+          "selector": "div[aria-label=\"User Management\"]",
+          "boundingBox": {
+            "x": 1,
+            "y": 329,
+            "width": 46,
+            "height": 40
+          }
+        },
+        {
+          "selector": "div[aria-label=\"Microplan home\"]",
+          "boundingBox": {
+            "x": 1,
+            "y": 393,
+            "width": 46,
+            "height": 40
+          }
+        },
+        {
+          "selector": "div[aria-label=\"1HCM\"]",
+          "boundingBox": {
+            "x": 1,
+            "y": 457,
+            "width": 46,
+            "height": 40
+          }
+        },
+        {
+          "selector": ".selectedAsParent",
+          "boundingBox": {
+            "x": 1,
+            "y": 521,
+            "width": 46,
+            "height": 40
+          }
+        },
+        {
+          "selector": "div[aria-label=\"Testing\"]",
+          "boundingBox": {
+            "x": 1,
+            "y": 585,
+            "width": 46,
+            "height": 40
+          }
+        }
+      ],
+      "standards": {
+        "wcag": [
+          "4.1.2 Name, Role, Value (Level A)"
+        ],
+        "gigw": [],
+        "ada": [],
+        "sesmag": [
+          "Section 5 – Robustness"
+        ]
+      },
+      "sections": []
+    }
+  ],
+  "issues": [
+    {
+      "ruleId": "aria-allowed-attr",
+      "title": "ARIA attribute is not allowed for this role",
+      "severity": "Needs Immediate Fix",
+      "icon": "🚫",
+      "whyItMatters": "Each ARIA role only supports certain attributes. Using disallowed ones means the attribute is ignored — and the developer's intent is not communicated.",
+      "whatYouCanDo": "Look up the role in the ARIA specification and remove any attributes not listed as supported.",
+      "affectedUsers": [
+        {
+          "icon": "👁",
+          "label": "Screen reader users"
+        }
+      ],
+      "targets": [
+        {
+          "selector": "div[aria-label=\"Home\"]",
+          "boundingBox": {
+            "x": 1,
+            "y": 73,
+            "width": 46,
+            "height": 40
+          }
+        },
+        {
+          "selector": "div[aria-label=\"Setup Microplan\"]",
+          "boundingBox": {
+            "x": 1,
+            "y": 137,
+            "width": 46,
+            "height": 40
+          }
+        },
+        {
+          "selector": "div[aria-label=\"CampaignBoundary\"]",
+          "boundingBox": {
+            "x": 1,
+            "y": 201,
+            "width": 46,
+            "height": 40
+          }
+        },
+        {
+          "selector": "div[aria-label=\"Open Microplans\"]",
+          "boundingBox": {
+            "x": 1,
+            "y": 265,
+            "width": 46,
+            "height": 40
+          }
+        },
+        {
+          "selector": "div[aria-label=\"User Management\"]",
+          "boundingBox": {
+            "x": 1,
+            "y": 329,
+            "width": 46,
+            "height": 40
+          }
+        },
+        {
+          "selector": "div[aria-label=\"Microplan home\"]",
+          "boundingBox": {
+            "x": 1,
+            "y": 393,
+            "width": 46,
+            "height": 40
+          }
+        },
+        {
+          "selector": "div[aria-label=\"1HCM\"]",
+          "boundingBox": {
+            "x": 1,
+            "y": 457,
+            "width": 46,
+            "height": 40
+          }
+        },
+        {
+          "selector": ".selectedAsParent",
+          "boundingBox": {
+            "x": 1,
+            "y": 521,
+            "width": 46,
+            "height": 40
+          }
+        },
+        {
+          "selector": "div[aria-label=\"Testing\"]",
+          "boundingBox": {
+            "x": 1,
+            "y": 585,
+            "width": 46,
+            "height": 40
+          }
+        }
+      ],
+      "standards": {
+        "wcag": [
+          "4.1.2 Name, Role, Value (Level A)"
+        ],
+        "gigw": [],
+        "ada": [],
+        "sesmag": [
+          "Section 5 – Robustness"
+        ]
+      },
+      "sections": []
+    },
+    {
+      "ruleId": "aria-required-children",
+      "title": "ARIA role is missing required child elements",
+      "severity": "Needs Immediate Fix",
+      "icon": "🚫",
+      "whyItMatters": "Some roles (like role=\"list\", \"tablist\", \"tree\") expect specific child roles to work. Missing them means screen readers cannot announce the structure.",
+      "whatYouCanDo": "Check the ARIA specification for the role and ensure the required child roles are present.",
+      "affectedUsers": [
+        {
+          "icon": "👁",
+          "label": "Screen reader users"
+        }
+      ],
+      "targets": [
+        {
+          "selector": ".digit-sidebar-items-container",
+          "boundingBox": {
+            "x": 1,
+            "y": 73,
+            "width": 46,
+            "height": 798
+          }
+        }
+      ],
+      "standards": {
+        "wcag": [
+          "1.3.1 Info and Relationships (Level A)"
+        ],
+        "gigw": [],
+        "ada": [],
+        "sesmag": [
+          "Section 5 – Robustness"
+        ]
+      },
+      "sections": [],
+      "example": "Before: <ul role=\"tablist\"><div>...</div></ul>\nAfter:  <ul role=\"tablist\"><li role=\"tab\">...</li></ul>"
+    },
+    {
+      "ruleId": "aria-prohibited-attr",
+      "title": "Element uses an ARIA attribute it should not have",
+      "severity": "Important",
+      "icon": "⚠️",
+      "whyItMatters": "Some elements explicitly forbid certain ARIA attributes — for example, generic elements (role=\"generic\", <span>) should not carry aria-label. Using them silently fails or produces inconsistent screen reader output.",
+      "whatYouCanDo": "Either change the element's role to one that supports the attribute, or remove the attribute and use a child with text instead.",
+      "affectedUsers": [
+        {
+          "icon": "👁",
+          "label": "Screen reader users"
+        }
+      ],
+      "targets": [
+        {
+          "selector": "div[aria-label=\"Home\"]",
+          "boundingBox": {
+            "x": 1,
+            "y": 73,
+            "width": 46,
+            "height": 40
+          }
+        },
+        {
+          "selector": "div[aria-label=\"Setup Microplan\"]",
+          "boundingBox": {
+            "x": 1,
+            "y": 137,
+            "width": 46,
+            "height": 40
+          }
+        },
+        {
+          "selector": "div[aria-label=\"CampaignBoundary\"]",
+          "boundingBox": {
+            "x": 1,
+            "y": 201,
+            "width": 46,
+            "height": 40
+          }
+        },
+        {
+          "selector": "div[aria-label=\"Open Microplans\"]",
+          "boundingBox": {
+            "x": 1,
+            "y": 265,
+            "width": 46,
+            "height": 40
+          }
+        },
+        {
+          "selector": "div[aria-label=\"User Management\"]",
+          "boundingBox": {
+            "x": 1,
+            "y": 329,
+            "width": 46,
+            "height": 40
+          }
+        },
+        {
+          "selector": "div[aria-label=\"Microplan home\"]",
+          "boundingBox": {
+            "x": 1,
+            "y": 393,
+            "width": 46,
+            "height": 40
+          }
+        },
+        {
+          "selector": "div[aria-label=\"1HCM\"]",
+          "boundingBox": {
+            "x": 1,
+            "y": 457,
+            "width": 46,
+            "height": 40
+          }
+        },
+        {
+          "selector": ".selectedAsParent",
+          "boundingBox": {
+            "x": 1,
+            "y": 521,
+            "width": 46,
+            "height": 40
+          }
+        },
+        {
+          "selector": "div[aria-label=\"Testing\"]",
+          "boundingBox": {
+            "x": 1,
+            "y": 585,
+            "width": 46,
+            "height": 40
+          }
+        }
+      ],
+      "standards": {
+        "wcag": [
+          "4.1.2 Name, Role, Value (Level A)"
+        ],
+        "gigw": [],
+        "ada": [],
+        "sesmag": [
+          "Section 5 – Robustness"
+        ]
+      },
+      "sections": []
+    },
+    {
+      "ruleId": "color-contrast",
+      "title": "Text is difficult to read (low contrast)",
+      "severity": "Important",
+      "icon": "⚠️",
+      "whyItMatters": "When text and background colours are too similar, people with low vision or colour blindness struggle to read the content.",
+      "whatYouCanDo": "Increase the contrast between text and background. Normal text needs a ratio of at least 4.5:1. Use a contrast checker tool to verify.",
+      "affectedUsers": [
+        {
+          "icon": "🎨",
+          "label": "Low vision users"
+        }
+      ],
+      "targets": [
+        {
+          "selector": "a",
+          "boundingBox": {
+            "x": 72,
+            "y": 96,
+            "width": 67,
+            "height": 22
+          }
+        },
+        {
+          "selector": ".current",
+          "boundingBox": {
+            "x": 162,
+            "y": 96,
+            "width": 121,
+            "height": 22
+          }
+        },
+        {
+          "selector": "#campaign-home-card-campaign-create-methods-campaign-templates > .digit-campaign-home-text > .digit-campaign-home-text-description",
+          "boundingBox": {
+            "x": 89,
+            "y": 448,
+            "width": 334,
+            "height": 42
+          }
+        },
+        {
+          "selector": "#campaign-home-card-campaign-create-methods-my-campaigns-screen > .digit-campaign-home-text > .digit-campaign-home-text-description",
+          "boundingBox": {
+            "x": 497,
+            "y": 412,
+            "width": 334,
+            "height": 63
+          }
+        },
+        {
+          "selector": "#campaign-home-card-campaign-create-methods-campaign-create-from-scratch > .digit-campaign-home-text > .digit-campaign-home-text-description",
+          "boundingBox": {
+            "x": 905,
+            "y": 448,
+            "width": 334,
+            "height": 21
+          }
+        }
+      ],
+      "standards": {
+        "wcag": [
+          "1.4.3 Contrast (Minimum) (Level AA)",
+          "1.4.6 Contrast (Enhanced) (Level AAA)"
+        ],
+        "gigw": [
+          "3.3 – Ensure sufficient colour contrast for all text"
+        ],
+        "ada": [
+          "Title III – Accessible Design Standards"
+        ],
+        "sesmag": [
+          "Section 2 – Perceivability"
+        ]
+      },
+      "sections": [],
+      "example": "Before: grey text (#aaa) on white — ratio 2.3:1\nAfter:  dark grey text (#595959) on white — ratio 7:1"
+    },
+    {
+      "ruleId": "tabindex",
+      "title": "Tab order is forced into an unnatural sequence",
+      "severity": "Important",
+      "icon": "⚠️",
+      "whyItMatters": "A tabindex value greater than 0 pushes the element to the front of the tab order, which almost always confuses keyboard users — focus jumps around the page in an unpredictable way.",
+      "whatYouCanDo": "Use tabindex=\"0\" (joins natural tab order) or tabindex=\"-1\" (focusable only by script). Avoid positive values.",
+      "affectedUsers": [
+        {
+          "icon": "⌨️",
+          "label": "Keyboard-only users"
+        },
+        {
+          "icon": "👁",
+          "label": "Screen reader users"
+        }
+      ],
+      "targets": [
+        {
+          "selector": "#campaign-home-card-campaign-create-methods-my-campaigns-screen",
+          "boundingBox": {
+            "x": 480,
+            "y": 287,
+            "width": 368,
+            "height": 273
+          }
+        },
+        {
+          "selector": "#campaign-home-card-campaign-create-methods-campaign-create-from-scratch",
+          "boundingBox": {
+            "x": 888,
+            "y": 287,
+            "width": 368,
+            "height": 273
+          }
+        }
+      ],
+      "standards": {
+        "wcag": [],
+        "gigw": [],
+        "ada": [],
+        "sesmag": [
+          "Section 3 – Operability"
+        ]
+      },
+      "sections": [],
+      "example": "Before: <button tabindex=\"3\">Save</button>\nAfter:  <button>Save</button>"
+    },
+    {
+      "ruleId": "landmark-one-main",
+      "title": "Page has no main content area marked",
+      "severity": "Can Improve",
+      "icon": "🔧",
+      "whyItMatters": "Screen reader users can jump straight to the main content by pressing a shortcut key. Without a <main> landmark, they have to listen through the entire navigation first.",
+      "whatYouCanDo": "Wrap your page's primary content in a <main> element.",
+      "affectedUsers": [
+        {
+          "icon": "👁",
+          "label": "Screen reader users"
+        },
+        {
+          "icon": "⌨️",
+          "label": "Keyboard-only users"
+        }
+      ],
+      "targets": [
+        {
+          "selector": "html",
+          "boundingBox": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 800
+          }
+        }
+      ],
+      "standards": {
+        "wcag": [
+          "2.4.1 Bypass Blocks (Level A)"
+        ],
+        "gigw": [
+          "4.1 – Provide a skip-to-main-content mechanism"
+        ],
+        "ada": [
+          "Title III – Accessible Design Standards"
+        ],
+        "sesmag": [
+          "Section 3 – Operability"
+        ]
+      },
+      "sections": [],
+      "example": "Before: <div class=\"content\">...</div>\nAfter:  <main>...</main>"
+    },
+    {
+      "ruleId": "page-has-heading-one",
+      "title": "Page is missing a main heading",
+      "severity": "Can Improve",
+      "icon": "🔧",
+      "whyItMatters": "The main heading (H1) tells users what the page is about. Screen reader users often skim headings to navigate — a missing H1 is disorienting.",
+      "whatYouCanDo": "Add one <h1> element that clearly describes the purpose of the page.",
+      "affectedUsers": [
+        {
+          "icon": "👁",
+          "label": "Screen reader users"
+        },
+        {
+          "icon": "🧠",
+          "label": "Users with cognitive disabilities"
+        }
+      ],
+      "targets": [
+        {
+          "selector": "html",
+          "boundingBox": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 800
+          }
+        }
+      ],
+      "standards": {
+        "wcag": [
+          "1.3.1 Info and Relationships (Level A)",
+          "2.4.6 Headings and Labels (Level AA)"
+        ],
+        "gigw": [
+          "4.4 – Use a logical, hierarchical heading structure"
+        ],
+        "ada": [
+          "Title III – Effective Communication"
+        ],
+        "sesmag": []
+      },
+      "sections": [],
+      "example": "Before: <h2>Welcome to our portal</h2>\nAfter:  <h1>Welcome to the Government Services Portal</h1>"
+    },
+    {
+      "ruleId": "region",
+      "title": "Page sections are not labelled for navigation",
+      "severity": "Can Improve",
+      "icon": "🔧",
+      "whyItMatters": "Landmarks like <header>, <nav>, <main>, and <footer> let keyboard and screen reader users jump between sections quickly.",
+      "whatYouCanDo": "Wrap major sections in appropriate semantic HTML elements or add role attributes.",
+      "affectedUsers": [
+        {
+          "icon": "👁",
+          "label": "Screen reader users"
+        },
+        {
+          "icon": "⌨️",
+          "label": "Keyboard-only users"
+        }
+      ],
+      "targets": [
+        {
+          "selector": ".digit-logo-ulb-wrapper",
+          "boundingBox": {
+            "x": 40,
+            "y": 20,
+            "width": 192,
+            "height": 32
+          }
+        },
+        {
+          "selector": ".digit-header-img",
+          "boundingBox": {
+            "x": 1160,
+            "y": 25,
+            "width": 80,
+            "height": 23
+          }
+        },
+        {
+          "selector": ".wbh-header-container",
+          "boundingBox": {
+            "x": 72,
+            "y": 96,
+            "width": 1184,
+            "height": 46
+          }
+        },
+        {
+          "selector": "p",
+          "boundingBox": {
+            "x": 72,
+            "y": 215,
+            "width": 1184,
+            "height": 48
+          }
+        },
+        {
+          "selector": ".employee-home-footer",
+          "boundingBox": {
+            "x": 48,
+            "y": 736,
+            "width": 1208,
+            "height": 40
+          }
+        }
+      ],
+      "standards": {
+        "wcag": [
+          "1.3.1 Info and Relationships (Level A)",
+          "2.4.1 Bypass Blocks (Level A)"
+        ],
+        "gigw": [],
+        "ada": [
+          "Title III – Accessible Design Standards"
+        ],
+        "sesmag": []
+      },
+      "sections": [],
+      "example": "Before: <div class=\"nav\">...</div>\nAfter:  <nav aria-label=\"Main navigation\">...</nav>"
+    }
+  ],
+  "standardsBreakdown": {
+    "wcag": {
+      "totalRulesChecked": 65,
+      "rulesFailed": 7,
+      "rulesPassed": 58,
+      "compliancePercent": 89.2
+    },
+    "gigw": {
+      "totalRulesChecked": 37,
+      "rulesFailed": 3,
+      "rulesPassed": 34,
+      "compliancePercent": 91.9
+    },
+    "sesmag": {
+      "totalRulesChecked": 82,
+      "rulesFailed": 6,
+      "rulesPassed": 76,
+      "compliancePercent": 92.7
+    },
+    "ada": {
+      "totalRulesChecked": 40,
+      "rulesFailed": 4,
+      "rulesPassed": 36,
+      "compliancePercent": 90
+    }
+  },
+  "screenshot": {
+    "path": "C:\\Users\\piyus\\Downloads\\digit-a11y-agent-day8\\digit-a11y-agent-day8\\packages\\scanner\\hcm-uat-scan\\campaign-home\\screenshot.png",
+    "width": 1280,
+    "height": 800,
+    "sizeBytes": 82377
+  },
+  "meta": {
+    "scanId": "campaign-home",
+    "url": "https://unified-uat.digit.org/workbench-ui/employee/campaign/campaign-home",
+    "finalUrl": "https://unified-uat.digit.org/workbench-ui/employee/campaign/campaign-home",
+    "scannedAt": "2026-07-03T11:24:47.688Z",
+    "axeCoreVersion": "4.11.4",
+    "authenticated": true
+  }
+}

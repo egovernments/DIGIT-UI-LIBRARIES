@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ───────────────────────── base resets / typography ─────────────────────── */
+
+@layer base {
+  html {
+    font-family: theme('fontFamily.sans');
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-slate-50 text-slate-900;
+  }
+
+  /* Focus rings — keyboard accessibility we ourselves must observe */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-brand-500 ring-offset-2;
+  }
+}
+
+/* ────────────────────────── reusable component classes ──────────────────── */
+
+@layer components {
+  .container-app {
+    @apply mx-auto max-w-5xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .card {
+    @apply rounded-card bg-white p-6 shadow-card border border-slate-200;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-4 py-2 rounded-md
+           bg-brand-500 text-white font-medium
+           hover:bg-brand-600 disabled:bg-slate-300 disabled:cursor-not-allowed
+           transition-colors;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-4 py-2 rounded-md
+           bg-white text-brand-500 font-medium border border-brand-500
+           hover:bg-brand-50 transition-colors;
+  }
+
+  /* Severity pills used in report rendering (Day 7) — defined here so the
+     tokens are colocated with the rest of the theme. */
+  .pill-critical { @apply bg-critical-bg text-critical-text border border-critical-border px-2 py-0.5 text-xs font-medium rounded-full; }
+  .pill-serious  { @apply bg-serious-bg  text-serious-text  border border-serious-border  px-2 py-0.5 text-xs font-medium rounded-full; }
+  .pill-moderate { @apply bg-moderate-bg text-moderate-text border border-moderate-border px-2 py-0.5 text-xs font-medium rounded-full; }
+  .pill-minor    { @apply bg-minor-bg    text-minor-text    border border-minor-border    px-2 py-0.5 text-xs font-medium rounded-full; }
+}
