@@ -46,6 +46,10 @@ class Popup extends StatefulWidget {
   /// The icon to be displayed next to the title.
   final Icon? titleIcon;
 
+  /// Vertical alignment of the title icon with the title text.
+  /// Defaults to CrossAxisAlignment.start (icon aligned to top of text).
+  final CrossAxisAlignment titleIconAlignment;
+
   /// The subheading of the popup.
   final String? subHeading;
 
@@ -84,6 +88,7 @@ class Popup extends StatefulWidget {
     this.width,
     this.height,
     this.titleIcon,
+    this.titleIconAlignment = CrossAxisAlignment.start,
     this.subHeading,
     this.description,
     this.additionalWidgets,
@@ -195,7 +200,7 @@ class _PopupState extends State<Popup> {
                       : spacer6,
                 ),
                 child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: widget.titleIconAlignment,
                   children: [
                     if (widget.titleIcon != null) widget.titleIcon!,
                     if (widget.titleIcon != null)
