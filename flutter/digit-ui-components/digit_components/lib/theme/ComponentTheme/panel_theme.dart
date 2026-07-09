@@ -41,7 +41,7 @@ class PanelThemeData extends ThemeExtension<PanelThemeData> {
       titleTextStyle: textTheme.headingXl.copyWith(color: theme.colorTheme.paper.primary),
       successBackgroundColor: theme.colorTheme.alert.success,
       errorBackgroundColor: theme.colorTheme.alert.error,
-      radiusGeometry: BorderRadius.circular(radius4),
+      radiusGeometry: BorderRadius.zero,
       successAnimationSize: isMobile ? 80.0 : isTab ? 100.0 : 120.0,
       errorAnimationSize: isMobile ? 56.0 : isTab ? 64.0 : 74.0,
       successPadding: EdgeInsets.only(

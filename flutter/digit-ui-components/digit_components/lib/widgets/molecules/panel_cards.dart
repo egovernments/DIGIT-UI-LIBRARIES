@@ -150,7 +150,7 @@ class _PanelCardState extends State<PanelCard> {
     return Container(
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(spacer1),
+        borderRadius: BorderRadius.circular(radius4),
         color: const DigitColors().light.paperPrimary,
         boxShadow: [
           BoxShadow(
@@ -172,9 +172,7 @@ class _PanelCardState extends State<PanelCard> {
                   ),
             decoration: BoxDecoration(
               color: const DigitColors().light.paperPrimary,
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(spacer1),
-                  topRight: Radius.circular(spacer1)),
+              borderRadius: BorderRadius.zero,
               boxShadow: _isOverflowing
                   ? [
                       BoxShadow(
