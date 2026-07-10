@@ -846,6 +846,7 @@ import { Devices } from "./svg/Devices";
 import { Workflowillustration } from "./svg/Workflowillustration";
 import { Version } from "./svg/Version";
 import { ServicePreviewIcon } from "./svg/ServicePreviewIcon";
+import { UndrawPeopleSearch } from "./svg/UndrawPeopleSearch";
 
 
 export {
@@ -1696,5 +1697,6 @@ export {
   Workflowillustration,
   EmptyFormIllustration,
   Version,
-  ServicePreviewIcon
+  ServicePreviewIcon,
+  UndrawPeopleSearch
 };
