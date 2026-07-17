@@ -51,6 +51,8 @@ module.exports = (env, argv) => {
       // Redux ecosystem (commonly used with DIGIT)
       'react-redux': 'react-redux',
       'redux': 'redux',
+      // Ships its own code-split chunks (dynamic import) that can't be inlined
+      '@cyntler/react-doc-viewer': '@cyntler/react-doc-viewer',
       // UI libraries that should be shared
       '@egovernments/digit-ui-libraries': '@egovernments/digit-ui-libraries',
       '@egovernments/digit-ui-svg-components': '@egovernments/digit-ui-svg-components'
