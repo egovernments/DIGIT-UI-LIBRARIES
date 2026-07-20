@@ -29,6 +29,7 @@ class DigitSyncDialog {
     bool barrierDismissible = false,
     required DialogType type,
     String? label,
+    String? description,
     DigitDialogActions? primaryAction,
     DigitDialogActions? secondaryAction,
   }) async {
@@ -39,6 +40,7 @@ class DigitSyncDialog {
       builder: (context) => DigitSyncDialogContent(
           type: type,
           label: label,
+          description: description,
           primaryAction: primaryAction,
           secondaryAction: secondaryAction),
     );
@@ -47,6 +49,7 @@ class DigitSyncDialog {
 
 class DigitSyncDialogContent extends StatelessWidget {
   final String? label;
+  final String? description;
   final DialogType type;
 
   final DigitDialogActions? primaryAction;
@@ -55,6 +58,7 @@ class DigitSyncDialogContent extends StatelessWidget {
   const DigitSyncDialogContent({
     super.key,
     this.label,
+    this.description,
     required this.type,
     this.primaryAction,
     this.secondaryAction,
@@ -115,24 +119,16 @@ class DigitSyncDialogContent extends StatelessWidget {
                   const SizedBox(height: spacer4),
                   Text(label!, style: labelStyle.copyWith(color: color)),
                 ],
+                if (description != null && description != '') ...[
+                  const SizedBox(height: spacer2),
+                  Text(
+                    description!,
+                    style: textTheme.bodyS,
+                    textAlign: TextAlign.center,
+                  ),
+                ],
                 if (primaryAction != null || secondaryAction != null) ...[
                   const SizedBox(height: spacer4),
-                  if (secondaryAction != null)
-                    DigitButton(
-                      type: DigitButtonType.secondary,
-                      size: DigitButtonSize.medium,
-                      label: secondaryAction!.label,
-                      onPressed: () {
-                        if (secondaryAction!.action != null) {
-                          secondaryAction!.action!(context);
-                        } else {
-                          Navigator.of(context).pop();
-                        }
-                      },
-                      mainAxisSize: MainAxisSize.max,
-                    ),
-                  if(primaryAction != null && secondaryAction != null)
-                    const SizedBox(height: spacer4),
                   if (primaryAction != null)
                     DigitButton(
                       label: primaryAction!.label,
@@ -145,6 +141,22 @@ class DigitSyncDialogContent extends StatelessWidget {
                       },
                       size: DigitButtonSize.medium,
                       type: DigitButtonType.primary,
+                      mainAxisSize: MainAxisSize.max,
+                    ),
+                  if (primaryAction != null && secondaryAction != null)
+                    const SizedBox(height: spacer4),
+                  if (secondaryAction != null)
+                    DigitButton(
+                      type: DigitButtonType.secondary,
+                      size: DigitButtonSize.medium,
+                      label: secondaryAction!.label,
+                      onPressed: () {
+                        if (secondaryAction!.action != null) {
+                          secondaryAction!.action!(context);
+                        } else {
+                          Navigator.of(context).pop();
+                        }
+                      },
                       mainAxisSize: MainAxisSize.max,
                     ),
                 ],

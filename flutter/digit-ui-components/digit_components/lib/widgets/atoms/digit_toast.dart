@@ -103,12 +103,12 @@ class Toast {
         mainAxisSize: MainAxisSize.min,
         children: [
           Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
               SizedBox(
-                height: theme.spacerTheme.spacer6,
-                width: theme.spacerTheme.spacer6,
+                height: theme.spacerTheme.spacer5,
+                width: theme.spacerTheme.spacer5,
                 child: type == ToastType.success
                     ? toastThemeData?.successIcon ?? defaultThemeData.successIcon
                     : type == ToastType.error

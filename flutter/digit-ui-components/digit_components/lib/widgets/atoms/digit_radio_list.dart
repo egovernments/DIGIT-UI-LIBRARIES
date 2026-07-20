@@ -111,7 +111,7 @@ class _RadioListState extends State<RadioList> {
             const SizedBox(width: spacer1),
           if(widget.errorMessage!=null)
             Padding(
-              padding: const EdgeInsets.only(left: 8.0),
+              padding: EdgeInsets.zero,
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -163,7 +163,7 @@ class _RadioListState extends State<RadioList> {
           const SizedBox(width: spacer1),
         if(widget.errorMessage!=null)
           Padding(
-            padding: const EdgeInsets.only(left: 8.0),
+            padding: EdgeInsets.zero,
             child: Row(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.start,
