@@ -31,11 +31,11 @@ config:
         dockerfile: react/ui-components/docker/Dockerfile
         image-name: storybook
         
-    - name: builds/Digit-UI-Libraries/agent/digit-a11y
-      build:
-        - work-dir: digit-a11y-agent/
-          dockerfile: digit-a11y-agent/Dockerfile
-          image-name: digit-a11y
+  - name: builds/Digit-UI-Libraries/agent/digit-a11y
+    build:
+      - work-dir: digit-a11y-agent/
+        dockerfile: digit-a11y-agent/Dockerfile
+        image-name: digit-a11y
 
   # digit-ui-flutter
   - name: builds/Digit-UI-Libraries/flutter/digit-ui-components
