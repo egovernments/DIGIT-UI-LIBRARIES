@@ -30,6 +30,7 @@ COPY packages/scanner/package.json   ./packages/scanner/
 COPY packages/reporter/package.json  ./packages/reporter/
 COPY packages/ui/package.json        ./packages/ui/
 COPY packages/exporter/package.json  ./packages/exporter/
+COPY packages/explorer/package.json  ./packages/explorer/
 
 # pnpm strict-peer-deps off — workspace setups produce harmless peer warnings
 # that would otherwise fail the build.
