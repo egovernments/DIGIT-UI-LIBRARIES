@@ -9,15 +9,35 @@
  * should override via environment variables (see docker-compose.yml).
  */
 
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 const env = process.env;
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+/**
+ * Normalize a base path into the form Express/Vite expect internally:
+ * a leading slash, no trailing slash, and '' for root.
+ *   '/digit-a11y/'  → '/digit-a11y'
+ *   'digit-a11y'    → '/digit-a11y'
+ *   '/' | '' | null → ''  (served at root)
+ */
+function normalizeBasePath(raw) {
+  if (!raw || raw.trim() === '' || raw.trim() === '/') return '';
+  let p = raw.trim();
+  if (!p.startsWith('/')) p = `/${p}`;
+  return p.replace(/\/+$/, '');
+}
 
 /**
  * @typedef {Object} ApiConfig
  * @property {string}  nodeEnv           - 'development' | 'production' | 'test'
  * @property {number}  port              - HTTP port to bind
  * @property {string}  host              - Bind host (0.0.0.0 in Docker, 127.0.0.1 locally)
- * @property {string|null} apiKey        - Required API key for /api/* endpoints; null = disabled
- * @property {boolean} apiKeyEnabled     - True when an api key is set
+ * @property {string}  basePath          - URL prefix everything is served under ('' = root, e.g. '/digit-a11y')
+ * @property {string}  uiDistDir         - Absolute path to the built UI (packages/ui/dist) served on the same port
+ * @property {string|null} apiKey        - Optional API key for /api/* endpoints; null = auth disabled
+ * @property {boolean} apiKeyEnabled     - True when an api key is set (auth is opt-in, any env)
  * @property {number}  jobMaxAgeMs       - Drop completed jobs from memory after this long
  * @property {number}  scanTimeoutMs     - Hard timeout for a single scan run
  * @property {number}  siteScanTimeoutMs - Hard timeout for a whole-site exploration
@@ -28,6 +48,7 @@ const env = process.env;
  */
 
 const isProd = env.NODE_ENV === 'production';
+const isTest = env.NODE_ENV === 'test';
 
 /** @type {ApiConfig} */
 export const config = {
@@ -36,9 +57,20 @@ export const config = {
   port: Number(env.API_PORT ?? 3000),
   host: env.API_HOST ?? (isProd ? '0.0.0.0' : '127.0.0.1'),
 
-  // API key required in prod, optional in dev — matches the locked decision from planning.
+  // URL prefix everything (API + static UI) is served under. Defaults to
+  // '/digit-a11y' so the app is never accidentally served at the domain root;
+  // override with BASE_PATH. Tests run at root ('') so route paths stay simple.
+  basePath: normalizeBasePath(env.BASE_PATH ?? (isTest ? '' : '/digit-a11y')),
+
+  // The built UI (vite dist/) served by this same API process on one port.
+  // Defaults to packages/ui/dist relative to this file; override with UI_DIST_DIR.
+  uiDistDir: env.UI_DIST_DIR ?? path.resolve(__dirname, '../../ui/dist'),
+
+  // Auth is OPT-IN: the API key is only enforced when API_KEY is set (in any
+  // environment). With no key, /api/* is open — intended for public demos and
+  // behind-firewall use. Set API_KEY to turn auth on.
   apiKey:        env.API_KEY ?? null,
-  apiKeyEnabled: Boolean(env.API_KEY) || isProd,
+  apiKeyEnabled: Boolean(env.API_KEY),
 
   // 30 min of memory; jobs older than this get evicted on next access.
   jobMaxAgeMs: Number(env.JOB_MAX_AGE_MS ?? 30 * 60 * 1000),
@@ -69,11 +101,10 @@ export const config = {
  * Called from src/index.js on boot so misconfigurations fail loudly.
  */
 export function assertConfigValid() {
+  // Auth is opt-in — no key required to boot. (apiKeyEnabled is derived from
+  // apiKey, so an "enabled but empty" state can't occur; this stays as a guard.)
   if (config.apiKeyEnabled && !config.apiKey) {
-    throw new Error(
-      'API_KEY must be set when running in production. ' +
-      'Set the API_KEY environment variable, or use NODE_ENV=development to disable auth.',
-    );
+    throw new Error('API_KEY is enabled but empty — set a non-empty API_KEY or unset it to disable auth.');
   }
   if (!Number.isFinite(config.port) || config.port < 1 || config.port > 65535) {
     throw new Error(`Invalid API_PORT: ${config.port}`);

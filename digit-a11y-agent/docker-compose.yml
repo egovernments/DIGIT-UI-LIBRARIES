@@ -1,29 +1,36 @@
 # DIGIT Accessibility Scanner — docker-compose for local & demo deployments.
 #
-# Usage:
-#   1. (optional) create .env in this directory if you want API key auth:
-#        API_KEY=somethingsecret
-#   2. docker compose up --build
-#   3. open http://localhost:5173
+# Single process, single port: the API serves both the JSON API (under
+# ${BASE_PATH}/api/*) and the built UI static files (under ${BASE_PATH}/).
 #
-# Without an API_KEY in .env, the API runs without auth — fine for local
-# development and behind-firewall demos. For internet-facing deployments
-# you MUST set an API_KEY (uncomment the API_KEY line in the api service
-# below and remove the default-empty value).
+# Usage:
+#   1. docker compose up --build
+#   2. open http://localhost:3000/digit-a11y
+#
+# Auth is opt-in. With no API_KEY set the API runs without auth — fine for
+# local development and public demos. To turn auth on, set API_KEY (e.g. in a
+# .env file next to this compose file); the UI then needs the same key sent as
+# the x-api-key header.
+#
+# BASE_PATH must match at build time and runtime (the UI bundle bakes it in),
+# so it is passed both as a build arg and an env var below.
 
 services:
-  api:
+  app:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        BASE_PATH: ${BASE_PATH:-/digit-a11y}
     image: digit-a11y-agent:latest
     command: ["pnpm", "--filter", "@digit-a11y/api", "start"]
     environment:
       - NODE_ENV=production
       - API_HOST=0.0.0.0
       - API_PORT=3000
+      - BASE_PATH=${BASE_PATH:-/digit-a11y}
       - API_KEY=${API_KEY:-}                      # empty = no auth (dev/demo)
-      - CORS_ORIGINS=http://localhost:5173,http://127.0.0.1:5173
+      - CORS_ORIGINS=http://localhost:3000,http://127.0.0.1:3000
       - LOG_LEVEL=info
       - SCAN_TIMEOUT_MS=${SCAN_TIMEOUT_MS:-120000}  # 2 minutes by default
     ports:
@@ -32,21 +39,11 @@ services:
       - artifacts:/app/artifacts
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "node", "-e", "fetch('http://localhost:3000/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      test: ["CMD", "node", "-e", "fetch('http://localhost:3000' + (process.env.BASE_PATH || '') + '/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
       interval: 30s
       timeout: 5s
       retries: 3
       start_period: 10s
-
-  ui:
-    image: digit-a11y-agent:latest
-    command: ["pnpm", "--filter", "@digit-a11y/ui", "exec", "vite", "preview", "--host", "0.0.0.0", "--port", "5173"]
-    depends_on:
-      api:
-        condition: service_healthy
-    ports:
-      - "5173:5173"
-    restart: unless-stopped
 
 volumes:
   artifacts:

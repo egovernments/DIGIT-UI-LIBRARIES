@@ -20,10 +20,11 @@ const server = app.listen(config.port, config.host, () => {
       port:          config.port,
       host:          config.host,
       env:           config.nodeEnv,
+      basePath:      config.basePath || '/',
       apiKeyEnabled: config.apiKeyEnabled,
       corsOrigins:   config.corsOrigins,
     },
-    `DIGIT Accessibility Scanner API listening on http://${config.host}:${config.port}`,
+    `DIGIT Accessibility Scanner listening on http://${config.host}:${config.port}${config.basePath}/`,
   );
 });
 

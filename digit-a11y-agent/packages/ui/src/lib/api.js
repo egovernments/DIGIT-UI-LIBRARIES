@@ -17,6 +17,13 @@
 const DEFAULT_HEADERS = { 'content-type': 'application/json' };
 
 /**
+ * All API calls are served under the app's base path (Vite's BASE_URL, e.g.
+ * '/digit-a11y/' in production, '/' in dev/test). Build the /api prefix from it
+ * so both the UI and the API line up regardless of where the app is mounted.
+ */
+const API_PREFIX = `${(import.meta.env.BASE_URL ?? '/').replace(/\/$/, '')}/api`;
+
+/**
  * Provide an API key by setting localStorage.A11Y_API_KEY before any call,
  * or by passing it in via the apiKey arg. Falls back to no auth.
  */
@@ -67,7 +74,7 @@ export class ApiClientError extends Error {
 }
 
 /** @returns {Promise<object>} HealthResponse */
-export const getHealth = () => request('/api/health');
+export const getHealth = () => request(`${API_PREFIX}/health`);
 
 /**
  * Enqueue a new scan.
@@ -77,7 +84,7 @@ export const getHealth = () => request('/api/health');
  * @returns {Promise<{ scanId: string, status: string, statusUrl: string }>}
  */
 export const createScan = (scanRequest, opts) =>
-  request('/api/scan', { method: 'POST', body: scanRequest, ...opts });
+  request(`${API_PREFIX}/scan`, { method: 'POST', body: scanRequest, ...opts });
 
 /**
  * Poll for a scan's current status / result.
@@ -86,7 +93,7 @@ export const createScan = (scanRequest, opts) =>
  * @param {string} [opts.apiKey]
  */
 export const getScan = (scanId, opts) =>
-  request(`/api/scan/${encodeURIComponent(scanId)}`, opts);
+  request(`${API_PREFIX}/scan/${encodeURIComponent(scanId)}`, opts);
 
 /**
  * URL for fetching the screenshot of a scan. Used as <img src>; the browser
@@ -97,7 +104,7 @@ export const getScan = (scanId, opts) =>
  * @returns {string} URL string
  */
 export const getScreenshotUrl = (scanId) =>
-  `/api/scan/${encodeURIComponent(scanId)}/screenshot`;
+  `${API_PREFIX}/scan/${encodeURIComponent(scanId)}/screenshot`;
 
 /**
  * URL for downloading the report in a given format.
@@ -106,7 +113,7 @@ export const getScreenshotUrl = (scanId) =>
  * @returns {string} URL string
  */
 export const getExportUrl = (scanId, format) =>
-  `/api/scan/${encodeURIComponent(scanId)}/export.${format}`;
+  `${API_PREFIX}/scan/${encodeURIComponent(scanId)}/export.${format}`;
 
 /* ───────────────────────── Site (multi-page) ───────────────────────────── */
 
@@ -118,7 +125,7 @@ export const getExportUrl = (scanId, format) =>
  * @returns {Promise<{ siteId: string, status: string, statusUrl: string }>}
  */
 export const createSiteScan = (siteRequest, opts) =>
-  request('/api/site', { method: 'POST', body: siteRequest, ...opts });
+  request(`${API_PREFIX}/site`, { method: 'POST', body: siteRequest, ...opts });
 
 /**
  * Poll a site scan's status / live progress / scored report.
@@ -127,7 +134,7 @@ export const createSiteScan = (siteRequest, opts) =>
  * @param {string} [opts.apiKey]
  */
 export const getSiteScan = (siteId, opts) =>
-  request(`/api/site/${encodeURIComponent(siteId)}`, opts);
+  request(`${API_PREFIX}/site/${encodeURIComponent(siteId)}`, opts);
 
 /**
  * URL for downloading the site report as JSON. Used as an <a href download>.
@@ -135,7 +142,7 @@ export const getSiteScan = (siteId, opts) =>
  * @returns {string}
  */
 export const getSiteExportUrl = (siteId) =>
-  `/api/site/${encodeURIComponent(siteId)}/export.json`;
+  `${API_PREFIX}/site/${encodeURIComponent(siteId)}/export.json`;
 
 /**
  * URL for downloading the consolidated site report as a PDF.
@@ -143,7 +150,7 @@ export const getSiteExportUrl = (siteId) =>
  * @returns {string}
  */
 export const getSitePdfUrl = (siteId) =>
-  `/api/site/${encodeURIComponent(siteId)}/export.pdf`;
+  `${API_PREFIX}/site/${encodeURIComponent(siteId)}/export.pdf`;
 
 /**
  * URL for a page's base-state screenshot within a site scan (an <img src>).
@@ -152,4 +159,4 @@ export const getSitePdfUrl = (siteId) =>
  * @returns {string}
  */
 export const getSiteScreenshotUrl = (siteId, pageIndex) =>
-  `/api/site/${encodeURIComponent(siteId)}/screenshot/${pageIndex}`;
+  `${API_PREFIX}/site/${encodeURIComponent(siteId)}/screenshot/${pageIndex}`;

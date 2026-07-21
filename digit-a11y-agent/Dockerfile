@@ -42,12 +42,18 @@ RUN pnpm config set strict-peer-dependencies false && \
 FROM deps AS build
 WORKDIR /app
 
+# Base path the app is served under. Baked into the UI bundle at build time
+# (Vite reads BASE_PATH → import.meta.env.BASE_URL), so assets and API calls
+# resolve under e.g. /digit-a11y. Override with --build-arg BASE_PATH=/foo.
+ARG BASE_PATH=/digit-a11y
+ENV BASE_PATH=${BASE_PATH}
+
 # Now the source. Anything ignored by .dockerignore won't end up here.
 COPY . .
 
-# Build the UI (vite produces packages/ui/dist/). The API and scanner are
-# plain JS so no build step is required — but we keep `pnpm --recursive run build`
-# generic in case a package adds one later.
+# Build the UI (vite produces packages/ui/dist/, base-prefixed by BASE_PATH).
+# The API and scanner are plain JS so no build step is required — but we keep
+# `pnpm --recursive run build` generic in case a package adds one later.
 RUN pnpm --filter @digit-a11y/ui run build
 
 # ────────────────────────────────────────────────────────────────────────────
@@ -61,12 +67,17 @@ RUN corepack enable && corepack prepare pnpm@9.0.0 --activate
 # Bring across installed deps and built source from the build stage.
 COPY --from=build /app /app
 
+# BASE_PATH must match the value baked into the UI at build time (above) so the
+# API mounts its routes and serves the static UI under the same prefix.
+ARG BASE_PATH=/digit-a11y
 ENV NODE_ENV=production
 ENV API_HOST=0.0.0.0
 ENV API_PORT=3000
-ENV UI_PORT=5173
+ENV BASE_PATH=${BASE_PATH}
 
-EXPOSE 3000 5173
+EXPOSE 3000
 
-# Default to the API. docker-compose overrides this for the UI service.
+# Single process, single port: the API serves both /api/* and the built UI
+# static files under BASE_PATH. No API_KEY set → auth is off (public demo);
+# set API_KEY to turn auth on.
 CMD ["pnpm", "--filter", "@digit-a11y/api", "start"]
