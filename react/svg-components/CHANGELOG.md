@@ -1,5 +1,8 @@
 # Changelog
 
+## [2.0.0-dev-09] [27-Jul-2026]
+-Added Palette and Color icon for theme page of Studio
+
 ## [2.0.0-dev-07] [29-May-2026]
 -Bugfix for EmptyFormIllustration, casing issue in import and export
 
