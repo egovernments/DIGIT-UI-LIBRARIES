@@ -847,6 +847,8 @@ import { Workflowillustration } from "./svg/Workflowillustration";
 import { Version } from "./svg/Version";
 import { ServicePreviewIcon } from "./svg/ServicePreviewIcon";
 import { UndrawPeopleSearch } from "./svg/UndrawPeopleSearch";
+import { ColorIcon } from "./svg/ColorIcon";
+import { Palette } from "./svg/Palette";
 
 
 export {
@@ -1698,5 +1700,7 @@ export {
   EmptyFormIllustration,
   Version,
   ServicePreviewIcon,
-  UndrawPeopleSearch
+  UndrawPeopleSearch,
+  ColorIcon,
+  Palette
 };
