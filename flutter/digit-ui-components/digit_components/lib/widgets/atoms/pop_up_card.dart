@@ -540,7 +540,9 @@ class _PopupState extends State<Popup> {
                       top: _isOverflowing ||
                           (widget.additionalWidgets != null ||
                               widget.description != null)
-                          ? isMobile
+                          ? widget.type == PopUpType.alert
+                          ? spacer2
+                          : isMobile
                           ? spacer4
                           : isTab
                           ? spacer5
