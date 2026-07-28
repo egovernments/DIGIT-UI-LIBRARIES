@@ -1,3 +1,13 @@
+## 0.3.0+4
+* Clip lottie animation in popup for fixed dimension.
+* Tags can now take border color property.
+* New camera icon, add_circle icon and spacer constants.
+* Sidebar Digit button is now of type primary. 
+* Fixed dropdown body shadow visibility issue for dropdown fields.
+* Added border radius for panel cards.
+* Fixed alignment of toast messages and validation text belonging to radio buttons.
+* Search icon placement is now on right end within the field.
+
 ## 0.3.0+3
 * Added bold text support (**bold**) for popup title, subHeading, and description
 
