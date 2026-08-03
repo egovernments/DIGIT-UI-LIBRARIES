@@ -417,10 +417,15 @@ class _PopupState extends State<Popup> {
             : spacer6,
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: widget.type == PopUpType.alert
+            ? CrossAxisAlignment.center
+            : CrossAxisAlignment.start,
         children: [
           if (widget.description != null)
             RichText(
+              textAlign: widget.type == PopUpType.alert
+                  ? TextAlign.center
+                  : TextAlign.start,
               text: TextSpan(
                 children: _parseBoldText(
                   widget.description!,

@@ -124,7 +124,7 @@ class InfoCard extends StatelessWidget {
                     size: themeData.iconSize,
                     color: iconColor,
                   ),
-                  const SizedBox(width: spacer4),
+                  const SizedBox(width: spacer2),
                   Expanded(
                     child: Container(
                       alignment: Alignment.centerLeft,

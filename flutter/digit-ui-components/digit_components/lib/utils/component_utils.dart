@@ -79,7 +79,7 @@ class DigitSyncDialogContent extends StatelessWidget {
         labelStyle = textTheme.headingM;
         break;
       case DialogType.complete:
-        icon = Icons.check_circle_outline;
+        icon = Icons.check_circle;
         color = theme.colorTheme.alert.success;
         labelStyle = textTheme.headingM;
         break;
@@ -114,10 +114,22 @@ class DigitSyncDialogContent extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(icon, size: 32, color: color),
+                // Material glyphs pad ~2/24 of the em-box per side; 38.4
+                // renders a visually 32dp mark (32 * 24/20).
+                Icon(icon, size: 38.4, color: color),
                 if (label != null && label !="") ...[
                   const SizedBox(height: spacer4),
-                  Text(label!, style: labelStyle.copyWith(color: color)),
+                  Text(
+                    label!,
+                    textAlign: TextAlign.center,
+                    style: labelStyle.copyWith(
+                      // Success dialogs pair the green check with the primary
+                      // heading color; in-progress/failed keep the icon color.
+                      color: type == DialogType.complete
+                          ? theme.colorTheme.primary.primary2
+                          : color,
+                    ),
+                  ),
                 ],
                 if (description != null && description != '') ...[
                   const SizedBox(height: spacer2),

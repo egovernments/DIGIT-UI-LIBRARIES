@@ -56,7 +56,7 @@ class DigitInfoCardThemeData extends ThemeExtension<DigitInfoCardThemeData> {
       errorColor: theme.colorTheme.alert.error,
       warningColor: theme.colorTheme.alert.warning,
       infoColor: theme.colorTheme.alert.info,
-      iconSize: theme.spacerTheme.spacer9,
+      iconSize: theme.spacerTheme.spacer5,
       successIcon: Icons.check_circle,
       errorIcon: Icons.error,
       infoIcon: Icons.info,
