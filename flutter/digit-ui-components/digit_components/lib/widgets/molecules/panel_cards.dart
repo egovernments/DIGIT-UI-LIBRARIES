@@ -149,6 +149,11 @@ class _PanelCardState extends State<PanelCard> {
 
     return Container(
       width: MediaQuery.of(context).size.width,
+      // Clip to the rounded shape: the children include their own opaque
+      // Containers (the content block and the action bar) which otherwise
+      // paint square white over these corners, leaving the card visually
+      // sharp-cornered despite the borderRadius below.
+      clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(radius4),
         color: const DigitColors().light.paperPrimary,
