@@ -131,10 +131,8 @@ class _SelectionCardState<T> extends State<SelectionCard<T>> {
         width: fill
             ? null
             : (widget.equalWidthOptions ? _maxOptionWidth : widget.width),
-        // Uniform 16px inset: horizontal was already spacer4, vertical was
-        // spacer2, which made the filled chip read as a thin bar rather than a
-        // tappable container.
-        padding: const EdgeInsets.all(spacer4),
+        padding:
+            const EdgeInsets.symmetric(vertical: spacer2, horizontal: spacer4),
         decoration: BoxDecoration(
           color: widget.readOnly && isSelected
               ? theme.colorTheme.text.secondary
