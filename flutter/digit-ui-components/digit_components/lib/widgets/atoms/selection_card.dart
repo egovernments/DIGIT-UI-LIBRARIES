@@ -117,7 +117,7 @@ class _SelectionCardState<T> extends State<SelectionCard<T>> {
     widget.onSelectionChanged(_selectedOptions);
   }
 
-  Widget _buildOption(T option) {
+  Widget _buildOption(T option, {double? stretchedWidth}) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
     bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
@@ -126,9 +126,12 @@ class _SelectionCardState<T> extends State<SelectionCard<T>> {
     return GestureDetector(
       onTap: () => widget.readOnly ? null : _onOptionTap(option),
       child: Container(
-        width: widget.equalWidthOptions ? _maxOptionWidth : widget.width,
-        padding:
-            const EdgeInsets.symmetric(vertical: spacer2, horizontal: spacer4),
+        width: stretchedWidth ??
+            (widget.equalWidthOptions ? _maxOptionWidth : widget.width),
+        // Uniform 16px inset: horizontal was already spacer4, vertical was
+        // spacer2, which made the filled chip read as a thin bar rather than a
+        // tappable container.
+        padding: const EdgeInsets.all(spacer4),
         decoration: BoxDecoration(
           color: widget.readOnly && isSelected
               ? theme.colorTheme.text.secondary
@@ -228,11 +231,44 @@ class _SelectionCardState<T> extends State<SelectionCard<T>> {
                       width: 1,
                     ),
                   ),
-                  child: Wrap(
-                    alignment: WrapAlignment.center,
-                    spacing: spacer6,
-                    runSpacing: spacer6,
-                    children: widget.options.map(_buildOption).toList(),
+                  // Options stretch to consume the container's full inner
+                  // width so no bare secondary-paper background shows beside
+                  // them; the container keeps its 16px inset.
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      // Only equal-width cards stretch; variable-width ones
+                      // keep their natural packing.
+                      if (!widget.equalWidthOptions) {
+                        return Wrap(
+                          alignment: WrapAlignment.center,
+                          spacing: spacer6,
+                          runSpacing: spacer6,
+                          children:
+                              widget.options.map(_buildOption).toList(),
+                        );
+                      }
+                      final available = constraints.maxWidth;
+                      final natural = _maxOptionWidth ?? available;
+                      // How many natural-width options fit on one row.
+                      var perRow = natural > 0
+                          ? ((available + spacer6) / (natural + spacer6))
+                              .floor()
+                          : widget.options.length;
+                      perRow = perRow.clamp(1, widget.options.length);
+                      final stretched =
+                          (available - spacer6 * (perRow - 1)) / perRow;
+                      return Wrap(
+                        alignment: WrapAlignment.center,
+                        spacing: spacer6,
+                        runSpacing: spacer6,
+                        children: widget.options
+                            .map((option) => _buildOption(
+                                  option,
+                                  stretchedWidth: stretched,
+                                ))
+                            .toList(),
+                      );
+                    },
                   ),
                 ),
               ),
