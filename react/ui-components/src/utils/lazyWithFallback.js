@@ -14,7 +14,7 @@ import { Loader } from "../atoms";
  */
 export const lazyWithFallback = (lazyImportFn, fallbackRequireFn, options = {}) => {
   const { 
-    loaderText = "Loading...",
+    loaderText = "Loading",
     loaderVariant = "PageLoader",
     showPage = true 
   } = options;
