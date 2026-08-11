@@ -29,7 +29,7 @@ const ApiDropdown = ({ populators, formData, props, inputRef, errors ,disabled})
     }
   }, [memoizedApiData]);
 
-  if (isApiLoading) return <Loader />;
+  if (isApiLoading) return <div className="loader-center"><Loader /></div>;
 
   // Support both old format (props.onChange) and new format (props.field.onChange)
   const field = props?.field || props;
