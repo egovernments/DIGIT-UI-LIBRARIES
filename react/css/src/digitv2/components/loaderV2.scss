@@ -1,6 +1,13 @@
 @import './theme-variables.css';
 @import '../typography.scss';
 
+.loader-center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100% !important;
+}
+
 .digit-animation{
     width: fit-content;
 }

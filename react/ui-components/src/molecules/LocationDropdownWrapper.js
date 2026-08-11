@@ -50,7 +50,7 @@ const LocationDropdownWrapper = ({ populators, formData, props, inputRef, errors
   }, [wardsAndLocalities, formData?.ward]);
 
   if (isLoading) {
-    return <Loader />;
+    return <div className="loader-center"><Loader /></div>;
   }
 
   // Support both old format (props.onChange) and new format (props.field.onChange)

@@ -79,7 +79,7 @@ const CustomDropdown = ({ t, config, inputRef, label, onChange, id, value, error
   const showLoader = (isLoading || isFetching) && hasMdmsConfig;
 
   if (showLoader) {
-    return <Loader />;
+    return <div className="loader-center"><Loader /></div>;
   }
 
   const renderField = () => {
