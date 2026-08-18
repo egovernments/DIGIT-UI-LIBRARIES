@@ -1,3 +1,6 @@
+## 0.3.2
+* Fixed dropdown option RenderFlex overflow by replacing fixed-width SizedBox with Expanded.
+
 ## 0.3.1
 * Toast message now wraps up to three lines instead of truncating.
 * PanelCard content is clipped to its rounded shape.
