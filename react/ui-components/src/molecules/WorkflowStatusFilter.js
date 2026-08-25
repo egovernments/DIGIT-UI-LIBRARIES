@@ -1,4 +1,4 @@
-import React, { Fragment,useEffect,useState } from "react";
+import React, { Fragment,useEffect,useState,useRef } from "react";
 import CheckBox from "../atoms/CheckBox";
 import { Loader } from "../atoms";
 import CardLabel from "../atoms/CardLabel";
@@ -11,16 +11,23 @@ const WorkflowStatusFilter = ({ props, t, populators, formData,inboxResponse,dis
   const field = props?.field || props;
 
   const [statusMap,setStatusMap] = useState(null)
+  // Accumulate all statuses ever seen so the filter options never shrink when
+  // the user applies a status filter (filtered results only contain that status).
+  const seenStatuses = useRef({});
 
   useEffect(() => {
-    if(inboxResponse) {
-      setStatusMap(inboxResponse.statusMap?.map(row => {
-       return {
-         uuid:row.statusid,
-         state: row.state || row.applicationstatus,
-         businessService:row?.businessservice
-       }
-      }))
+    if(inboxResponse?.statusMap) {
+      inboxResponse.statusMap.forEach(row => {
+        const key = row.statusid;
+        if (!seenStatuses.current[key]) {
+          seenStatuses.current[key] = {
+            uuid: row.statusid,
+            state: row.state || row.applicationstatus,
+            businessService: row?.businessservice,
+          };
+        }
+      });
+      setStatusMap(Object.values(seenStatuses.current));
     }
   }, [inboxResponse])
 
@@ -46,7 +53,7 @@ const WorkflowStatusFilter = ({ props, t, populators, formData,inboxResponse,dis
               field?.onChange?.(obj);
             }}
             value={row.uuid}
-            checked={formData?.[populators.name]?.[row.uuid]}
+            checked={!!formData?.[populators.name]?.[row.uuid]}
             label={t(
               Digit.Utils.locale.getTransformedLocale(
                 `${populators.labelPrefix}${row?.businessService}_STATE_${row?.state}`
