@@ -76,8 +76,12 @@ const CheckBox = ({
             }}
           >
             {sentenceCaseLabel}
+            {/* Inside the label, not a sibling: as a flex sibling the asterisk
+                sat beside the label's whole box, so a label that wrapped to
+                several lines left it stranded at the right edge of the first
+                line. Inline here it follows the last word. */}
+            {required && <span style={{ color: "#B91900" }}> *</span>}
           </label>
-          {required && <span style={{ color: "#B91900" }}> *</span>}
         </Fragment>
       ) : null}
       <div
@@ -162,8 +166,12 @@ const CheckBox = ({
             }}
           >
             {sentenceCaseLabel}
+            {/* Inside the label, not a sibling: as a flex sibling the asterisk
+                sat beside the label's whole box, so a label that wrapped to
+                several lines left it stranded at the right edge of the first
+                line. Inline here it follows the last word. */}
+            {required && <span style={{ color: "#B91900" }}> *</span>}
           </label>
-          {required && <span style={{ color: "#B91900" }}> *</span>}
         </Fragment>
       ) : null}
     </div>
