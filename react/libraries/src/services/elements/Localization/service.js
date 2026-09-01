@@ -199,7 +199,21 @@ export const LocalizationService = {
     try {
       const modules = await LocalizationStore.getList(locale);
       const allModules = await LocalizationStore.getAllList();
-      const uniqueModules = allModules.filter((module) => !modules.includes(module));
+
+      // A module can still be listed as cached even after its own cache entry
+      // has expired independently: the list's TTL is refreshed every time any
+      // module is (re)fetched for this locale, but existing modules' entries
+      // are not touched, so they can expire while the list still claims them.
+      // Verify the data actually exists before treating a listed module as covered.
+      const staleModules = [];
+      for (const module of modules) {
+        const cached = await LocalizationStore.getCacheData(LOCALE_MODULE(locale, module));
+        if (!cached) {
+          staleModules.push(module);
+        }
+      }
+
+      const uniqueModules = allModules.filter((module) => !modules.includes(module) || staleModules.includes(module));
 
       await LocalizationService.getLocale({ modules: uniqueModules, locale, tenantId });
 
