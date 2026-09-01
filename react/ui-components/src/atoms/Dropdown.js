@@ -280,11 +280,6 @@ const Dropdown = (props) => {
   };
 
   useEffect(() => {
-    scrollIntoViewIfNeeded();
-  }, []); // Runs on mount
-
-
-  useEffect(() => {
     setSelectedOption(props.selected);
   }, [props.selected]);
 
