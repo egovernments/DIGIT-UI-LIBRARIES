@@ -109,10 +109,10 @@ class _OverlayDropdownState extends State<OverlayDropdown>
                       decoration: BoxDecoration(
                         boxShadow: [
                           BoxShadow(
-                            offset: Offset(0, widget.type == OverlayDropdownType.header ? -1 : 1),
-                            blurRadius: 4.4,
+                            offset: Offset(0, widget.type == OverlayDropdownType.header ? -2 : 2),
+                            blurRadius: 6,
                             spreadRadius: 0,
-                            color: const Color(0x26000000), // #00000026
+                            color: const Color(0x1F000000),
                           ),
                         ],
                       ),
