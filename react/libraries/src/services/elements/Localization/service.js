@@ -197,6 +197,9 @@ export const LocalizationService = {
 
   changeLanguage: async (locale, tenantId) => {
     try {
+      const oldLocale = i18next.language;
+      const oldLocaleModules = oldLocale ? await LocalizationStore.getList(oldLocale) : [];
+
       const modules = await LocalizationStore.getList(locale);
       const allModules = await LocalizationStore.getAllList();
 
@@ -213,7 +216,15 @@ export const LocalizationService = {
         }
       }
 
-      const uniqueModules = allModules.filter((module) => !modules.includes(module) || staleModules.includes(module));
+      let uniqueModules = allModules.filter((module) => !modules.includes(module) || staleModules.includes(module));
+
+      // Never call the API with an empty module list (e.g. when everything is
+      // already cached and fresh for this locale) — fall back to the modules
+      // the old (currently active) locale had loaded, so the request still
+      // carries real module names instead of nothing.
+      if (uniqueModules.length === 0) {
+        uniqueModules = oldLocaleModules.length > 0 ? oldLocaleModules : allModules;
+      }
 
       await LocalizationService.getLocale({ modules: uniqueModules, locale, tenantId });
 
