@@ -75,12 +75,15 @@ const CheckBox = ({
               }
             }}
           >
-            {sentenceCaseLabel}
-            {/* Inside the label, not a sibling: as a flex sibling the asterisk
-                sat beside the label's whole box, so a label that wrapped to
-                several lines left it stranded at the right edge of the first
-                line. Inline here it follows the last word. */}
-            {required && <span style={{ color: "#B91900" }}> *</span>}
+            {/* One inline wrapper: the label itself is display:flex (library
+                CSS), so text and asterisk as separate children are laid out as
+                two boxes and a wrapped label leaves the asterisk stranded at
+                the right edge. A single inline child keeps the asterisk
+                flowing right after the last word. */}
+            <span style={{ display: "inline" }}>
+              {sentenceCaseLabel}
+              {required && <span style={{ color: "#B91900" }}> *</span>}
+            </span>
           </label>
         </Fragment>
       ) : null}
@@ -165,12 +168,15 @@ const CheckBox = ({
               }
             }}
           >
-            {sentenceCaseLabel}
-            {/* Inside the label, not a sibling: as a flex sibling the asterisk
-                sat beside the label's whole box, so a label that wrapped to
-                several lines left it stranded at the right edge of the first
-                line. Inline here it follows the last word. */}
-            {required && <span style={{ color: "#B91900" }}> *</span>}
+            {/* One inline wrapper: the label itself is display:flex (library
+                CSS), so text and asterisk as separate children are laid out as
+                two boxes and a wrapped label leaves the asterisk stranded at
+                the right edge. A single inline child keeps the asterisk
+                flowing right after the last word. */}
+            <span style={{ display: "inline" }}>
+              {sentenceCaseLabel}
+              {required && <span style={{ color: "#B91900" }}> *</span>}
+            </span>
           </label>
         </Fragment>
       ) : null}
