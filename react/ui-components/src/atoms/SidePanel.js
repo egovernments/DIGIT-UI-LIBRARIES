@@ -148,8 +148,10 @@ const SidePanel = ({
           </div>
         )}
         <div className={`slider-content`} role="region" aria-label="Side panel content">
+          {/* No landmark roles inside the panel: banner/main/contentinfo must be top-level,
+              and the panel already sits inside the page's own landmarks */}
           {header && isOpen && (
-            <div className="slider-header" role="banner">
+            <div className="slider-header">
               {addClose && isOpen && (
                 <div 
                   className="close-icon" 
@@ -185,7 +187,7 @@ const SidePanel = ({
             className={`slider-body ${
               sections && sections.length > 0 ? "with-sections" : ""
             }`}
-            role="main"
+            role="region"
             aria-label="Side panel body"
           >
             {isOpen
@@ -215,8 +217,8 @@ const SidePanel = ({
               : closedContents}
           </div>
 
-          {footer && isOpen && <div className="slider-footer" role="contentinfo">{footer}</div>}
-          {closedFooter && !isOpen && <div className="slider-footer" role="contentinfo">{closedFooter}</div>}
+          {footer && isOpen && <div className="slider-footer" role="group" aria-label="Side panel footer">{footer}</div>}
+          {closedFooter && !isOpen && <div className="slider-footer" role="group" aria-label="Side panel footer">{closedFooter}</div>}
         </div>
       </div>
     </>

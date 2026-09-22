@@ -45,7 +45,9 @@
    }
 
    & .label,
-   & header {
+   & header,
+   & .digit-card-header,
+   & .digit-header-content {
      width: 33%;
 
      @media (max-aspect-ratio: 9/16) {

@@ -2,10 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const HeaderComponent = (props) => {
+  // Not a <header>: that is an implicit banner landmark and this component is rendered inside
+  // page content, producing nested / duplicate banners in accessibility scans.
   return (
-    <header className={`digit-header-content ${props?.className || ""}`} style={props?.styles || {}}>
+    <div className={`digit-header-content ${props?.className || ""}`} style={props?.styles || {}}>
       {props.children}
-    </header>
+    </div>
   );
 };
 
