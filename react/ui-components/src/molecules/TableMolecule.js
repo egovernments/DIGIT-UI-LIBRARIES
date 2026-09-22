@@ -707,6 +707,8 @@ const TableMolecule = ({
                     </div>
                     <div className="pagination">
                       <button
+                        type="button"
+                        aria-label="Previous page"
                         onClick={pagination?.manualPagination ? () => pagination?.onPrevPage() : () => handlePageChange(currentPage - 1)}
                         disabled={currentPage === 1}
                       >
@@ -715,6 +717,8 @@ const TableMolecule = ({
                         ></SVG.ChevronLeft>
                       </button>
                       <button
+                        type="button"
+                        aria-label="Next page"
                         onClick={pagination?.manualPagination ? () => pagination?.onNextPage() : () => handlePageChange(currentPage + 1)}
                         disabled={currentPage === totalPages}
                       >
