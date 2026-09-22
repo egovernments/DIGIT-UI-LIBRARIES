@@ -99,7 +99,7 @@ const PanelCard = (props) => {
           } ${isOverflowing ? "with-shadow" : ""} ${
             !hasFooterChildren ? "without-footer" : ""
           }`}
-          role="main"
+          role="region"
           aria-label={isOverflowing ? "Scrollable content area" : "Content area"}
           aria-live="polite"
         >

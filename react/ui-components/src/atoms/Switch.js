@@ -10,7 +10,8 @@ const Switch = ({
   className,
   style,
   disable = false,
-  switchStyle
+  switchStyle,
+  ariaLabel,
 }) => {
   const [isChecked, setIsChecked] = useState(isCheckedInitially);
   useEffect(() => {
@@ -52,7 +53,9 @@ const Switch = ({
         role="switch"
         aria-checked={isChecked}
         aria-disabled={disable}
-        aria-label={!label ? `Toggle switch ${isChecked ? "on" : "off"}` : undefined}
+        // The visible label is a sibling span, not associated with the switch, so the switch
+        // itself needs an accessible name in every case (axe: aria-toggle-field-name).
+        aria-label={ariaLabel || label || `Toggle switch ${isChecked ? "on" : "off"}`}
       >
         {shapeOnOff && isChecked && (
           <div className="digit-switch-shape-on" aria-hidden="true"></div>
@@ -81,4 +84,6 @@ Switch.propTypes = {
   style: PropTypes.object,
   switchStyle: PropTypes.object,
   disable: PropTypes.bool,
+  /** Accessible name for the switch when no visible label is rendered (label="") */
+  ariaLabel: PropTypes.string,
 };
