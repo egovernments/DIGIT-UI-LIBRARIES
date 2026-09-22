@@ -128,6 +128,13 @@ const TextField = (props) => {
       autoComplete={"off"}
       style={props.style}
       title={props.showToolTip ? replaceDotWithColon(value) : undefined}
+      // Combobox semantics live on the input (the only focusable element of the dropdown):
+      // an explicit name fixes axe label-title-only, aria-expanded exposes the open state.
+      role="combobox"
+      aria-haspopup="listbox"
+      aria-expanded={!!props.expanded}
+      aria-autocomplete={props.isSearchable ? "list" : "none"}
+      aria-label={props.ariaLabel || undefined}
     />
   );
 };
@@ -659,10 +666,9 @@ const Dropdown = (props) => {
               ? dropdownSwitch
               : null
           }
-          role="button"
-          tabIndex={0}
-          aria-expanded={dropdownStatus}
-          aria-label="Select an option"
+          // No role/tabIndex here: the wrapper contains the focusable <input>, so making it a
+          // button too nests two interactive controls (axe nested-interactive). The input below
+          // carries the combobox semantics instead; key events still bubble up to this handler.
           onKeyDown={(e) => {
             if (e.key === "Enter" || e.key === " ") dropdownSwitch();
           }}
@@ -670,6 +676,11 @@ const Dropdown = (props) => {
           <TextField
             variant={props?.variant}
             isSearchable={props?.isSearchable}
+            expanded={dropdownStatus}
+            ariaLabel={
+              props?.ariaLabel ||
+              (props?.placeholder ? (props.t ? props.t(props.placeholder) : props.placeholder) : "Select an option")
+            }
             autoComplete={props.autoComplete}
             setFilter={setFilter}
             forceSet={forceSet}

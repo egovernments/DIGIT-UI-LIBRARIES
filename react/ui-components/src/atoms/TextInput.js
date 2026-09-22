@@ -323,7 +323,7 @@ const TextInput = (props) => {
         } `}
         style={props?.textInputStyle ? { ...props.textInputStyle } : {}}
         role="group"
-        aria-label={props?.label || t(props.placeholder)}
+        aria-label={props?.label || props?.ariaLabel || (props.placeholder ? t(props.placeholder) : undefined)}
         aria-describedby={props.error ? `${props.id || props.name}-error` : undefined}
       >
         {props.type === "date" && props?.populators?.newDateFormat ? (
@@ -529,7 +529,7 @@ const TextInput = (props) => {
                   }
                 }
               }}
-              aria-label={props?.label || t(props.placeholder)}
+              aria-label={props?.label || props?.ariaLabel || (props.placeholder ? t(props.placeholder) : undefined)}
               aria-describedby={props.error ? `${props.id || props.name}-error` : undefined}
               aria-invalid={props.error ? "true" : "false"}
               aria-required="true"
@@ -678,7 +678,7 @@ const TextInput = (props) => {
                   }
                 }
               }}
-              aria-label={props?.label || t(props.placeholder)}
+              aria-label={props?.label || props?.ariaLabel || (props.placeholder ? t(props.placeholder) : undefined)}
               aria-describedby={props.error ? `${props.id || props.name}-error` : undefined}
               aria-invalid={props.error ? "true" : "false"}
               aria-required={props.required ? "true" : "false"}
