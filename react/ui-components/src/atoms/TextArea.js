@@ -42,6 +42,9 @@ const TextArea = (props) => {
         ref={props.inputRef}
         style={props.style}
         id={fieldId}
+        // Mirrors TextInput: callers that render their own visible label pass it here so the
+        // control has an accessible name (axe: label).
+        aria-label={props.ariaLabel || props.label || undefined}
         value={props.value}
         onChange={(event) => {
           if (props?.onChange) {

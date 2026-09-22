@@ -105,8 +105,10 @@ const SidePanel = ({
             ? defaultClosedWidth || 64
             : 0,
         }}
+        // complementary is the landmark for a side panel; aria-expanded is not permitted on it
+        // (axe aria-allowed-attr) and the toggle handle below already exposes the open state
+        role="complementary"
         aria-label={isOpen ? "Side panel expanded" : "Side panel collapsed"}
-        aria-expanded={isOpen}
       >
         {type === "dynamic" && (
           <div

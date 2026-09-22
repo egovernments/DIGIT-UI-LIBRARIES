@@ -197,6 +197,9 @@ const SideNav = ({
               }
             }}
             tabIndex={0}
+            // treeitem is the role that permits aria-selected / aria-expanded / aria-level;
+            // as a role-less div these attributes fail axe aria-allowed-attr / aria-prohibited-attr
+            role="treeitem"
             aria-selected={isSelected}
             aria-expanded={item.children ? isExpanded : undefined}
             aria-label={item.label}
@@ -272,9 +275,9 @@ const SideNav = ({
             )}
           </div>
           {item.children && isExpanded && hovered && (
-            <div 
+            <div
               className="digit-sidebar-children"
-              role="menu"
+              role="group"
               aria-label={t("Submenu for") + " " + item.label}
             >
               {renderItems(item.children, currentIndex)}
@@ -320,7 +323,10 @@ const SideNav = ({
         className={`digit-sidebar-items-container ${theme || ""} ${
           variant || ""
         } ${enableSearch ? "" :"searchDisabled"}`}
-        role="menu"
+        // A nested, expandable navigation is a tree: its items may carry aria-level /
+        // aria-expanded / aria-selected, and nested groups are valid children (role="menu"
+        // required menuitem children, which axe flagged as aria-required-children)
+        role="tree"
         aria-label="Navigation menu"
       >
         {filteredItems.length > 0 ? (
