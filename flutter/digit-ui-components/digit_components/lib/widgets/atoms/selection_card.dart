@@ -117,7 +117,9 @@ class _SelectionCardState<T> extends State<SelectionCard<T>> {
     widget.onSelectionChanged(_selectedOptions);
   }
 
-  Widget _buildOption(T option) {
+  /// [fill] lets the caller drop the fixed width so the option can be sized by
+  /// a surrounding Expanded instead.
+  Widget _buildOption(T option, {bool fill = false}) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
     bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
@@ -126,7 +128,9 @@ class _SelectionCardState<T> extends State<SelectionCard<T>> {
     return GestureDetector(
       onTap: () => widget.readOnly ? null : _onOptionTap(option),
       child: Container(
-        width: widget.equalWidthOptions ? _maxOptionWidth : widget.width,
+        width: fill
+            ? null
+            : (widget.equalWidthOptions ? _maxOptionWidth : widget.width),
         padding:
             const EdgeInsets.symmetric(vertical: spacer2, horizontal: spacer4),
         decoration: BoxDecoration(
@@ -228,12 +232,34 @@ class _SelectionCardState<T> extends State<SelectionCard<T>> {
                       width: 1,
                     ),
                   ),
-                  child: Wrap(
-                    alignment: WrapAlignment.center,
-                    spacing: spacer6,
-                    runSpacing: spacer6,
-                    children: widget.options.map(_buildOption).toList(),
-                  ),
+                  // A small set of equal-width options shares the container's
+                  // inner width so no bare secondary-paper background shows
+                  // beside them. Deliberately Row + Expanded rather than a
+                  // LayoutBuilder: LayoutBuilder cannot be laid out by
+                  // ancestors that ask for intrinsic dimensions (the search
+                  // results table does), which throws at runtime. Larger sets
+                  // keep the original wrapping so labels don't get squashed.
+                  child: (widget.equalWidthOptions &&
+                          widget.options.length <= 3)
+                      ? Row(
+                          children: [
+                            for (var i = 0; i < widget.options.length; i++) ...[
+                              if (i > 0) const SizedBox(width: spacer6),
+                              Expanded(
+                                child: _buildOption(
+                                  widget.options[i],
+                                  fill: true,
+                                ),
+                              ),
+                            ],
+                          ],
+                        )
+                      : Wrap(
+                          alignment: WrapAlignment.center,
+                          spacing: spacer6,
+                          runSpacing: spacer6,
+                          children: widget.options.map(_buildOption).toList(),
+                        ),
                 ),
               ),
               if (widget.errorMessage != null) const SizedBox(height: spacer1),

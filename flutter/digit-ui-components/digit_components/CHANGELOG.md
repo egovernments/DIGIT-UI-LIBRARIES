@@ -1,3 +1,22 @@
+## 0.3.2
+* Fixed dropdown option RenderFlex overflow by replacing fixed-width SizedBox with Expanded.
+
+## 0.3.1
+* Toast message now wraps up to three lines instead of truncating.
+* PanelCard content is clipped to its rounded shape.
+* Success/error panel adopts the 12px card border radius.
+* SelectionCard fills its container with a 16px inset and reverts option padding to 8dp vertical.
+* Fixed SelectionCard crash when placed under intrinsic-dimension ancestors.
+* InfoCard, Popup, and sync dialog component alignment and styling fixes.
+* Clip lottie animation in popup for fixed dimension.
+* Tags can now take border color property.
+* New camera icon, add_circle icon and spacer constants.
+* Sidebar Digit button is now of type primary.
+* Fixed dropdown body shadow visibility issue for dropdown fields.
+* Added border radius for panel cards.
+* Fixed alignment of toast messages and validation text belonging to radio buttons.
+* Search icon placement is now on right end within the field.
+
 ## 0.3.0+3
 * Added bold text support (**bold**) for popup title, subHeading, and description
 

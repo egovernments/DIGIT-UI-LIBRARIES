@@ -77,7 +77,11 @@ class DigitToastThemeData extends ThemeExtension<DigitToastThemeData> {
       infoIcon: Icon(Icons.info, color: theme.colorTheme.paper.primary, size: theme.spacerTheme.spacer6,),
       cancelIcon: Icon(Icons.close, color: theme.colorTheme.paper.primary, size: theme.spacerTheme.spacer6,),
       toastWidth: width,
-      maxLine: 1,
+      // 1 truncated any message longer than a single line (e.g. validation
+      // text such as "Household Head Name must be more than 2 characters").
+      // Only maxWidth is constrained, so extra lines grow the toast rather
+      // than clip; 3 leaves room for longer localised strings.
+      maxLine: 3,
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
       animationDuration: const Duration(seconds: 5),
       animation: StyledToastAnimation.slideFromBottom,

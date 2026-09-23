@@ -25,6 +25,7 @@ class DigitDobPicker extends StatefulWidget {
   final String? monthErrorMessage;
   final DateTime? initialDate;
   final void Function(DateTime?)? onChangeOfFormControl;
+  final bool? isRequired;
 
   const DigitDobPicker({
     super.key,
@@ -45,6 +46,7 @@ class DigitDobPicker extends StatefulWidget {
     this.confirmText = 'OK',
     this.cancelText = 'Cancel',
     this.onChangeOfFormControl,
+    this.isRequired = false,
   });
 
   @override
@@ -144,6 +146,7 @@ class _DigitDobPickerState extends State<DigitDobPicker> {
                 // Date picker component to select the date of birth
                 LabeledField(
                   label: widget.datePickerLabel,
+                  isRequired: widget.isRequired ?? false,
                   child: DigitDateFormInput(
                     readOnly: widget.readOnly,
                     editable: false,
@@ -184,6 +187,7 @@ class _DigitDobPickerState extends State<DigitDobPicker> {
                       // Text form field for entering the age in years
                       child: LabeledField(
                         labelInline: false,
+                        isRequired: widget.isRequired ?? false,
                         label: widget.ageFieldLabel,
                         child: DigitTextFormInput(
                           errorMessage: widget.ageErrorMessage,

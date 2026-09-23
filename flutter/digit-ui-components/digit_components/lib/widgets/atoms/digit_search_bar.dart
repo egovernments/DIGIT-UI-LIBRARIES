@@ -54,15 +54,6 @@ class DigitSearchBar extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: icon ??
-                Icon(
-                  Icons.search,
-                  size: 24,
-                  color: theme.colorTheme.text.primary,
-                ),
-          ),
           Expanded(
             child: TextField(
               keyboardType: keyboardType,
@@ -76,7 +67,7 @@ class DigitSearchBar extends StatelessWidget {
                 filled: false,
                 contentPadding: contentPadding ??
                     const EdgeInsets.only(
-                      left: 0,
+                      left: 8.0,
                       bottom: 8.0,
                       top: 8.0,
                     ),
@@ -84,6 +75,15 @@ class DigitSearchBar extends StatelessWidget {
                 enabledBorder: InputBorder.none,
               ),
             ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: icon ??
+                Icon(
+                  Icons.search,
+                  size: 24,
+                  color: theme.colorTheme.text.primary,
+                ),
           ),
         ],
       ),
