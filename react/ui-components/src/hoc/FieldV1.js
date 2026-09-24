@@ -150,6 +150,9 @@ const FieldV1 = ({
             type={type}
             value={value}
             name={populators?.name}
+            // The visible label is rendered by LabelFieldPair, not associated with the input;
+            // pass it through so the control has an accessible name (axe: label)
+            label={label ? i18nT(label) : undefined}
             onChange={onChange}
             error={error}
             allowNegativeValues={populators?.allowNegativeValues}
