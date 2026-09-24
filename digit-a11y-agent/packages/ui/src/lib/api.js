@@ -47,6 +47,9 @@ async function request(path, { method = 'GET', body, apiKey } = {}) {
     ...(body ? { body: JSON.stringify(body) } : {}),
   });
 
+  // 204 carries no body by definition; parsing it would throw.
+  if (res.status === 204) return null;
+
   let json;
   try {
     json = await res.json();
@@ -160,3 +163,37 @@ export const getSitePdfUrl = (siteId) =>
  */
 export const getSiteScreenshotUrl = (siteId, pageIndex) =>
   `${API_PREFIX}/site/${encodeURIComponent(siteId)}/screenshot/${pageIndex}`;
+
+/* ─────────────────── Session capture (manual login) ─────────────────────── */
+
+/**
+ * Ask the server to open a browser window at `url` so a human can log in.
+ * Covers the flows automated form auth cannot: two-step forms, OTP, SSO,
+ * captcha.
+ *
+ * Fails with code CAPTURE_UNAVAILABLE (HTTP 501) when the API host has no
+ * desktop session — callers should fall back to uploading a session file
+ * captured with `bin/capture-session.mjs`.
+ *
+ * @param {string} url
+ * @returns {Promise<{ id: string, status: string, url: string, expiresAt: number }>}
+ */
+export const startSessionCapture = (url, opts) =>
+  request(`${API_PREFIX}/session/capture`, { method: 'POST', body: { url }, ...opts });
+
+/**
+ * Snapshot the logged-in session and close the browser window.
+ * @param {string} captureId
+ * @returns {Promise<{ session: object, summary: object }>}
+ */
+export const finishSessionCapture = (captureId, opts) =>
+  request(`${API_PREFIX}/session/capture/${encodeURIComponent(captureId)}/finish`,
+    { method: 'POST', ...opts });
+
+/**
+ * Close a capture's browser window without snapshotting.
+ * @param {string} captureId
+ */
+export const cancelSessionCapture = (captureId, opts) =>
+  request(`${API_PREFIX}/session/capture/${encodeURIComponent(captureId)}`,
+    { method: 'DELETE', ...opts });

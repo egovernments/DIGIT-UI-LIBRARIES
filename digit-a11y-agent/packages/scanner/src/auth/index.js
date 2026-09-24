@@ -8,20 +8,32 @@
  *   type: 'token' → ./token.js  (Day 4 — fully implemented)
  *   type: 'oauth' → ./oauth.js  (Phase 3 / Day 16)
  *
- * Returns a Playwright `storageState` — cookies + localStorage + sessionStorage
- * that subsequent page contexts can re-hydrate to appear logged in.
+ * Returns a Playwright `storageState` — cookies + localStorage — that
+ * subsequent page contexts can re-hydrate to appear logged in.
+ *
+ * Playwright's storageState does NOT include sessionStorage, so the handlers
+ * additionally attach a `_sessionStorage` block to the returned object;
+ * createContext() replays it. Without this, any SPA that keeps auth state in
+ * sessionStorage (DIGIT Studio keeps 9 keys there) silently appears logged out
+ * after re-hydration and the scan quietly reports on the login page instead.
  *
  * @see ./form.js
  * @see ./token.js
  */
 
-import { captureFormAuth }  from './form.js';
-import { captureTokenAuth } from './token.js';
+import { captureFormAuth }    from './form.js';
+import { captureTokenAuth }   from './token.js';
+import { captureSessionAuth } from './session.js';
 
 /**
  * @typedef {Object} AuthConfig
- * @property {'form'|'token'|'oauth'} type
- * @property {string} loginUrl - URL to load (form: the login page; token: any URL on the target origin)
+ * @property {'form'|'token'|'session'} type
+ * @property {string} [loginUrl] - URL to load (form: the login page; token: any URL on the target origin). Not required for 'session'.
+ * @property {string}   [sessionPath]     - session auth: path to a file written by bin/capture-session.mjs
+ * @property {object}   [state]           - session auth: an inline session object instead of a file
+ * @property {Record<string,string>} [sessionStorage] - token auth: sessionStorage entries to inject
+ * @property {string}   [authedSelector]  - preflight: element visible on any signed-in page. Checked after navigation; the scan fails if absent.
+ * @property {boolean}  [skipPreflight]   - preflight: disable the post-navigation authentication check
  * @property {Record<string,string>} [fields]         - form auth: selector → value
  * @property {string}   [submitSelector]               - form auth
  * @property {string[]} [dismissSelectors]             - form auth: pre-login popups/banners to dismiss
@@ -63,14 +75,22 @@ export async function captureAuth(browser, authConfig) {
     case 'token':
       return captureTokenAuth(browser, authConfig);
 
+    case 'session':
+      return captureSessionAuth(browser, authConfig);
+
     case 'oauth':
+      // Superseded in practice: capture the session by hand instead. A human
+      // completing the OAuth dance once is strictly more capable than any
+      // config we could ship, and it covers OTP and captcha too.
       throw new AuthError('NOT_IMPLEMENTED',
-        'OAuth flows (DigiLocker, Parichay) ship in Phase 3 (Day 16).');
+        `OAuth flows are not automated. Use type: 'session' instead — log in ` +
+        `by hand once and replay the session:\n` +
+        `  node packages/scanner/bin/capture-session.mjs --url <site> --out session.json`);
 
     default:
       throw new AuthError('INVALID_AUTH_CONFIG',
         `Unknown auth type: ${authConfig.type}. ` +
-        `Supported: 'form', 'token'. Coming in Phase 3: 'oauth'.`);
+        `Supported: 'form', 'token', 'session'.`);
   }
 }
 
@@ -84,7 +104,9 @@ function validateAuthConfig(cfg) {
   if (!cfg.type) {
     throw new AuthError('INVALID_AUTH_CONFIG', 'authConfig.type is required');
   }
-  if (!cfg.loginUrl || typeof cfg.loginUrl !== 'string') {
+  // Session auth replays a file — there is no login page to visit, so loginUrl
+  // is optional there (only single-context mode needs one).
+  if (cfg.type !== 'session' && (!cfg.loginUrl || typeof cfg.loginUrl !== 'string')) {
     throw new AuthError('INVALID_AUTH_CONFIG',
       'authConfig.loginUrl must be a non-empty string');
   }
@@ -138,9 +160,13 @@ export async function runAuthInContext(page, context, authConfig) {
       const { runTokenAuthInPage } = await import('./token.js');
       return runTokenAuthInPage(page, context, authConfig);
     }
+    case 'session': {
+      const { runSessionAuthInPage } = await import('./session.js');
+      return runSessionAuthInPage(page, context, authConfig);
+    }
     case 'oauth':
       throw new AuthError('NOT_IMPLEMENTED',
-        'OAuth flows ship in Phase 3 (Day 16).');
+        `OAuth flows are not automated. Use type: 'session' instead.`);
     default:
       throw new AuthError('INVALID_AUTH_CONFIG',
         `Unknown auth type: ${authConfig.type}`);

@@ -1,10 +1,16 @@
 /**
  * AuthConfigPanel — collapsible authentication configuration.
  *
- * Three modes via radio:
+ * Modes via radio:
  *   - 'none' (default)  — no auth
  *   - 'form'            — login by filling a form on a page
  *   - 'token'           — inject session state (multiple localStorage keys + cookies)
+ *   - 'session'         — log in by hand once, replay the session
+ *
+ * 'session' is the one that covers everything else. Form auth can only drive
+ * a single-page fill-and-submit; two-step forms, OTP, SSO and captcha are out
+ * of its reach by construction. Rather than grow selectors to describe every
+ * login flow, a human performs the login once and we keep the result.
  *
  * Stays collapsed until the user clicks "Add authentication". Once open
  * with a non-none type, validates inline as the user edits.
@@ -19,6 +25,11 @@
 
 import { useEffect, useId, useMemo, useState } from 'react';
 import { FieldRows, makeRow } from './FieldRows.jsx';
+import {
+  startSessionCapture,
+  finishSessionCapture,
+  cancelSessionCapture,
+} from '../lib/api.js';
 
 /* ─────────────────── shape helpers ─────────────────── */
 
@@ -61,6 +72,20 @@ function buildTokenConfig(state) {
   return config;
 }
 
+function buildSessionConfig(state) {
+  const config = {
+    type:  'session',
+    state: state.session,
+  };
+  if (state.sessionAuthedSelector.trim()) {
+    config.authedSelector = state.sessionAuthedSelector.trim();
+  }
+  if (state.contextStrategy && state.contextStrategy !== 'reuse') {
+    config.contextStrategy = state.contextStrategy;
+  }
+  return config;
+}
+
 /* ─────────────────── validators ─────────────────── */
 
 function validateForm(state) {
@@ -89,6 +114,55 @@ function validateToken(state) {
   return errors;
 }
 
+function validateSession(state) {
+  const errors = {};
+  if (!state.session) {
+    errors.session = 'Capture or upload a session first.';
+  }
+  return errors;
+}
+
+/**
+ * Accept both what our capture writes and a hand-rolled file.
+ * Returns { session } or { error }.
+ */
+export function parseSessionFile(text) {
+  let parsed;
+  try {
+    parsed = JSON.parse(text);
+  } catch {
+    return { error: 'That file is not valid JSON.' };
+  }
+  if (!parsed || typeof parsed !== 'object') {
+    return { error: 'A session file must contain a JSON object.' };
+  }
+  const cookies = Array.isArray(parsed.cookies) ? parsed.cookies : [];
+  const origins = Array.isArray(parsed.origins) ? parsed.origins : [];
+  const session = parsed._sessionStorage ?? parsed.sessionStorage ?? {};
+  const localCount = origins.reduce((n, o) => n + (o.localStorage?.length ?? 0), 0);
+
+  if (!cookies.length && !localCount && !Object.keys(session).length) {
+    return {
+      error: 'That file has no cookies, localStorage or sessionStorage — ' +
+             'nothing in it could sign you in. Capture it again while logged in.',
+    };
+  }
+  return { session: parsed };
+}
+
+/** Human-readable summary of what a session actually carries. */
+export function summariseSession(session) {
+  if (!session) return null;
+  const origins = Array.isArray(session.origins) ? session.origins : [];
+  return {
+    cookies:        (session.cookies ?? []).length,
+    localStorage:   origins.reduce((n, o) => n + (o.localStorage?.length ?? 0), 0),
+    sessionStorage: Object.keys(session._sessionStorage ?? session.sessionStorage ?? {}).length,
+    capturedFrom:   session._capturedFrom ?? null,
+    capturedAt:     session._capturedAt ?? null,
+  };
+}
+
 /* ─────────────────── component ─────────────────── */
 
 const INITIAL_STATE = {
@@ -107,6 +181,10 @@ const INITIAL_STATE = {
   tokenLoginUrl:        '',
   tokenSuccessSelector: '',
   tokenEntries:         [],
+
+  // session-auth fields
+  session:               null,   // the captured session object (held in memory only)
+  sessionAuthedSelector: '',
 };
 
 export function AuthConfigPanel({ onChange, preset }) {
@@ -151,6 +229,10 @@ export function AuthConfigPanel({ onChange, preset }) {
     if (state.authType === 'token') {
       const errs = validateToken(state);
       return { config: Object.keys(errs).length ? null : buildTokenConfig(state), errors: errs };
+    }
+    if (state.authType === 'session') {
+      const errs = validateSession(state);
+      return { config: Object.keys(errs).length ? null : buildSessionConfig(state), errors: errs };
     }
     return { config: null, errors: {} };
   }, [state]);
@@ -209,8 +291,9 @@ export function AuthConfigPanel({ onChange, preset }) {
       {/* Auth type selector */}
       <div className="flex gap-2 mb-5" role="radiogroup" aria-label="Authentication type">
         {[
-          { value: 'form',  label: 'Form login',     desc: 'Fill in a username/password form' },
-          { value: 'token', label: 'Token injection', desc: 'Paste an existing session token' },
+          { value: 'form',    label: 'Form login',      desc: 'Fill in a username/password form' },
+          { value: 'token',   label: 'Token injection', desc: 'Paste an existing session token' },
+          { value: 'session', label: 'Log in manually', desc: 'Any flow — OTP, SSO, two-step' },
         ].map((opt) => (
           <label
             key={opt.value}
@@ -347,6 +430,254 @@ export function AuthConfigPanel({ onChange, preset }) {
           />
         </div>
       )}
+
+      {/* Manual-login (session) fields */}
+      {state.authType === 'session' && (
+        <SessionAuthFields
+          session={state.session}
+          authedSelector={state.sessionAuthedSelector}
+          loginUrlHint={state.loginUrl}
+          onSession={(session) => update({ session })}
+          onAuthedSelector={(v) => update({ sessionAuthedSelector: v })}
+          error={errors.session}
+        />
+      )}
+    </div>
+  );
+}
+
+/* ─────────────────── manual-login panel ─────────────────── */
+
+/**
+ * Two ways to get a session, because one of them can't always work:
+ *
+ *  - "Open a browser" asks the API to launch a window on the machine running
+ *    it. Fine locally; impossible on a headless or remote host, which answers
+ *    CAPTURE_UNAVAILABLE. We then point at the upload path instead of leaving
+ *    the user stuck.
+ *  - Uploading a file captured with bin/capture-session.mjs always works.
+ *
+ * The session stays in component state and is posted with the scan. It is
+ * never written to localStorage — it is a live credential that has already
+ * cleared MFA, and localStorage would outlive the tab.
+ */
+function SessionAuthFields({
+  session, authedSelector, loginUrlHint, onSession, onAuthedSelector, error,
+}) {
+  const [loginUrl, setLoginUrl] = useState(loginUrlHint ?? '');
+  const [capture, setCapture]   = useState(null);   // { id } while a window is open
+  const [busy, setBusy]         = useState(false);
+  const [notice, setNotice]     = useState(null);   // { kind: 'error'|'info', text }
+  const summary = useMemo(() => summariseSession(session), [session]);
+
+  const canStart = /^https?:\/\//.test(loginUrl.trim());
+
+  async function handleStart() {
+    setBusy(true);
+    setNotice(null);
+    try {
+      const started = await startSessionCapture(loginUrl.trim());
+      setCapture(started);
+      setNotice({
+        kind: 'info',
+        text: 'A browser window opened on the machine running the scanner. ' +
+              'Log in there, then click "I\'m logged in".',
+      });
+    } catch (err) {
+      setNotice({
+        kind: 'error',
+        text: err.code === 'CAPTURE_UNAVAILABLE'
+          ? 'This scanner has no desktop session, so it cannot open a browser ' +
+            'for you. Capture the session on your own machine instead (command ' +
+            'below) and upload the file.'
+          : err.message,
+      });
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function handleFinish() {
+    setBusy(true);
+    setNotice(null);
+    try {
+      const { session: captured, summary: s } = await finishSessionCapture(capture.id);
+      onSession(captured);
+      setCapture(null);
+      // The server flags a capture that still looks like a login page. Show it
+      // as a warning, not a success line — a session that isn't signed in is
+      // precisely what produces a clean, wrong report later.
+      setNotice(s.warning
+        ? { kind: 'warn',  text: s.warning }
+        : { kind: 'info',  text: `Session captured from ${s.capturedFrom}.` });
+    } catch (err) {
+      // CAPTURE_EMPTY leaves the window open on purpose — the user can finish
+      // logging in and press the button again.
+      setNotice({ kind: 'error', text: err.message });
+      if (err.code !== 'CAPTURE_EMPTY') setCapture(null);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function handleCancel() {
+    setBusy(true);
+    try { await cancelSessionCapture(capture.id); } catch { /* already gone */ }
+    setCapture(null);
+    setNotice(null);
+    setBusy(false);
+  }
+
+  function handleFile(file) {
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      const { session: parsed, error: parseError } = parseSessionFile(String(reader.result));
+      if (parseError) return setNotice({ kind: 'error', text: parseError });
+      onSession(parsed);
+      setNotice({ kind: 'info', text: `Loaded ${file.name}.` });
+    };
+    reader.onerror = () => setNotice({ kind: 'error', text: 'Could not read that file.' });
+    reader.readAsText(file);
+  }
+
+  return (
+    <div className="space-y-4">
+      <p className="text-xs text-slate-600 bg-white border border-slate-200 rounded-md p-3">
+        You log in once by hand, the scanner reuses that session. Works with any
+        login flow — OTP, SSO, two-step forms, captcha — because the scanner
+        never has to drive the login itself.
+      </p>
+
+      {/* ── Already have a session ── */}
+      {session && summary && (
+        <div className="rounded-md border-2 border-green-300 bg-green-50 p-3">
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <p className="text-sm font-medium text-green-900">Session ready</p>
+              <p className="text-xs text-green-800 mt-1">
+                {summary.cookies} cookies · {summary.localStorage} localStorage ·{' '}
+                {summary.sessionStorage} sessionStorage
+              </p>
+              {summary.capturedFrom && (
+                <p className="text-xs text-green-700 mt-0.5 font-mono break-all">
+                  {summary.capturedFrom}
+                </p>
+              )}
+            </div>
+            <button
+              type="button"
+              onClick={() => { onSession(null); setNotice(null); }}
+              className="text-xs text-green-800 hover:text-green-950 underline flex-shrink-0"
+            >
+              Clear
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* ── Capture live ── */}
+      {!session && !capture && (
+        <div className="space-y-3">
+          <LabeledInput
+            label="Login page URL"
+            placeholder="e.g. https://example.gov.in/login"
+            value={loginUrl}
+            onChange={setLoginUrl}
+            type="url"
+            hint="Where the browser window should open"
+          />
+          <button
+            type="button"
+            disabled={!canStart || busy}
+            onClick={handleStart}
+            className="w-full px-3 py-2 text-sm font-medium rounded-md bg-brand-500 text-white hover:bg-brand-600 disabled:bg-slate-200 disabled:text-slate-400"
+          >
+            {busy ? 'Opening browser…' : 'Open a browser and log in'}
+          </button>
+        </div>
+      )}
+
+      {/* ── Window open, waiting on the human ── */}
+      {capture && (
+        <div className="rounded-md border-2 border-amber-300 bg-amber-50 p-3 space-y-3">
+          <p className="text-sm text-amber-900">
+            Waiting for you to log in. Finish on a page that is definitely signed
+            in, then come back.
+          </p>
+          <div className="flex gap-2">
+            <button
+              type="button"
+              disabled={busy}
+              onClick={handleFinish}
+              className="flex-1 px-3 py-2 text-sm font-medium rounded-md bg-brand-500 text-white hover:bg-brand-600 disabled:bg-slate-200 disabled:text-slate-400"
+            >
+              {busy ? 'Capturing…' : "I'm logged in — capture"}
+            </button>
+            <button
+              type="button"
+              disabled={busy}
+              onClick={handleCancel}
+              className="px-3 py-2 text-sm rounded-md border border-slate-300 bg-white hover:border-slate-400"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
+
+      {notice && (
+        <p className={`text-xs rounded-md p-2.5 ${
+          notice.kind === 'error'
+            ? 'text-red-700 bg-red-50 border border-red-200'
+            : notice.kind === 'warn'
+              ? 'text-amber-900 bg-amber-50 border border-amber-300'
+              : 'text-slate-600 bg-slate-100 border border-slate-200'
+        }`}>
+          {notice.text}
+        </p>
+      )}
+
+      {/* ── Upload fallback ── */}
+      {!session && (
+        <details className="text-xs">
+          <summary className="cursor-pointer text-slate-600 hover:text-slate-900">
+            Or upload a session file
+          </summary>
+          <div className="mt-2 space-y-2 pl-1">
+            <p className="text-slate-500">
+              Use this when the scanner runs somewhere without a desktop (Docker,
+              a remote server). On your own machine:
+            </p>
+            <pre className="bg-slate-900 text-slate-100 p-2 rounded text-[11px] overflow-x-auto">
+{`node packages/scanner/bin/capture-session.mjs \\
+  --url ${loginUrl.trim() || '<login-url>'} --out session.json`}
+            </pre>
+            <input
+              type="file"
+              accept="application/json,.json"
+              onChange={(e) => handleFile(e.target.files?.[0])}
+              className="block w-full text-xs text-slate-600 file:mr-3 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-xs file:font-medium file:bg-slate-200 file:text-slate-700 hover:file:bg-slate-300"
+            />
+          </div>
+        </details>
+      )}
+
+      {error && <p className="text-xs text-red-600">{error}</p>}
+
+      <LabeledInput
+        label="Signed-in element selector"
+        placeholder="e.g. #user-menu"
+        value={authedSelector}
+        onChange={onAuthedSelector}
+        font="mono"
+        hint="Strongly recommended. Something only signed-in pages have. Without it an expired session can produce a clean report for the login page."
+      />
+
+      <p className="text-xs text-amber-800 bg-amber-50 border border-amber-200 rounded-md p-2.5">
+        A captured session signs in as you with no password and no MFA. It is kept
+        in this tab only and sent with the scan — never saved to your browser.
+      </p>
     </div>
   );
 }

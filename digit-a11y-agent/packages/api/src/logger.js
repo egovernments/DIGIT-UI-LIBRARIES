@@ -23,6 +23,10 @@ const baseOptions = {
       'auth.fields["input[type=\\"password\\"]"]',
       'auth.token',
       'auth.cookies[*].value',
+      // Whole maps, not individual keys — both hold bearer tokens and user
+      // objects, and the key names vary per app.
+      'auth.localStorage',
+      'auth.sessionStorage',
       '*.password',
     ],
     censor: '[REDACTED]',

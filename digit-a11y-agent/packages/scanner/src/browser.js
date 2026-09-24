@@ -84,12 +84,27 @@ export async function launchBrowser(options = {}) {
  * @param {object} [options]
  * @param {import('playwright').BrowserContextOptions['storageState']} [options.storageState]
  *   Optional auth state (cookies + localStorage) captured by the auth flow.
- *   Phase 1 Day 3-4 wires this up.
+ *   Phase 1 Day 3-4 wires this up. If it carries a `_sessionStorage` block
+ *   (the auth flows attach one), those entries are replayed too — Playwright's
+ *   storageState covers cookies and localStorage only.
+ * @param {Record<string,string>} [options.sessionStorage]
+ *   Explicit sessionStorage entries to replay. Overrides anything found on
+ *   storageState._sessionStorage.
  * @returns {Promise<import('playwright').BrowserContext>}
  */
 export async function createContext(browser, options = {}) {
-  const contextOptions = { ...DEFAULT_CONTEXT_OPTIONS, ...options };
+  // Pull our own options out before handing the rest to Playwright — it
+  // rejects unknown context options.
+  const { sessionStorage: explicitSession, ...playwrightOptions } = options;
+
+  const contextOptions = { ...DEFAULT_CONTEXT_OPTIONS, ...playwrightOptions };
   const context = await browser.newContext(contextOptions);
+
+  const sessionEntries = explicitSession ?? options.storageState?._sessionStorage;
+  if (sessionEntries && Object.keys(sessionEntries).length > 0) {
+    const { applySessionStorage } = await import('./auth/_shared.js');
+    await applySessionStorage(context, sessionEntries);
+  }
 
   // Reasonable per-page default timeouts (scan-level overrides come from runScan)
   context.setDefaultTimeout(30_000);

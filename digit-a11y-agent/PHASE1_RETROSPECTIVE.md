@@ -42,9 +42,15 @@ The most surprising day was **Day 6**, where I caught a real bug in a real DIGIT
 
 ### "Two context strategies" — Reuse vs Single
 
-DIGIT Studio UAT binds sessions to browser context. The default flow (auth → capture state → fresh context → replay state) gets rejected by Studio. We added a `contextStrategy: 'single'` mode that uses one context end-to-end.
+The default flow is auth → capture state → fresh context → replay state (`'reuse'`). `contextStrategy: 'single'` runs auth and scan in one context instead, so nothing has to survive a round-trip.
 
-This is the **#1 thing that trips up new users.** If a DIGIT scan keeps redirecting to login, the answer is almost always "switch to Single."
+**Corrected after Phase 1.** This section used to claim Studio UAT "binds sessions to browser context," and told users to switch to Single whenever a DIGIT scan redirected to login. That diagnosis was wrong — it was a guess, never measured. `createContext()` hardcodes userAgent, viewport, locale and timezone, so a fresh context is fingerprint-identical to the auth context; there was nothing to bind against.
+
+The real cause: Playwright's `storageState()` carries cookies and localStorage **only**. Studio keeps 9 auth keys in `sessionStorage` (`Digit.initData`, `Digit.User`, `Digit.Employee.tenantId`, …), all of which were silently dropped on replay. The auth flows now capture sessionStorage and `createContext()` replays it, and `'reuse'` works against Studio UAT.
+
+Keep `'single'` as a fallback for sites that genuinely bind a session server-side (IP/UA/TLS fingerprint, DPoP, token binding) — but reach for it only after ruling out missing state, and prefer `'reuse'`, which parallelises. `packages/scanner/diagnose-session-roundtrip.mjs` is the script that settled this and can be re-pointed at any site.
+
+**The failure mode to watch for:** a session that doesn't survive replay does not error. The SPA redirects to login, axe scans the login page, and the report comes back clean and "authenticated." Always verify with a success indicator.
 
 ### "Strict wait-for-selector"
 

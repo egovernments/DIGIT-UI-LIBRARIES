@@ -72,18 +72,24 @@ const PRESETS = [
   {
     id:    'studio-uat-landing',
     label: 'DIGIT Studio UAT (Service Designer)',
-    blurb: 'Single-context flow (Studio binds sessions to browser). Fill in STUDIOUAT / eGov@123 after applying.',
-    url:               'https://unified-uat.digit.org/digit-studio/employee/servicedesigner/LandingPage',
-    waitForSelector:   'h1:has-text("Design and Launch Public Services")',
+    blurb: 'Fill in STUDIOUAT / eGov@123 after applying. Lands on the "proceed as" role picker.',
+    url:               'https://unified-uat.digit.org/digit-studio/employee/servicedesigner/proceed-as',
+    waitForSelector:   'text=How would you like to proceed?',
     timeoutSec:        150,
     auth: {
       type:             'form',
       loginUrl:         'https://unified-uat.digit.org/digit-studio/employee/user/login',
       submitSelector:   'button:has-text("Login")',
-      successSelector:  'h1:has-text("Design and Launch Public Services")',
-      successUrl:       '',
+      // URL-based, not selector-based: Studio's post-login copy has already
+      // changed once ("Design and Launch Public Services" is gone) and the
+      // landing route is now the proceed-as role picker.
+      successSelector:  '',
+      successUrl:       '/servicedesigner/',
       dismissSelectors: 'input[type="checkbox"]',
-      contextStrategy:  'single',
+      // Was 'single' on the belief that Studio binds sessions to the browser
+      // context. It doesn't — its auth state just lives in sessionStorage,
+      // which the auth flows now capture and replay. See PHASE1_RETROSPECTIVE.md.
+      contextStrategy:  'reuse',
       fields: [
         { selector: 'input[type="text"]',     value: '' },
         { selector: 'input[type="password"]', value: '' },

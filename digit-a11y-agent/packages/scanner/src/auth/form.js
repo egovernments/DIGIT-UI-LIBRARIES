@@ -20,7 +20,7 @@
 import { createContext, closeContext } from '../browser.js';
 import { waitForReady } from '../wait.js';
 import { AuthError } from './index.js';
-import { waitForSuccessIndicator, dismissPrelogin } from './_shared.js';
+import { waitForSuccessIndicator, dismissPrelogin, captureSessionStorage } from './_shared.js';
 
 const DEFAULT_TIMEOUTS = {
   navigation:  30_000,
@@ -101,6 +101,13 @@ export async function captureFormAuth(browser, authConfig) {
 
     // ── 6. Capture session state, augment with diagnostic metadata ──────
     const state = await context.storageState();
+
+    // storageState omits sessionStorage, so grab it separately and ride along
+    // on the same object. Callers pass it to createContext(), which replays it.
+    // Non-standard key; Playwright ignores it when re-hydrating (same trick as
+    // _authMeta below).
+    state._sessionStorage = await captureSessionStorage(page);
+
     // Stash a small diagnostic block — non-standard, ignored by Playwright
     // when re-hydrating, but useful for the API server's debug logs.
     state._authMeta = {
@@ -108,6 +115,7 @@ export async function captureFormAuth(browser, authConfig) {
       elapsedMs:      Date.now() - startedAt,
       dismissed:      dismissResult.dismissed,
       skipped:        dismissResult.skipped,
+      sessionKeys:    Object.keys(state._sessionStorage).length,
     };
     return state;
 

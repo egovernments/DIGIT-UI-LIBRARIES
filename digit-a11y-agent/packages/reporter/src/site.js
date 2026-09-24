@@ -195,6 +195,9 @@ export function buildSiteReport(exploration, siteMeta = {}) {
         url: p.url,
         loadStatus: p.loadStatus,
         ...(p.landed ? { landed: p.landed } : {}),
+        // Why a page was skipped matters most when auth is the reason —
+        // it usually means the shared session expired mid-crawl.
+        ...(p.authReason ? { authReason: p.authReason } : {}),
         states: stateSummaries,
       });
     }

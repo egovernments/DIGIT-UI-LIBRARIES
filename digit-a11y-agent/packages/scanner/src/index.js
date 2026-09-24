@@ -32,6 +32,7 @@ import { runAxe } from './axe.js';
 import { captureScreenshot } from './screenshot.js';
 import { computeBoundingBoxes } from './bbox.js';
 import { captureAuth, AuthError } from './auth/index.js';
+import { assertAuthenticated } from './auth/preflight.js';
 import { retryWithBackoff, isTransientNetworkError } from './retry.js';
 
 const DEFAULT_SCAN_OPTIONS = {
@@ -65,6 +66,7 @@ export async function runScan(scanRequest) {
   const startedAt = Date.now();
   const warnings = [];
   let navigationAttempts = 0;
+  let authCheck = null;
 
   let browser = null;
   let context = null;
@@ -76,9 +78,15 @@ export async function runScan(scanRequest) {
     // Two strategies:
     //   'reuse' (default) — auth in a throwaway context, capture state, re-inject
     //                       into a fresh scan context. Fast for multi-page crawls.
-    //   'single'          — auth and scan share one context. Required for sites
-    //                       that bind sessions to browser fingerprint (e.g. DIGIT
-    //                       Studio UAT) where state re-injection gets rejected.
+    //   'single'          — auth and scan share one context, so nothing has to
+    //                       survive a capture/replay round-trip. A fallback for
+    //                       sites that genuinely bind a session server-side
+    //                       (IP/UA/TLS fingerprint, DPoP, token binding).
+    //
+    // 'single' used to be required for DIGIT Studio UAT, which was assumed to be
+    // fingerprint-bound. It wasn't: Studio keeps its auth state in sessionStorage,
+    // which storageState drops. Now that the auth flows capture and replay that,
+    // 'reuse' works there too. Prefer 'reuse' — it parallelises.
     const strategy = scanRequest.auth?.contextStrategy ?? 'reuse';
     let page;
 
@@ -152,6 +160,24 @@ export async function runScan(scanRequest) {
       });
     }
 
+    // ── 4c. Authentication preflight ─────────────────────────────────────
+    // The drift warning above is only a warning, and a warning is not enough
+    // here: an expired session produces a perfectly clean report for the login
+    // page, and nothing about it looks wrong. When auth was requested, confirm
+    // we are actually signed in before spending a scan on the page.
+    if (scanRequest.auth) {
+      authCheck = await assertAuthenticated(page, scanRequest.auth, scanRequest.url);
+      if (!authCheck.checked) {
+        warnings.push({
+          code: 'auth-unverified',
+          message: `Authentication was requested but not verified (${authCheck.via}). ` +
+            `The report is only trustworthy if this page really was signed in. ` +
+            `Set auth.authedSelector to an element present on signed-in pages to ` +
+            `make this check meaningful.`,
+        });
+      }
+    }
+
     // ── 5. Run axe ────────────────────────────────────────────────────────
     const axeResult = await runAxe(page, { tags: opts.axeTags });
 
@@ -196,6 +222,11 @@ export async function runScan(scanRequest) {
         durationMs: Date.now() - startedAt,
         axeCoreVersion: axeResult.axeCoreVersion,
         authenticated: Boolean(scanRequest.auth),
+        // Whether being signed in was actually confirmed, not just requested.
+        // A report with authenticated:true and authVerified:false may be an
+        // audit of a login page.
+        authVerified:  authCheck?.checked ?? false,
+        authCheckedVia: authCheck?.via ?? null,
         navigationAttempts,
         warnings,
       },
@@ -278,3 +309,6 @@ export { captureScreenshot } from './screenshot.js';
 export { computeBoundingBoxes } from './bbox.js';
 export { retryWithBackoff, isTransientNetworkError } from './retry.js';
 export { captureAuth, runAuthInContext, AuthError } from './auth/index.js';
+export { assertAuthenticated, looksLikeLoginUrl } from './auth/preflight.js';
+export { loadSessionState, isStale, sessionAgeMs } from './auth/session.js';
+export { captureSessionStorage, applySessionStorage } from './auth/_shared.js';

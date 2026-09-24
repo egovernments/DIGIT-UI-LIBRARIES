@@ -34,6 +34,7 @@ import {
   waitForReady,
   captureScreenshot,
   computeBoundingBoxes,
+  assertAuthenticated,
 } from '@digit-a11y/scanner';
 import { collectInPage, probeState } from './page-scripts.js';
 
@@ -158,6 +159,20 @@ async function returnToBase(page, url, opts) {
   }
 }
 
+/**
+ * Turn the scanner's throw-on-unauthenticated check into a reason string.
+ *
+ * @returns {Promise<string|null>} null when authenticated
+ */
+async function authFailureReason(page, authConfig, url) {
+  try {
+    await assertAuthenticated(page, authConfig, url, { timeoutMs: 8_000 });
+    return null;
+  } catch (err) {
+    return err.message.split('.')[0];
+  }
+}
+
 async function explorePage(page, url, opts, seenStates, readySelector, pageIndex = 0) {
   const states = [];
   let screenshot;
@@ -176,6 +191,28 @@ async function explorePage(page, url, opts, seenStates, readySelector, pageIndex
       candidates: cands.length,
       states,
     };
+  }
+
+  // Authentication check. The `redirected` branch above already catches a
+  // bounce to a login page on a different path, which is the common shape.
+  // This catches the one it can't see: an SPA that renders its login form at
+  // the same URL. Scanning that would score the login screen and call it the
+  // protected page.
+  //
+  // Marked per page rather than thrown: one page failing shouldn't discard a
+  // 50-page crawl, and the status makes the reason visible in the report.
+  if (opts.authConfig) {
+    const unauthReason = await authFailureReason(page, opts.authConfig, url);
+    if (unauthReason) {
+      return {
+        url,
+        loadStatus: 'unauthenticated',
+        landed,
+        candidates: cands.length,
+        states,
+        authReason: unauthReason,
+      };
+    }
   }
 
   // base page
@@ -291,6 +328,9 @@ export async function runExploration(request = {}) {
   const { urls = [], auth, manualLogin = false, waitForEnter, onProgress, scanId } = request;
   const opts = { ...DEFAULTS, ...(request.options ?? {}) };
   opts.scanId = scanId ?? null; // base id for per-page screenshot artifact dirs
+  // Carried so each page can confirm the shared session is still signed in.
+  // Manual login has no config to check against, so it stays unset there.
+  opts.authConfig = manualLogin ? null : (auth ?? null);
   if (!Array.isArray(urls) || urls.length === 0) {
     throw new Error('runExploration: request.urls must be a non-empty array');
   }

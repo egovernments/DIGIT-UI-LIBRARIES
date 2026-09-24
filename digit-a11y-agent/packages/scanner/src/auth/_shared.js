@@ -51,6 +51,64 @@ export async function waitForSuccessIndicator(page, cfg, timeoutMs) {
 }
 
 /**
+ * Read the page's sessionStorage.
+ *
+ * Playwright's `storageState()` captures cookies + localStorage ONLY —
+ * sessionStorage is never included. SPAs that park their auth state there
+ * (DIGIT Studio keeps 9 keys, including `Digit.initData` and `Digit.User`)
+ * therefore look logged out the moment that state is replayed into a fresh
+ * context. Capturing it here is what makes `contextStrategy: 'reuse'` work
+ * for those sites.
+ *
+ * @param {import('playwright').Page} page
+ * @returns {Promise<Record<string,string>>} empty if unreadable
+ */
+export async function captureSessionStorage(page) {
+  try {
+    return await page.evaluate(() => {
+      const out = {};
+      for (let i = 0; i < sessionStorage.length; i++) {
+        const k = sessionStorage.key(i);
+        out[k] = sessionStorage.getItem(k);
+      }
+      return out;
+    });
+  } catch {
+    // Non-same-origin, page closed, or storage blocked — never fail auth over it.
+    return {};
+  }
+}
+
+/**
+ * Replay sessionStorage into a context, for every page and every navigation.
+ *
+ * Must be an init script rather than a one-off `evaluate`: sessionStorage is
+ * per-origin-per-tab and is wiped on cross-document navigation, so the values
+ * have to be re-seeded before the app's own scripts run on each load.
+ *
+ * Note this re-seeds the captured values on every navigation, so an app that
+ * rewrites these keys mid-session will see them reset. That is the right
+ * trade-off for a scanner (it keeps the session alive across a crawl) but it
+ * is not general-purpose session emulation.
+ *
+ * @param {import('playwright').BrowserContext} context
+ * @param {Record<string,string>} [entries]
+ */
+export async function applySessionStorage(context, entries) {
+  if (!entries || Object.keys(entries).length === 0) return;
+
+  await context.addInitScript((json) => {
+    try {
+      for (const [k, v] of Object.entries(JSON.parse(json))) {
+        sessionStorage.setItem(k, v);
+      }
+    } catch {
+      // about:blank and opaque origins have no usable sessionStorage.
+    }
+  }, JSON.stringify(entries));
+}
+
+/**
  * Best-effort dismissal of pre-login popups (cookie banners, announcement
  * modals, "what's new" overlays). Each selector is clicked if present and
  * ignored if not — never fails the auth flow on a missing dismiss target.

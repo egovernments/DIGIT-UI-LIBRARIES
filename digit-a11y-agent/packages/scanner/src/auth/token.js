@@ -25,7 +25,7 @@
 
 import { createContext, closeContext } from '../browser.js';
 import { AuthError } from './index.js';
-import { waitForSuccessIndicator } from './_shared.js';
+import { waitForSuccessIndicator, captureSessionStorage } from './_shared.js';
 
 const DEFAULT_TIMEOUTS = {
   navigation: 30_000,
@@ -79,6 +79,21 @@ export async function captureTokenAuth(browser, authConfig) {
       }
     }
 
+    // ── 2b. Inject sessionStorage ─────────────────────────────────────────
+    // Required for SPAs that keep auth state in sessionStorage rather than
+    // localStorage — DIGIT Studio parks 9 keys there (Digit.initData,
+    // Digit.User, Digit.Employee.tenantId, …) and redirects to login without them.
+    if (authConfig.sessionStorage && Object.keys(authConfig.sessionStorage).length > 0) {
+      try {
+        await page.evaluate((kv) => {
+          for (const [k, v] of Object.entries(kv)) sessionStorage.setItem(k, v);
+        }, authConfig.sessionStorage);
+      } catch (err) {
+        throw new AuthError('AUTH_TOKEN_INJECTION_FAILED',
+          `Could not write to sessionStorage on ${authConfig.loginUrl}: ${err.message}`);
+      }
+    }
+
     // ── 3. Inject cookies (optional — for HttpOnly session cookies) ──────
     if (authConfig.cookies?.length) {
       try {
@@ -109,7 +124,11 @@ export async function captureTokenAuth(browser, authConfig) {
     }
 
     // ── 5. Capture state ──────────────────────────────────────────────────
-    return await context.storageState();
+    // storageState omits sessionStorage; carry it alongside so the scan
+    // context can replay it. See _shared.js#captureSessionStorage.
+    const state = await context.storageState();
+    state._sessionStorage = await captureSessionStorage(page);
+    return state;
 
   } finally {
     await closeContext(context);
@@ -123,12 +142,13 @@ export async function captureTokenAuth(browser, authConfig) {
 function validateTokenConfig(cfg) {
   const hasToken = cfg.token && cfg.tokenStorageKey;
   const hasLocalStore = cfg.localStorage && Object.keys(cfg.localStorage).length > 0;
+  const hasSessionStore = cfg.sessionStorage && Object.keys(cfg.sessionStorage).length > 0;
   const hasCookies = cfg.cookies && cfg.cookies.length > 0;
 
-  if (!hasToken && !hasLocalStore && !hasCookies) {
+  if (!hasToken && !hasLocalStore && !hasSessionStore && !hasCookies) {
     throw new AuthError('INVALID_AUTH_CONFIG',
-      'Token auth requires either (token + tokenStorageKey) for localStorage, ' +
-      'or cookies[] for cookie-based session tokens, or both.');
+      'Token auth requires at least one of: (token + tokenStorageKey), ' +
+      'a localStorage map, a sessionStorage map, or cookies[].');
   }
 
   if (cfg.token && !cfg.tokenStorageKey) {
@@ -182,6 +202,17 @@ export async function runTokenAuthInPage(page, context, authConfig) {
     } catch (err) {
       throw new AuthError('AUTH_TOKEN_INJECTION_FAILED',
         `Could not write to localStorage: ${err.message}`);
+    }
+  }
+
+  if (authConfig.sessionStorage && Object.keys(authConfig.sessionStorage).length > 0) {
+    try {
+      await page.evaluate((kv) => {
+        for (const [k, v] of Object.entries(kv)) sessionStorage.setItem(k, v);
+      }, authConfig.sessionStorage);
+    } catch (err) {
+      throw new AuthError('AUTH_TOKEN_INJECTION_FAILED',
+        `Could not write to sessionStorage: ${err.message}`);
     }
   }
 

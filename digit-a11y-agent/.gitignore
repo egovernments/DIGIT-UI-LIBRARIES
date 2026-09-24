@@ -34,3 +34,10 @@ playwright-report/
 artifacts/
 screenshots/
 scan-output/
+
+# Captured browser sessions (bin/capture-session.mjs).
+# These are live credentials — they sign in as the user with no password and
+# no MFA. Never commit one.
+session.json
+*.session.json
+sessions/

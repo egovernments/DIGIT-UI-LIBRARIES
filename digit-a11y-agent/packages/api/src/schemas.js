@@ -46,6 +46,10 @@ const formAuthSchema = z.object({
   submitSelector:   z.string().min(1),
   successUrl:       z.string().optional(),
   successSelector:  z.string().optional(),
+  // Preflight: checked on the scan target after navigation, not on the login
+  // page. Without it the scan falls back to a login-page heuristic.
+  authedSelector:   z.string().optional(),
+  skipPreflight:    z.boolean().optional(),
   timeouts:         timeoutsSchema,
 }).refine(
   (a) => Boolean(a.successUrl) || Boolean(a.successSelector),
@@ -59,16 +63,50 @@ const tokenAuthSchema = z.object({
   token:            z.string().min(1).optional(),
   tokenStorageKey:  z.string().min(1).optional(),
   localStorage:     z.record(z.string(), z.string()).optional(),
+  // SPAs that park auth state in sessionStorage (DIGIT Studio) need these too —
+  // Playwright's storageState cannot carry them.
+  sessionStorage:   z.record(z.string(), z.string()).optional(),
   cookies:          z.array(cookieSchema).optional(),
   successUrl:       z.string().optional(),
   successSelector:  z.string().optional(),
+  authedSelector:   z.string().optional(),
+  skipPreflight:    z.boolean().optional(),
   timeouts:         timeoutsSchema,
 }).refine(
-  (a) => Boolean(a.token && a.tokenStorageKey) || Boolean(a.localStorage) || Boolean(a.cookies?.length),
-  { message: 'Token auth needs either token+tokenStorageKey, a localStorage map, or cookies' },
+  (a) => Boolean(a.token && a.tokenStorageKey) || Boolean(a.localStorage)
+      || Boolean(a.sessionStorage) || Boolean(a.cookies?.length),
+  { message: 'Token auth needs token+tokenStorageKey, a localStorage map, a sessionStorage map, or cookies' },
 );
 
-const authSchema = z.union([formAuthSchema, tokenAuthSchema]);
+/**
+ * Saved-session auth. The flow-agnostic path: a human logs in once (any flow,
+ * including OTP and SSO) and the captured session is replayed.
+ *
+ * Only inline `state` is accepted over HTTP — `sessionPath` is deliberately
+ * not exposed, because letting an API caller name a file on the server's disk
+ * is an arbitrary-file-read. The CLI supports paths; the API does not.
+ */
+const sessionAuthSchema = z.object({
+  type:            z.literal('session'),
+  contextStrategy: z.enum(['reuse', 'single']).optional(),
+  loginUrl:        z.string().url().optional(),
+  state: z.object({
+    cookies:         z.array(cookieSchema).optional(),
+    origins:         z.array(z.object({
+      origin:       z.string(),
+      localStorage: z.array(z.object({ name: z.string(), value: z.string() })).optional(),
+    })).optional(),
+    _sessionStorage: z.record(z.string(), z.string()).optional(),
+    sessionStorage:  z.record(z.string(), z.string()).optional(),
+    _capturedAt:     z.string().optional(),
+    _capturedFrom:   z.string().optional(),
+  }),
+  authedSelector:  z.string().optional(),
+  skipPreflight:   z.boolean().optional(),
+  timeouts:        timeoutsSchema,
+});
+
+const authSchema = z.union([formAuthSchema, tokenAuthSchema, sessionAuthSchema]);
 
 /* ───────────────────────── ScanOptions sub-schema ──────────────────────── */
 

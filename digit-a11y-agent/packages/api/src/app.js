@@ -32,6 +32,7 @@ import { errorHandler } from './middleware/error-handler.js';
 import { healthRouter } from './routes/health.js';
 import { scanRouter } from './routes/scan.js';
 import { siteRouter } from './routes/site.js';
+import { sessionRouter } from './routes/session.js';
 import { NotFound } from './errors.js';
 
 export function createApp() {
@@ -67,6 +68,9 @@ export function createApp() {
   // Protected (auth only enforced when API_KEY is set).
   app.use(`${base}/api/scan`, apiKeyMiddleware, scanRouter);
   app.use(`${base}/api/site`, apiKeyMiddleware, siteRouter);
+  // Opens a real browser window on this host and hands back the session a
+  // human logs into. Key-protected like the rest — it spawns processes.
+  app.use(`${base}/api/session`, apiKeyMiddleware, sessionRouter);
 
   // 404 for any unmatched ${base}/api/* path
   app.use(`${base}/api`, (req, _res, next) => {

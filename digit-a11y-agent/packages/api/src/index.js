@@ -9,6 +9,7 @@
 import { config, assertConfigValid } from './config.js';
 import { logger } from './logger.js';
 import { createApp } from './app.js';
+import { sessionCaptureStore } from './store/session-captures.js';
 
 assertConfigValid();
 
@@ -31,6 +32,8 @@ const server = app.listen(config.port, config.host, () => {
 /* Graceful shutdown so Ctrl-C / Docker SIGTERM closes cleanly. */
 const shutdown = (signal) => {
   logger.info({ signal }, 'Shutdown signal received, closing server');
+  // Any in-flight login windows would otherwise outlive the process.
+  sessionCaptureStore.closeAll().catch(() => {});
   server.close((err) => {
     if (err) {
       logger.error({ err }, 'Error during shutdown');
