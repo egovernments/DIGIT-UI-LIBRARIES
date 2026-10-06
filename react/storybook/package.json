@@ -47,10 +47,10 @@
     "webpack-cli": "^6.0.1"
   },
   "dependencies": {
-    "@egovernments/digit-ui-components": "2.0.0-dev-66",
+    "@egovernments/digit-ui-components": "2.0.0-dev-67",
     "@egovernments/digit-ui-components-css": "2.0.0-dev-14",
     "@egovernments/digit-ui-libraries": "2.0.0-dev-16",
-    "@egovernments/digit-ui-svg-components": "2.0.0-dev-08",
+    "@egovernments/digit-ui-svg-components": "2.0.0-dev-10",
     "react-data-table-component": "7.6.2",
     "react-datepicker": "^8.7.0",
     "react-drag-drop-files": "2.3.10",
