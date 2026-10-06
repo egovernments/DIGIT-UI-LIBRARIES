@@ -259,6 +259,7 @@ import { Extension } from "./svg/Extension";
 import { Face } from "./svg/Face";
 import { Facebook } from "./svg/Facebook";
 import { FactCheck } from "./svg/FactCheck";
+import { FactCheckOutline } from "./svg/FactCheckOutline";
 import { Fastfood } from "./svg/Fastfood";
 import { Favorite } from "./svg/Favorite";
 import { FavoriteBorder } from "./svg/FavoriteBorder";
@@ -1120,6 +1121,7 @@ export {
   Face,
   Facebook,
   FactCheck,
+  FactCheckOutline,
   Fastfood,
   Favorite,
   FavoriteBorder,
