@@ -844,7 +844,7 @@ import { ChecklistIllustration } from "./svg/ChecklistIllustration";
 import { NotificationIllustration } from "./svg/NotificationIllustration";
 import { EmptyFormIllustration } from "./svg/EmptyFormIllustration";
 import { Devices } from "./svg/Devices";
-import { Workflowillustration } from "./svg/Workflowillustration";
+import { WorkflowIllustration } from "./svg/Workflowillustration";
 import { Version } from "./svg/Version";
 import { ServicePreviewIcon } from "./svg/ServicePreviewIcon";
 import { UndrawPeopleSearch } from "./svg/UndrawPeopleSearch";
@@ -1698,7 +1698,7 @@ export {
   ChecklistIllustration,
   NotificationIllustration,
   Devices,
-  Workflowillustration,
+  WorkflowIllustration,
   EmptyFormIllustration,
   Version,
   ServicePreviewIcon,
