@@ -1,3 +1,7 @@
+import React from "react";
+import PropTypes from "prop-types";
+import { COLOR_FILL } from "./constants";
+
 export const Palette = ({
   className,
   height = "24",
