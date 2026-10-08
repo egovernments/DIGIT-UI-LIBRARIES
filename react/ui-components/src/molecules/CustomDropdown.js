@@ -131,6 +131,7 @@ const CustomDropdown = ({ t, config, inputRef, label, onChange, id, value, error
                 );
               }}
               selected={value || []}
+              t={t}
               defaultLabel={t(config?.defaultText)}
               defaultUnit={t(config?.selectedText)}
               config={config}

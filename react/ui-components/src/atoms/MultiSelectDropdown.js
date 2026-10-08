@@ -21,6 +21,7 @@ const MultiSelectDropdown = ({
   isPropsNeeded = false,
   ServerStyle = {},
   config,
+  t: customT,
   disabled,
   variant,
   addSelectAllCheck = false,
@@ -51,7 +52,8 @@ const MultiSelectDropdown = ({
   const dropdownRef = useRef();
   const isInitialMount = useRef(true);
   const closedByScrollRef = useRef(false);
-  const { t } = useTranslation();
+  const { t: i18nT } = useTranslation();
+  const t = customT || i18nT; // consuming custom translation function if provided, otherwise use i18nT
 
   // Generate unique ID for tracking (single source of truth)
   // ID Pattern: screenPath + composerType + composerId + sectionId + name + type

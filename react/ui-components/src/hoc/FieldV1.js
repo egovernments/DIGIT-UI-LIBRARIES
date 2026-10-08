@@ -251,6 +251,7 @@ const FieldV1 = ({
         return (
           <div style={{ display: "grid", gridAutoFlow: "row", width: "100%" }}>
             <MultiSelectDropdown
+              t={t}
               options={populators?.options}
               optionsKey={populators?.optionsKey}
               chipsKey={populators?.chipsKey}
