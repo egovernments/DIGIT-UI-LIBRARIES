@@ -59,8 +59,9 @@ const CheckBox = ({
             className={`label ${props?.labelClassName} `}
             style={{ maxWidth: "100%", width: "auto", marginRight: "0rem" }}
             onClick={props?.onLabelClick}
-            tabIndex={0}
-            role={"button"}
+            // No role / tabIndex: <label> does not permit a role (axe aria-allowed-role) and the
+            // associated checkbox input is already the focusable control. The key handler is kept
+            // for callers that pass their own focusable label content.
             onKeyDown={(e) => {
               if (e.key === "Enter" || e.key === " ") {
                 e.preventDefault();
@@ -143,8 +144,9 @@ const CheckBox = ({
             className={`label ${props?.labelClassName} `}
             style={{ maxWidth: "100%", width: "100%", marginRight: "0rem" }}
             onClick={props?.onLabelClick}
-            tabIndex={0}
-            role={"button"}
+            // No role / tabIndex: <label> does not permit a role (axe aria-allowed-role) and the
+            // associated checkbox input is already the focusable control. The key handler is kept
+            // for callers that pass their own focusable label content.
             onKeyDown={(e) => {
               if (e.key === "Enter" || e.key === " ") {
                 e.preventDefault();

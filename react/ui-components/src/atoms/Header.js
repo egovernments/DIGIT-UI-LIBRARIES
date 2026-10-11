@@ -54,6 +54,7 @@ const Header = ({
       <div
         className={`digit-topbar ${className || ""} ${theme || ""}`}
         style={style}
+        role="banner"
       >
         <Hamburger
           className={`digit-topbar-hamburger ${theme || ""} ${
@@ -84,6 +85,9 @@ const Header = ({
     <div
       className={`digit-topbar ${className || ""} ${theme || ""}`}
       style={style}
+      // banner landmark: the top bar is the page header, otherwise its logo / image sit
+      // outside every landmark (axe region)
+      role="banner"
     >
       {!setImageToLeft && (
         <div className="digit-logo-ulb-wrapper">
