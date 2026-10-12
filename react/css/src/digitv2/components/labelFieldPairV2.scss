@@ -42,6 +42,11 @@
        margin-top: var(--digitv2-spacers-spacer0);
      }
 
+     &.digit-formcomposer-fieldpair-textinput{
+        gap: var(--digitv2-spacers-spacer1);
+        width: 100%;
+     }
+
    }
 
    & .label,
@@ -70,6 +75,9 @@
    &.digit-formcomposer-fieldpair{
     width: 100%;
    }
+   &.digit-formcomposer-fieldpair-textinput{
+    width: 100%;
+  }
  }
 
  @screen dt {

@@ -325,7 +325,7 @@ const TextInput = (props) => {
     ? {
         removeMargin: true,
         vertical: props?.populators?.alignFieldPairVerically,
-        className: `digit-formcomposer-fieldpair ${props?.populators?.fieldPairClassName || ""}`,
+        className: `digit-formcomposer-fieldpair-textinput ${props?.populators?.fieldPairClassName || ""}`,
       }
     : {};
   const FieldBox = showVisibleLabel ? "div" : React.Fragment;
