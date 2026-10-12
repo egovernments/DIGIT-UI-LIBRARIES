@@ -13,7 +13,47 @@ Axios.interceptors.response.use(
     const isEmployee = window.location.pathname.split("/").includes("employee");
     if (err?.response?.data?.Errors) {
       for (const error of err.response.data.Errors) {
-        if (error.message.includes("InvalidAccessTokenException")) {
+        /**
+         * The IdP ID token is missing or expired (401, code "sso.id_token.missing").
+         *
+         * Matched on `code`, not `message`, because the message is prose the gateway may
+         * reword, and checked first so an error carrying no `message` cannot throw on the
+         * branches below before reaching here.
+         *
+         * The DIGIT access token can still be perfectly valid in this state, so none of the
+         * existing branches matched and the request simply failed: the user stayed "logged
+         * in" on a page where every call 401s, with nothing on screen to explain it. The ID
+         * token's cookie carries Max-Age from the token's own `exp`, so this is the ordinary
+         * end state of a session left open, not an edge case.
+         *
+         * Two deliberate differences from the InvalidAccessTokenException branch below:
+         *   - the per-tenant language preferences are kept. They are meant to survive a
+         *     logout, and a blanket localStorage.clear() would drop them.
+         *   - the user is returned to the deployment they logged IN through. Where tenants
+         *     are separate deployments on one origin, that is not this contextPath.
+         */
+        if (error?.code?.startsWith("sso.id_token.")) {
+          const source = localStorage.getItem("login.source") || window?.contextPath;
+          const preservedLanguages = {};
+          try {
+            for (let i = 0; i < localStorage.length; i++) {
+              const key = localStorage.key(i);
+              if (key && key.startsWith("Digit.locale.")) preservedLanguages[key] = localStorage.getItem(key);
+            }
+          } catch (e) {
+            /* a lost preference just means the default is used next time */
+          }
+          localStorage.clear();
+          sessionStorage.clear();
+          try {
+            Object.entries(preservedLanguages).forEach(([key, value]) => localStorage.setItem(key, value));
+          } catch (e) {
+            /* ignore */
+          }
+          window.location.href =
+            (isEmployee ? `/${source}/employee/user/login` : `/${source}/citizen/login`) +
+            `?from=${encodeURIComponent(window.location.pathname + window.location.search)}`;
+        } else if (error.message.includes("InvalidAccessTokenException")) {
           localStorage.clear();
           sessionStorage.clear();
           window.location.href =
