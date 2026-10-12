@@ -784,7 +784,7 @@ const MultiSelectDropdown = ({
     }
 
     return (
-      <div role="listbox" aria-multiselectable="true">
+      <div role="listbox" aria-multiselectable="true" aria-label="Dropdown options">
         {selectAllOption}
         {optionsToRender?.map((option, index) => {
           if (option.options) {
@@ -855,6 +855,8 @@ const MultiSelectDropdown = ({
           aria-haspopup="listbox"
           aria-label={`Multi-select dropdown: ${defaultLabel}`}
           aria-owns="jk-dropdown-unique"
+          // aria-controls is required on an expanded combobox (axe aria-required-attr); it points at the open options container.
+          aria-controls={active ? "jk-dropdown-unique" : undefined}
           aria-describedby="dropdown-description"
         >
           <input

@@ -1,4 +1,4 @@
-import React,{Fragment} from "react";
+import React,{Fragment, useId} from "react";
 import { useTranslation } from "react-i18next";
 import { Controller } from "react-hook-form";
 import LabelFieldPair from "../atoms/LabelFieldPair";
@@ -21,6 +21,11 @@ import BoundaryFilter from "../hoc/BoundaryFilter";
 const RenderFormFields = ({ data, ...props }) => {
   const { t } = useTranslation();
   const { fields, control, formData, errors, register, setValue, getValues, setError, clearErrors, apiDetails } = props;
+  // Text-type fields render a plain <input>; link it to the visible <label> below via id/htmlFor (axe label).
+  // A <label> link has lower precedence than aria-label, so inputs that are already named keep their name.
+  const formUid = useId();
+  const TEXT_FIELD_TYPES = ["date", "text", "number", "password", "time", "geolocation", "search", "numeric"];
+  const textFieldId = (type, name) => (name && TEXT_FIELD_TYPES.includes(type) ? `${formUid}-${name}` : undefined);
 
   const fieldSelector = (type, populators, isMandatory, disable = false, component, config) => {
     const Component = typeof component === "string" ? Digit.ComponentRegistryService.getComponent(component) : component;
@@ -70,6 +75,7 @@ const RenderFormFields = ({ data, ...props }) => {
             render={({ field }) => (
               <TextInput
                 type={type}
+                id={textFieldId(type, populators?.name)}
                 value={field.value}
                 name={populators?.name}
                 onChange={field.onChange}
@@ -349,7 +355,7 @@ const RenderFormFields = ({ data, ...props }) => {
               {item.label && (
                 <HeaderComponent className={`label search-screen`}>
                   <div className={`label-container`}>
-                    <label className={`label-styles`}>
+                    <label className={`label-styles`} htmlFor={textFieldId(item?.type, item?.populators?.name)}>
                       {StringManipulator(
                         "TOSENTENCECASE",
                         StringManipulator("TRUNCATESTRING", t(item.label), {

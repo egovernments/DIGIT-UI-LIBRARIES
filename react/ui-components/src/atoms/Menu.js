@@ -52,6 +52,7 @@ const Menu = (props) => {
       ref={props?.ref}
       style={props?.style}
       role="listbox"
+      aria-label={props?.ariaLabel}
       aria-activedescendant={
         optionIndex >= 0 ? `option-${optionIndex}` : undefined
       }

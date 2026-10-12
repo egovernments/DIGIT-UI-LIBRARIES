@@ -133,6 +133,7 @@ const TextField = (props) => {
       role="combobox"
       aria-haspopup="listbox"
       aria-expanded={!!props.expanded}
+      aria-controls={props.ariaControls}
       aria-autocomplete={props.isSearchable ? "list" : "none"}
       aria-label={props.ariaLabel || undefined}
     />
@@ -462,6 +463,11 @@ const Dropdown = (props) => {
 
   const flattenedOptions = flattenOptions(filteredOption);
 
+  // Accessible name shared by the combobox input and its listbox (same text, so the listbox is named too: axe aria-input-field-name).
+  const comboboxLabel =
+    props?.ariaLabel ||
+    (props?.placeholder ? (props.t ? props.t(props.placeholder) : props.placeholder) : t("Select an option"));
+
   const renderOption = (option, index) => {
     const handleMouseDown = (e) => {
       if (e.button === 0) setIsActive(index);
@@ -476,7 +482,7 @@ const Dropdown = (props) => {
           props.variant ? props?.variant : ""
         } ${index === optionIndex ? "keyChange" : ""}`}
         key={index}
-        role="button"
+        role="option"
         onKeyDown={(e)=>{
           if (e.key=="Enter" || e.key==" "){
             onSelect(option)
@@ -677,10 +683,8 @@ const Dropdown = (props) => {
             variant={props?.variant}
             isSearchable={props?.isSearchable}
             expanded={dropdownStatus}
-            ariaLabel={
-              props?.ariaLabel ||
-              (props?.placeholder ? (props.t ? props.t(props.placeholder) : props.placeholder) : "Select an option")
-            }
+            ariaControls={dropdownStatus ? "jk-dropdown-unique" : undefined}
+            ariaLabel={comboboxLabel}
             autoComplete={props.autoComplete}
             setFilter={setFilter}
             forceSet={forceSet}
@@ -775,6 +779,7 @@ const Dropdown = (props) => {
             }}
             ref={optionRef}
             role="listbox"
+            aria-label={comboboxLabel}
           >
             {props.variant === "treedropdown" ? (
               <TreeSelect
@@ -800,6 +805,10 @@ const Dropdown = (props) => {
                   }`}
                   key={"-1"}
                   onClick={() => {}}
+                  // Same as MultiSelectDropdown: a listbox must contain options, so "no results" is a disabled option (axe aria-required-children).
+                  role="option"
+                  aria-selected="false"
+                  aria-disabled="true"
                 >
                   {<span> {t("NO_RESULTS_FOUND")}</span>}
                 </div>
@@ -826,6 +835,7 @@ const Dropdown = (props) => {
             id="jk-dropdown-unique"
             ref={optionRef}
             role="listbox"
+            aria-label={comboboxLabel}
           >
             {props.option
               ?.filter(
