@@ -604,6 +604,8 @@ const ResultsDataTableWrapper = ({
                 </div>
                 <div className="pagination custom-results">
                   <button
+                    type="button"
+                    aria-label={t("CS_COMMON_PREVIOUS_PAGE")}
                     onClick={
                       manualPagination
                         ? () => onPrevPage()
@@ -612,10 +614,13 @@ const ResultsDataTableWrapper = ({
                     disabled={currentPage === 1}
                   >
                     <SVG.ChevronLeft
+                      aria-hidden="true"
                       fill={currentPage === 1 ? "#C5C5C5" : "#363636"}
                     ></SVG.ChevronLeft>
                   </button>
                   <button
+                    type="button"
+                    aria-label={t("CS_COMMON_NEXT_PAGE")}
                     onClick={
                       manualPagination
                         ? () => onNextPage()
