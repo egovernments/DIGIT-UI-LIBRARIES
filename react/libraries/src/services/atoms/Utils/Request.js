@@ -7,6 +7,18 @@ import Axios from "axios";
  *
  */
 
+/**
+ * One SSO session-end per page load, however many requests fail together.
+ *
+ * The interceptor runs once per failing RESPONSE, and a screen that fans out several calls
+ * (a dashboard especially) gets them all back as 401s at once. Without this latch the second
+ * handler runs after the first has already cleared storage, reads login.source as gone, and
+ * falls back to the current contextPath - sending the user to whichever deployment they were
+ * on instead of the one they logged in through. The later assignment to window.location wins,
+ * so the wrong destination is the one that sticks.
+ */
+let ssoSessionEnded = false;
+
 Axios.interceptors.response.use(
   (res) => res,
   (err) => {
@@ -33,12 +45,21 @@ Axios.interceptors.response.use(
          *     are separate deployments on one origin, that is not this contextPath.
          */
         if (error?.code?.startsWith("sso.id_token.")) {
+          /* A sibling request already started this; do not clear and redirect twice. */
+          if (ssoSessionEnded) break;
+          ssoSessionEnded = true;
+
           const source = localStorage.getItem("login.source") || window?.contextPath;
-          const preservedLanguages = {};
+          const preserved = {};
           try {
             for (let i = 0; i < localStorage.length; i++) {
               const key = localStorage.key(i);
-              if (key && key.startsWith("Digit.locale.")) preservedLanguages[key] = localStorage.getItem(key);
+              if (!key) continue;
+              /* Digit.locale.* : per-tenant languages, meant to outlive a logout.
+                 login.source  : kept so a concurrent handler that slips past the latch still
+                                 resolves the right deployment rather than falling back to
+                                 contextPath. */
+              if (key.startsWith("Digit.locale.") || key === "login.source") preserved[key] = localStorage.getItem(key);
             }
           } catch (e) {
             /* a lost preference just means the default is used next time */
@@ -46,7 +67,7 @@ Axios.interceptors.response.use(
           localStorage.clear();
           sessionStorage.clear();
           try {
-            Object.entries(preservedLanguages).forEach(([key, value]) => localStorage.setItem(key, value));
+            Object.entries(preserved).forEach(([key, value]) => localStorage.setItem(key, value));
           } catch (e) {
             /* ignore */
           }
