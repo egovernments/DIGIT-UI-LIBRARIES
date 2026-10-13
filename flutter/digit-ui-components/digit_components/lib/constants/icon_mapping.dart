@@ -450,6 +450,7 @@ class DigitIconMapping {
     'MyLocation': Icons.my_location,
     'Nat': Icons.nat,
     'Navigation': Icons.navigation,
+    'NaturePeople':Icons.nature_people,
     'NearMe': Icons.near_me,
     'NearMeDisabled': Icons.near_me_disabled,
     'NextPlan': Icons.next_plan,
