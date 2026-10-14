@@ -16,7 +16,8 @@ const CollapseAndExpandGroups = ({ children, groupElements = false, groupHeader 
 
   return (
     <div className={groupElements ? `digit-expand-collapse-wrapper ${customClass}` : `${customClass}`}>
-      {groupHeader && <header style={{ marginBottom: "0px", fontSize: "24px" }}>{t(groupHeader)}</header>}
+      {/* Not <header>: that would be an implicit banner landmark per group. */}
+      {groupHeader && <div style={{ marginBottom: "0px", fontSize: "24px" }}>{t(groupHeader)}</div>}
       {groupElements && (
         <div className="digit-expand-collapse-header">
           <span className="label">{headerLabel}</span>

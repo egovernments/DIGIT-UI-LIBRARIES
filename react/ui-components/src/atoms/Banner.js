@@ -15,7 +15,9 @@ const Successful = (props) => {
       }`}
       style={props?.props?.style ? props?.props?.style : {}}
     >
-      <header style={props?.props?.headerStyles ? props?.props?.headerStyles : {}}>{props.props.message}</header>
+      {/* Not <header>: outside a section/article that is an implicit banner landmark, and this
+          sits in page content alongside the real top bar (axe landmark-no-duplicate-banner). */}
+      <div style={props?.props?.headerStyles ? props?.props?.headerStyles : {}}>{props.props.message}</div>
       <div>
         {props.props.whichSvg === "tick" ? (
           <div>
@@ -63,7 +65,9 @@ const Error = (props) => {
       className={`${user_type === "citizen" ? "digit-banner-error-wrap" : "digit-banner-emp-error-wrap"} ${props?.className ? props?.className : ""}`}
       style={props?.props?.style ? props?.props?.style : {}}
     >
-      <header style={props?.props?.headerStyles ? props?.props?.headerStyles : {}}>{props.props.message}</header>
+      {/* Not <header>: outside a section/article that is an implicit banner landmark, and this
+          sits in page content alongside the real top bar (axe landmark-no-duplicate-banner). */}
+      <div style={props?.props?.headerStyles ? props?.props?.headerStyles : {}}>{props.props.message}</div>
       <SVG.Error />
       <h2 style={props?.props?.infoStyles ? props?.props?.infoStyles : {}}>
         {props?.props?.complaintNumber ? t("CS_PGR_COMPLAINT_NUMBER") : props.props.info}

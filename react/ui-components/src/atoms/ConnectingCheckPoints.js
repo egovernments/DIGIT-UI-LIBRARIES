@@ -5,11 +5,12 @@ export const CheckPoint = (props) => {
   return (
     <div className={props.isCompleted ? `digit-checkpoint-done ${props?.customClassName || ""}` : `digit-checkpoint ${props?.customClassName || ""}`} key={props.keyValue}>
       <h2></h2>
-      <header>
+      {/* Not <header>: that would be an implicit banner landmark on every checkpoint. */}
+      <div>
         {props.label}
         {props.info ? <p>{props.info}</p> : null}
         {props.customChild ? props.customChild : null}
-      </header>
+      </div>
     </div>
   );
 };

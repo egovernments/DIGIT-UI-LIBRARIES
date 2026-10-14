@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useId } from "react";
 import { createPortal } from "react-dom";
 import { SVG } from "./SVG";
 import TreeSelect from "./TreeSelect";
@@ -9,6 +9,7 @@ import { Colors } from "../constants/colors/colorconstants";
 import { iconRender } from "../utils/iconRender";
 import { getUserType } from "../utils/digitUtils";
 import StringManipulator from "./StringManipulator";
+import FieldWithVisibleLabel from "./FieldWithVisibleLabel";
 
 const TextField = (props) => {
   const [value, setValue] = useState(
@@ -468,6 +469,14 @@ const Dropdown = (props) => {
     props?.ariaLabel ||
     (props?.placeholder ? (props.t ? props.t(props.placeholder) : props.placeholder) : t("Select an option"));
 
+  // Opt-in visible label (`label` + `showLabel`), same as TextInput/FieldV1. Only for the input-based variants.
+  // The visible <label> then names the input and the listbox, so the fallback aria-label is not set in that mode.
+  const showVisibleLabel = !!(props?.showLabel && props?.label && !hasCustomSelector && !props?.profilePic);
+  const uniqueSuffix = useId();
+  const inputId = showVisibleLabel ? props?.id || `${fieldId}-${uniqueSuffix}` : fieldId;
+  const visibleLabelId = `${inputId}-label`;
+  const listboxNameProps = showVisibleLabel ? { "aria-labelledby": visibleLabelId } : { "aria-label": comboboxLabel };
+
   const renderOption = (option, index) => {
     const handleMouseDown = (e) => {
       if (e.button === 0) setIsActive(index);
@@ -608,6 +617,16 @@ const Dropdown = (props) => {
     });
   };
   return (
+    <FieldWithVisibleLabel
+      show={showVisibleLabel}
+      label={props.label}
+      labelId={visibleLabelId}
+      htmlFor={inputId}
+      required={props.required}
+      disabled={props.disabled}
+      populators={props?.populators}
+      t={t}
+    >
     <div
       className={`${
         user_type === "employee"
@@ -624,6 +643,9 @@ const Dropdown = (props) => {
           ref={selectorRef}
           role="button"
           aria-expanded={menuStatus}
+          // Without this the trigger is named by whatever it renders - for a profilePic that is a
+          // single initial, which tells a screen reader nothing. Callers pass a real name instead.
+          aria-label={props?.ariaLabel || undefined}
           tabIndex={0}
           onKeyDown={(e) => {
             if (e.key === "Enter" || e.key === " ") menuSwitch();
@@ -684,12 +706,12 @@ const Dropdown = (props) => {
             isSearchable={props?.isSearchable}
             expanded={dropdownStatus}
             ariaControls={dropdownStatus ? "jk-dropdown-unique" : undefined}
-            ariaLabel={comboboxLabel}
+            ariaLabel={showVisibleLabel ? props?.ariaLabel : comboboxLabel}
             autoComplete={props.autoComplete}
             setFilter={setFilter}
             forceSet={forceSet}
             setforceSet={setforceSet}
-            id={fieldId}
+            id={inputId}
             setOptionIndex={setOptionIndex}
             keepNull={props.keepNull}
             selectedVal={
@@ -759,6 +781,9 @@ const Dropdown = (props) => {
             showBottom={props?.showBottom}
             style={props?.menuStyles}
             className={props?.profilePic ? "underProfile" : ""}
+            // Name the open listbox the same way the input-based variants do, so the options
+            // list is not an unnamed field (axe aria-input-field-name). Matches Button's actionButton menu.
+            ariaLabel={props?.ariaLabel || comboboxLabel}
           />
         </div>
       )}
@@ -779,7 +804,7 @@ const Dropdown = (props) => {
             }}
             ref={optionRef}
             role="listbox"
-            aria-label={comboboxLabel}
+            {...listboxNameProps}
           >
             {props.variant === "treedropdown" ? (
               <TreeSelect
@@ -835,7 +860,7 @@ const Dropdown = (props) => {
             id="jk-dropdown-unique"
             ref={optionRef}
             role="listbox"
-            aria-label={comboboxLabel}
+            {...listboxNameProps}
           >
             {props.option
               ?.filter(
@@ -878,10 +903,13 @@ const Dropdown = (props) => {
         return dropdownContent;
       })()}
     </div>
+    </FieldWithVisibleLabel>
   );
 };
 
 Dropdown.propTypes = {
+  label: PropTypes.string, // used with showLabel
+  showLabel: PropTypes.bool, // opt-in: render `label` visibly (FieldV1 style) and link it to the input
   customSelector: PropTypes.any,
   showArrow: PropTypes.bool,
   selected: PropTypes.any,

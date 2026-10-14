@@ -175,8 +175,11 @@ const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullCon
   const renderHeader = () => {
     switch(uiConfig?.type) {
       case "filter" : {
+        // No role="banner" on the wrapper below: that landmark is for the page-level header (logo,
+        // top bar). A filter panel's own title bar is page content, and claiming banner here puts a
+        // second banner landmark on every inbox screen (axe landmark-no-duplicate-banner).
         return (
-          <div className="digit-filter-header-wrapper" role="banner">
+          <div className="digit-filter-header-wrapper">
             <div className="icon-filter"><CustomSVG.FilterIcon></CustomSVG.FilterIcon></div>
             <div className="label">{t(header)}</div>
             <div className="icon-refresh" onClick={handleFilterRefresh}

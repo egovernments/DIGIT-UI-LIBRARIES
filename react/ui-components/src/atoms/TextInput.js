@@ -9,8 +9,7 @@ import DatePicker from "react-datepicker";
 import { format } from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
 import "./SubmitBar.css";
-import HeaderComponent from "./HeaderComponent";
-import LabelFieldPair from "./LabelFieldPair";
+import FieldWithVisibleLabel from "./FieldWithVisibleLabel";
 
 const TextInput = (props) => {
   const { t: i18nT } = useTranslation();
@@ -319,38 +318,17 @@ const TextInput = (props) => {
   const inputAriaLabel = showVisibleLabel
     ? props?.ariaLabel
     : props?.label || props?.ariaLabel || (props.placeholder ? t(props.placeholder) : undefined);
-  // Same layout wrappers as FieldV1 (LabelFieldPair › label block + div.digit-field); plain Fragments otherwise.
-  const FieldPair = showVisibleLabel ? LabelFieldPair : React.Fragment;
-  const fieldPairProps = showVisibleLabel
-    ? {
-        removeMargin: true,
-        vertical: props?.populators?.alignFieldPairVerically,
-        className: `digit-formcomposer-fieldpair-textinput ${props?.populators?.fieldPairClassName || ""}`,
-      }
-    : {};
-  const FieldBox = showVisibleLabel ? "div" : React.Fragment;
-  const fieldBoxProps = showVisibleLabel ? { className: "digit-field" } : {};
-
   return (
-    <FieldPair {...fieldPairProps}>
-      {showVisibleLabel && (
-        <HeaderComponent
-          className={`label ${props.disabled ? "disabled" : ""} ${props.nonEditable ? "noneditable" : ""}`}
-        >
-          <div className="label-container">
-            <label htmlFor={labelledInputId} className="label-styles">
-              {StringManipulator(
-                "TOSENTENCECASE",
-                StringManipulator("TRUNCATESTRING", t(props.label), {
-                  maxLength: 64,
-                })
-              )}
-            </label>
-            <div style={{ color: "#B91900" }}>{props.required ? " * " : null}</div>
-          </div>
-        </HeaderComponent>
-      )}
-      <FieldBox {...fieldBoxProps}>
+    <FieldWithVisibleLabel
+      show={showVisibleLabel}
+      label={props.label}
+      htmlFor={labelledInputId}
+      required={props.required}
+      disabled={props.disabled}
+      nonEditable={props.nonEditable}
+      populators={props?.populators}
+      t={t}
+    >
       <div
         className={`digit-text-input-field ${
           user_type === "employee" ? "" : "digit-text-input-field-width"
@@ -750,8 +728,7 @@ const TextInput = (props) => {
           </div>
         )}
       </div>
-      </FieldBox>
-    </FieldPair>
+    </FieldWithVisibleLabel>
   );
 };
 
