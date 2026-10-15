@@ -12,7 +12,7 @@ const FieldWithVisibleLabel = ({ show, label, labelId, htmlFor, required, disabl
   return (
     <LabelFieldPair
       removeMargin={true}
-      vertical={populators?.alignFieldPairVerically}
+      vertical={populators?.alignFieldPairVertically}
       className={`digit-formcomposer-fieldpair-textinput ${populators?.fieldPairClassName || ""}`}
     >
       <HeaderComponent className={`label ${disabled ? "disabled" : ""} ${nonEditable ? "noneditable" : ""}`}>

@@ -613,7 +613,7 @@ const FieldV1 = ({
 
 
   return (
-    <LabelFieldPair removeMargin={true} vertical={populators?.alignFieldPairVerically} className={`digit-formcomposer-fieldpair ${populators?.fieldPairClassName}`}>
+    <LabelFieldPair removeMargin={true} vertical={populators?.alignFieldPairVertically} className={`digit-formcomposer-fieldpair ${populators?.fieldPairClassName}`}>
       {!withoutLabel && (
         <HeaderComponent
           className={`label ${disabled ? "disabled" : ""} ${nonEditable ? "noneditable" : ""
