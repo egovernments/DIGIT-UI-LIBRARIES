@@ -39,16 +39,12 @@ const Chip = ({
       className={`digit-tag-error-container ${
         !disabled && onTagClick ? "cp" : ""
       }`}
+      // Opening the chip and removing it are two separate actions, so they must be two separate
+      // controls. This wrapper stays a plain clickable container - as a role="button" it would
+      // contain the remove button and the error button (axe nested-interactive), and ARIA would
+      // discard their labels into its own name. The semantics live on the text below instead;
+      // the onClick stays here so clicking anywhere on the chip still opens it.
       onClick={disabled ? null : onTagClick}
-      role={onTagClick ? "button" : undefined}
-      tabIndex={onTagClick && !disabled ? 0 : undefined}
-      onKeyDown={(e) => {
-        if ((e.key === "Enter" || e.key === " ") && onTagClick && !disabled) {
-          e.preventDefault();
-          onTagClick(e);
-        }
-      }}
-      aria-label={onTagClick ? `${text} chip` : undefined}
       aria-disabled={disabled ? "true" : undefined}
     >
       <div
@@ -60,7 +56,22 @@ const Chip = ({
         aria-label={`${text}${isErrorTag ? " error" : ""} chip${!hideClose ? " with remove button" : ""}`}
       >
         {iconReq && IconRender(iconReq,isErrorTag)}
-        <span className="digit-text" style={textStyles}>
+        {/* The control that opens the chip. A sibling of the remove button below rather than its
+            ancestor, so neither sits inside the other. Still a span with the same class, so the
+            styling is untouched; the keyboard handler is the one moved off the wrapper. */}
+        <span
+          className="digit-text"
+          style={textStyles}
+          role={onTagClick ? "button" : undefined}
+          tabIndex={onTagClick && !disabled ? 0 : undefined}
+          onKeyDown={(e) => {
+            if ((e.key === "Enter" || e.key === " ") && onTagClick && !disabled) {
+              e.preventDefault();
+              onTagClick(e);
+            }
+          }}
+          aria-label={onTagClick ? `${text} chip` : undefined}
+        >
           {text}
         </span>
         {!hideClose && (
