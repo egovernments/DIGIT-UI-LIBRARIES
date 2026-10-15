@@ -83,6 +83,8 @@ const UploadFile = (props) => {
           ref={inpRef}
           type="file"
           id={props.id || `document-${getRandomId()}`}
+          // Same text as the visible "Choose file" button this input mirrors (axe label).
+          aria-label={t("CS_COMMON_CHOOSE_FILE")}
           name="file"
           multiple={props.multiple}
           accept={props.accept}

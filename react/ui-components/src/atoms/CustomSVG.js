@@ -1162,6 +1162,7 @@ const Ellipsis = ({ className, onClick,fill="#B1B4B6" ,width="4",height="16" }) 
     className={className}
     onClick={onClick}
     role={onClick ? "button" : "img"}
+    aria-label="More options"
     tabIndex={onClick ? 0 : undefined}
     onKeyDown={onClick ? (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
@@ -3569,6 +3570,7 @@ const PngFile = ({ className = "", fill = "none", style = {} ,width="34",height=
     className={className}
     onClick={onClick}
     role={onClick ? "button" : "img"}
+    aria-label="PNG File"
     tabIndex={onClick ? 0 : undefined}
     onKeyDown={onClick ? (e) => {
       if (e.key === 'Enter' || e.key === ' ') {

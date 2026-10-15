@@ -365,18 +365,19 @@ const InboxSearchComposer = ({configs,additionalConfig,onFormValueChange=()=>{},
                 </div>
               </MediaQuery>
             )}
-            {configs?.sections?.searchResult?.show && (
+            {configs?.sections?.searchResult?.show && (() => {
+              // The results table scrolls sideways but holds no focusable cells, so a keyboard user
+              // could not reach the columns past the fold (axe scrollable-region-focusable).
+              // Only make it a tab stop while it actually scrolls, so an unscrolled table adds none.
+              const isScrollable =
+                data?.[configs?.sections?.searchResult?.uiConfig?.resultsJsonPath]?.length > 0 && !(isLoading || isFetching);
+              return (
               <div
                 className={`digit-results-table-wrapper ${configs?.sections?.searchResult?.uiConfig?.resultsWrapperClassName}`}
-                style={
-                  data?.[
-                    configs?.sections?.searchResult?.uiConfig?.resultsJsonPath
-                  ]?.length > 0
-                    ? !(isLoading || isFetching)
-                      ? { overflowX: "auto" }
-                      : {}
-                    : {}
-                }
+                style={isScrollable ? { overflowX: "auto" } : {}}
+                tabIndex={isScrollable ? 0 : undefined}
+                role={isScrollable ? "region" : undefined}
+                aria-label={isScrollable ? t("CS_COMMON_SEARCH_RESULTS") : undefined}
               >
                 <MediaQuery minWidth={426}>
                   <ResultsDataTableWrapper
@@ -406,7 +407,8 @@ const InboxSearchComposer = ({configs,additionalConfig,onFormValueChange=()=>{},
                   />
                 </MediaQuery>
               </div>
-            )}
+              );
+            })()}
             {popup && (
               <PopUp>
                 {type === "FILTER" && (

@@ -52,6 +52,10 @@ const Menu = (props) => {
       ref={props?.ref}
       style={props?.style}
       role="listbox"
+      // A listbox must carry an accessible name (axe aria-input-field-name). Callers that have a
+      // label pass it as ariaLabel; the fallback keeps the unnamed case valid instead of silently
+      // rendering aria-label="undefined".
+      aria-label={props?.ariaLabel || t("CS_COMMON_OPTIONS")}
       aria-activedescendant={
         optionIndex >= 0 ? `option-${optionIndex}` : undefined
       }

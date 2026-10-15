@@ -134,7 +134,8 @@ const Button = (props) => {
       disabled={props?.isDisabled || null}
       title={props?.title || ""}
       style={props.style ? props.style : null}
-      aria-label={props?.ariaLabel || formattedLabel}
+      // Icon-only buttons fall back to their title so they are never nameless (axe button-name).
+      aria-label={props?.ariaLabel || formattedLabel || props?.title || undefined}
       aria-haspopup={props?.type === "actionButton" ? "menu" : undefined}
       aria-expanded={props?.type === "actionButton" ? dropdownStatus : undefined}
       {...dataAttributes}
@@ -145,7 +146,10 @@ const Button = (props) => {
         } ${props?.size ? props?.size : ""}`}
       >
         {!props?.isSuffix && props?.icon && icon}
-        <h2 style={{ ...props?.textStyles }} className="digit-button-label">
+        <h2 style={{ ...props?.textStyles }} className="digit-button-label"
+          // An icon-only button leaves this heading empty; drop its heading role then (axe empty-heading).
+          role={formattedLabel ? undefined : "none"}
+        >
           {formattedLabel}
         </h2>
         {props?.isSuffix && props?.icon && icon}
@@ -171,6 +175,7 @@ const Button = (props) => {
             onSelect={props?.onOptionSelect}
             showBottom={props?.showBottom}
             style={props?.menuStyles}
+            ariaLabel={props?.ariaLabel || formattedLabel || undefined}
           />
         </div>
       )}

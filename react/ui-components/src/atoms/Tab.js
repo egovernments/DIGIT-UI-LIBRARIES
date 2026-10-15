@@ -65,7 +65,6 @@ const Tab = ({
           {configNavItems?.map((item, index) => {
             const isActive = activeLink === item?.[configItemKey];
             const tabId = `tab-${item?.[configItemKey]}`;
-            const panelId = `tabpanel-${item?.[configItemKey]}`;
 
           return (
             <div
@@ -73,7 +72,7 @@ const Tab = ({
               className={`digit-tab-list ${isActive ? "active" : ""}`}
               role="tab"
               id={tabId}
-              aria-controls={panelId}
+              // No aria-controls: Tab renders no tabpanel element, so the reference would point at nothing (axe aria-valid-attr-value).
               aria-selected={isActive}
               tabIndex={isActive ? 0 : -1}
               onKeyDown={(e) => handleKeyDown(e, item)}

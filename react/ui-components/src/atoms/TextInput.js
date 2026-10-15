@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useState, useRef } from "react";
+import React, { forwardRef, useEffect, useState, useRef, useId } from "react";
 import PropTypes from "prop-types";
 import { SVG } from "./SVG";
 import StringManipulator from "./StringManipulator";
@@ -9,6 +9,7 @@ import DatePicker from "react-datepicker";
 import { format } from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
 import "./SubmitBar.css";
+import FieldWithVisibleLabel from "./FieldWithVisibleLabel";
 
 const TextInput = (props) => {
   const { t: i18nT } = useTranslation();
@@ -307,8 +308,27 @@ const TextInput = (props) => {
 
   const datePickerRef = useRef(null);
 
+  // Opt-in visible label, rendered the same way as FieldV1 (label linked to the input via htmlFor/id).
+  // Without `showLabel` the markup is unchanged.
+  const showVisibleLabel = !!(props?.showLabel && props?.label);
+  // Unique per instance: generated field ids repeat when several inputs share a `name` (e.g. inside a .map()).
+  const uniqueSuffix = useId();
+  const labelledInputId = props.id || `${fieldId}-${uniqueSuffix}`;
+  // aria-label would override the visible <label>, so in that mode only an explicit ariaLabel is used.
+  const inputAriaLabel = showVisibleLabel
+    ? props?.ariaLabel
+    : props?.label || props?.ariaLabel || (props.placeholder ? t(props.placeholder) : undefined);
   return (
-    <React.Fragment>
+    <FieldWithVisibleLabel
+      show={showVisibleLabel}
+      label={props.label}
+      htmlFor={labelledInputId}
+      required={props.required}
+      disabled={props.disabled}
+      nonEditable={props.nonEditable}
+      populators={props?.populators}
+      t={t}
+    >
       <div
         className={`digit-text-input-field ${
           user_type === "employee" ? "" : "digit-text-input-field-width"
@@ -323,7 +343,7 @@ const TextInput = (props) => {
         } `}
         style={props?.textInputStyle ? { ...props.textInputStyle } : {}}
         role="group"
-        aria-label={props?.label || props?.ariaLabel || (props.placeholder ? t(props.placeholder) : undefined)}
+        aria-label={inputAriaLabel}
         aria-describedby={props.error ? `${props.id || props.name}-error` : undefined}
       >
         {props.type === "date" && props?.populators?.newDateFormat ? (
@@ -332,6 +352,7 @@ const TextInput = (props) => {
             <div style={{ position: "relative", width: "100%" }}>
               <DatePicker
                 ref={datePickerRef}
+                id={showVisibleLabel ? labelledInputId : undefined}
                 selected={props?.value ? new Date(props.value) : null}
                 onChange={(date) => props?.onChange(date?.toISOString())}
                 placeholderText={StringManipulator(
@@ -427,7 +448,7 @@ const TextInput = (props) => {
                   : defaultType || "text"
               }
               name={props.name}
-              id={fieldId}
+              id={showVisibleLabel ? labelledInputId : fieldId}
               className={inputClassNameForMandatory}
               placeholder={StringManipulator(
                 "TOSENTENCECASE",
@@ -529,7 +550,7 @@ const TextInput = (props) => {
                   }
                 }
               }}
-              aria-label={props?.label || props?.ariaLabel || (props.placeholder ? t(props.placeholder) : undefined)}
+              aria-label={inputAriaLabel}
               aria-describedby={props.error ? `${props.id || props.name}-error` : undefined}
               aria-invalid={props.error ? "true" : "false"}
               aria-required="true"
@@ -566,7 +587,7 @@ const TextInput = (props) => {
                   : defaultType || "text"
               }
               name={props.name}
-              id={props.id}
+              id={showVisibleLabel ? labelledInputId : props.id}
               className={inputClassName}
               placeholder={StringManipulator(
                 "TOSENTENCECASE",
@@ -678,7 +699,7 @@ const TextInput = (props) => {
                   }
                 }
               }}
-              aria-label={props?.label || props?.ariaLabel || (props.placeholder ? t(props.placeholder) : undefined)}
+              aria-label={inputAriaLabel}
               aria-describedby={props.error ? `${props.id || props.name}-error` : undefined}
               aria-invalid={props.error ? "true" : "false"}
               aria-required={props.required ? "true" : "false"}
@@ -707,7 +728,7 @@ const TextInput = (props) => {
           </div>
         )}
       </div>
-    </React.Fragment>
+    </FieldWithVisibleLabel>
   );
 };
 
@@ -716,6 +737,7 @@ TextInput.propTypes = {
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
+  showLabel: PropTypes.bool, // opt-in: render `label` visibly (FieldV1 style) and link it to the input
   inputRef: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.shape({ current: PropTypes.instanceOf(Element) }),

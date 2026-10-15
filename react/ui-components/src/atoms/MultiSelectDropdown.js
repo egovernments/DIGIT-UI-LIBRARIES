@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useRef, useState } from "react";
+import React, { useEffect, useReducer, useRef, useState, useId } from "react";
 import { createPortal } from "react-dom";
 import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
@@ -8,6 +8,7 @@ import Button from "./Button";
 import TreeSelect from "./TreeSelect";
 import { Colors } from "../constants/colors/colorconstants";
 import { iconRender } from "../utils/iconRender";
+import FieldWithVisibleLabel from "./FieldWithVisibleLabel";
 
 const MultiSelectDropdown = ({
   options,
@@ -42,6 +43,13 @@ const MultiSelectDropdown = ({
   sectionId,
   name,
   id,
+  label,
+  showLabel,
+  // Names the control without drawing anything, for screens that already show their own
+  // visible label (a CardLabel in a LabelFieldPair, say) and would otherwise show it twice.
+  ariaLabel,
+  required,
+  populators,
 }) => {
   const [active, setActive] = useState(false);
   const [searchQuery, setSearchQuery] = useState();
@@ -66,6 +74,13 @@ const MultiSelectDropdown = ({
     type: "multiselect",
     id: id
   }) || id || name;
+
+  // Opt-in visible label (`label` + `showLabel`), same as TextInput/FieldV1. The <label> points at the search input,
+  // and the combobox/listbox reference it, so their fallback aria-labels are not set in that mode.
+  const showVisibleLabel = !!(showLabel && label);
+  const uniqueSuffix = useId();
+  const visibleInputId = `${fieldId}-input-${uniqueSuffix}`;
+  const visibleLabelId = `${visibleInputId}-label`;
 
   // Helper function to check if element is visible within all scroll ancestors
   const isElementVisibleInScrollParents = (element) => {
@@ -784,7 +799,11 @@ const MultiSelectDropdown = ({
     }
 
     return (
-      <div role="listbox" aria-multiselectable="true">
+      <div
+        role="listbox"
+        aria-multiselectable="true"
+        {...(showVisibleLabel ? { "aria-labelledby": visibleLabelId } : { "aria-label": t("CS_COMMON_DROPDOWN_OPTIONS") })}
+      >
         {selectAllOption}
         {optionsToRender?.map((option, index) => {
           if (option.options) {
@@ -839,6 +858,16 @@ const MultiSelectDropdown = ({
   };
 
   return (
+    <FieldWithVisibleLabel
+      show={showVisibleLabel}
+      label={label}
+      labelId={visibleLabelId}
+      htmlFor={visibleInputId}
+      required={required}
+      disabled={disabled}
+      populators={populators}
+      t={t}
+    >
     <div>
       <div
         id={fieldId}
@@ -853,8 +882,11 @@ const MultiSelectDropdown = ({
           role="combobox"
           aria-expanded={active ? "true" : "false"}
           aria-haspopup="listbox"
-          aria-label={`Multi-select dropdown: ${defaultLabel}`}
+          aria-label={showVisibleLabel ? undefined : ariaLabel || `Multi-select dropdown: ${defaultLabel}`}
+          aria-labelledby={showVisibleLabel ? visibleLabelId : undefined}
           aria-owns="jk-dropdown-unique"
+          // aria-controls is required on an expanded combobox (axe aria-required-attr); it points at the open options container.
+          aria-controls={active ? "jk-dropdown-unique" : undefined}
           aria-describedby="dropdown-description"
         >
           <input
@@ -865,7 +897,8 @@ const MultiSelectDropdown = ({
             onFocus={() => setActive(true)}
             value={searchQuery}
             onChange={onSearch}
-            aria-label={`Search options in ${defaultLabel}`}
+            id={showVisibleLabel ? visibleInputId : undefined}
+            aria-label={showVisibleLabel ? undefined : `Search options in ${ariaLabel || defaultLabel}`}
             aria-autocomplete="list"
           />
           <div
@@ -1003,10 +1036,13 @@ const MultiSelectDropdown = ({
         </div>
       ) : null}
     </div>
+    </FieldWithVisibleLabel>
   );
 };
 
 MultiSelectDropdown.propTypes = {
+  label: PropTypes.string, // used with showLabel
+  showLabel: PropTypes.bool, // opt-in: render `label` visibly (FieldV1 style) and link it to the dropdown
   options: PropTypes.array.isRequired,
   optionsKey: PropTypes.string.isRequired,
   selected: PropTypes.array,

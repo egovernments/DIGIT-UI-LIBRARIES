@@ -94,6 +94,8 @@ const CheckBox = ({
             } `}
           onChange={onChange}
           value={value || label}
+          // With the visible label hidden, the input still needs a name (axe label).
+          aria-label={hideLabel ? label : undefined}
           {...props}
           tabIndex={-1}
           ref={inputRef}

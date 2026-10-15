@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useId } from "react";
 import { createPortal } from "react-dom";
 import { SVG } from "./SVG";
 import TreeSelect from "./TreeSelect";
@@ -9,6 +9,7 @@ import { Colors } from "../constants/colors/colorconstants";
 import { iconRender } from "../utils/iconRender";
 import { getUserType } from "../utils/digitUtils";
 import StringManipulator from "./StringManipulator";
+import FieldWithVisibleLabel from "./FieldWithVisibleLabel";
 
 const TextField = (props) => {
   const [value, setValue] = useState(
@@ -133,6 +134,7 @@ const TextField = (props) => {
       role="combobox"
       aria-haspopup="listbox"
       aria-expanded={!!props.expanded}
+      aria-controls={props.ariaControls}
       aria-autocomplete={props.isSearchable ? "list" : "none"}
       aria-label={props.ariaLabel || undefined}
     />
@@ -462,6 +464,19 @@ const Dropdown = (props) => {
 
   const flattenedOptions = flattenOptions(filteredOption);
 
+  // Accessible name shared by the combobox input and its listbox (same text, so the listbox is named too: axe aria-input-field-name).
+  const comboboxLabel =
+    props?.ariaLabel ||
+    (props?.placeholder ? (props.t ? props.t(props.placeholder) : props.placeholder) : t("CS_COMMON_SELECT_OPTION"));
+
+  // Opt-in visible label (`label` + `showLabel`), same as TextInput/FieldV1. Only for the input-based variants.
+  // The visible <label> then names the input and the listbox, so the fallback aria-label is not set in that mode.
+  const showVisibleLabel = !!(props?.showLabel && props?.label && !hasCustomSelector && !props?.profilePic);
+  const uniqueSuffix = useId();
+  const inputId = showVisibleLabel ? props?.id || `${fieldId}-${uniqueSuffix}` : fieldId;
+  const visibleLabelId = `${inputId}-label`;
+  const listboxNameProps = showVisibleLabel ? { "aria-labelledby": visibleLabelId } : { "aria-label": comboboxLabel };
+
   const renderOption = (option, index) => {
     const handleMouseDown = (e) => {
       if (e.button === 0) setIsActive(index);
@@ -476,7 +491,7 @@ const Dropdown = (props) => {
           props.variant ? props?.variant : ""
         } ${index === optionIndex ? "keyChange" : ""}`}
         key={index}
-        role="button"
+        role="option"
         onKeyDown={(e)=>{
           if (e.key=="Enter" || e.key==" "){
             onSelect(option)
@@ -602,6 +617,16 @@ const Dropdown = (props) => {
     });
   };
   return (
+    <FieldWithVisibleLabel
+      show={showVisibleLabel}
+      label={props.label}
+      labelId={visibleLabelId}
+      htmlFor={inputId}
+      required={props.required}
+      disabled={props.disabled}
+      populators={props?.populators}
+      t={t}
+    >
     <div
       className={`${
         user_type === "employee"
@@ -618,6 +643,9 @@ const Dropdown = (props) => {
           ref={selectorRef}
           role="button"
           aria-expanded={menuStatus}
+          // Without this the trigger is named by whatever it renders - for a profilePic that is a
+          // single initial, which tells a screen reader nothing. Callers pass a real name instead.
+          aria-label={props?.ariaLabel || undefined}
           tabIndex={0}
           onKeyDown={(e) => {
             if (e.key === "Enter" || e.key === " ") menuSwitch();
@@ -677,15 +705,13 @@ const Dropdown = (props) => {
             variant={props?.variant}
             isSearchable={props?.isSearchable}
             expanded={dropdownStatus}
-            ariaLabel={
-              props?.ariaLabel ||
-              (props?.placeholder ? (props.t ? props.t(props.placeholder) : props.placeholder) : "Select an option")
-            }
+            ariaControls={dropdownStatus ? "jk-dropdown-unique" : undefined}
+            ariaLabel={showVisibleLabel ? props?.ariaLabel : comboboxLabel}
             autoComplete={props.autoComplete}
             setFilter={setFilter}
             forceSet={forceSet}
             setforceSet={setforceSet}
-            id={fieldId}
+            id={inputId}
             setOptionIndex={setOptionIndex}
             keepNull={props.keepNull}
             selectedVal={
@@ -755,6 +781,9 @@ const Dropdown = (props) => {
             showBottom={props?.showBottom}
             style={props?.menuStyles}
             className={props?.profilePic ? "underProfile" : ""}
+            // Name the open listbox the same way the input-based variants do, so the options
+            // list is not an unnamed field (axe aria-input-field-name). Matches Button's actionButton menu.
+            ariaLabel={props?.ariaLabel || comboboxLabel}
           />
         </div>
       )}
@@ -775,6 +804,7 @@ const Dropdown = (props) => {
             }}
             ref={optionRef}
             role="listbox"
+            {...listboxNameProps}
           >
             {props.variant === "treedropdown" ? (
               <TreeSelect
@@ -800,6 +830,10 @@ const Dropdown = (props) => {
                   }`}
                   key={"-1"}
                   onClick={() => {}}
+                  // Same as MultiSelectDropdown: a listbox must contain options, so "no results" is a disabled option (axe aria-required-children).
+                  role="option"
+                  aria-selected="false"
+                  aria-disabled="true"
                 >
                   {<span> {t("NO_RESULTS_FOUND")}</span>}
                 </div>
@@ -826,6 +860,7 @@ const Dropdown = (props) => {
             id="jk-dropdown-unique"
             ref={optionRef}
             role="listbox"
+            {...listboxNameProps}
           >
             {props.option
               ?.filter(
@@ -868,10 +903,13 @@ const Dropdown = (props) => {
         return dropdownContent;
       })()}
     </div>
+    </FieldWithVisibleLabel>
   );
 };
 
 Dropdown.propTypes = {
+  label: PropTypes.string, // used with showLabel
+  showLabel: PropTypes.bool, // opt-in: render `label` visibly (FieldV1 style) and link it to the input
   customSelector: PropTypes.any,
   showArrow: PropTypes.bool,
   selected: PropTypes.any,
