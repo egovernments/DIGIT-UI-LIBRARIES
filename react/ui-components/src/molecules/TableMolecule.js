@@ -709,7 +709,7 @@ const TableMolecule = ({
                       <button
                         onClick={pagination?.manualPagination ? () => pagination?.onPrevPage() : () => handlePageChange(currentPage - 1)}
                         disabled={currentPage === 1}
-                        aria-label="Previous page"
+                        aria-label={t("CS_COMMON_PREVIOUS_PAGE")}
                       >
                         <SVG.ChevronLeft
                           fill={currentPage === 1 ? "#C5C5C5" : "#363636"}
@@ -718,7 +718,7 @@ const TableMolecule = ({
                       <button
                         onClick={pagination?.manualPagination ? () => pagination?.onNextPage() : () => handlePageChange(currentPage + 1)}
                         disabled={currentPage === totalPages}
-                        aria-label="Next page"
+                        aria-label={t("CS_COMMON_NEXT_PAGE")}
                       >
                         <SVG.ChevronRight
                           fill={

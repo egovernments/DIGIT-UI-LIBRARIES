@@ -467,7 +467,7 @@ const Dropdown = (props) => {
   // Accessible name shared by the combobox input and its listbox (same text, so the listbox is named too: axe aria-input-field-name).
   const comboboxLabel =
     props?.ariaLabel ||
-    (props?.placeholder ? (props.t ? props.t(props.placeholder) : props.placeholder) : t("Select an option"));
+    (props?.placeholder ? (props.t ? props.t(props.placeholder) : props.placeholder) : t("CS_COMMON_SELECT_OPTION"));
 
   // Opt-in visible label (`label` + `showLabel`), same as TextInput/FieldV1. Only for the input-based variants.
   // The visible <label> then names the input and the listbox, so the fallback aria-label is not set in that mode.

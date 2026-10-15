@@ -377,7 +377,7 @@ const InboxSearchComposer = ({configs,additionalConfig,onFormValueChange=()=>{},
                 style={isScrollable ? { overflowX: "auto" } : {}}
                 tabIndex={isScrollable ? 0 : undefined}
                 role={isScrollable ? "region" : undefined}
-                aria-label={isScrollable ? t("Search results") : undefined}
+                aria-label={isScrollable ? t("CS_COMMON_SEARCH_RESULTS") : undefined}
               >
                 <MediaQuery minWidth={426}>
                   <ResultsDataTableWrapper

@@ -802,7 +802,7 @@ const MultiSelectDropdown = ({
       <div
         role="listbox"
         aria-multiselectable="true"
-        {...(showVisibleLabel ? { "aria-labelledby": visibleLabelId } : { "aria-label": "Dropdown options" })}
+        {...(showVisibleLabel ? { "aria-labelledby": visibleLabelId } : { "aria-label": t("CS_COMMON_DROPDOWN_OPTIONS") })}
       >
         {selectAllOption}
         {optionsToRender?.map((option, index) => {
