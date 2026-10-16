@@ -22,6 +22,7 @@ const Tag = ({
   loader,
   animationStyles,
 }) => {
+  const isClickable = typeof onClick === "function";
   const MonochromeIconColor = Colors.lightTheme.primary[2];
   const SuccessIconColor = Colors.lightTheme.alert.success;
   const ErrorIconColor = Colors.lightTheme.alert.error;
@@ -55,18 +56,26 @@ const Tag = ({
 
   return (
     <div
-      tabIndex={0}
+      // Only a tag that actually does something is a button. Applied unconditionally, a decorative
+      // tag became a focus stop announced as a button that does nothing, and the key handler below
+      // called onClick without checking it existed - so Enter on such a tag threw. Same pattern Card uses.
+      tabIndex={isClickable ? 0 : undefined}
       className={`digit-tag-wrapper ${className ? className : ""} ${type || ""} ${stroke ? "stroke" : ""} ${onClick ? "cp" : ""} ${
         alignment ? alignment : ""
       }`}
       style={style}
       onClick={onClick}
-      role="button"
-      onKeyDown={(e) => {
-        if (e.key == "Enter" || e.key == " ") {
-          onClick(e);
-        }
-      }}
+      role={isClickable ? "button" : undefined}
+      onKeyDown={
+        isClickable
+          ? (e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                onClick(e);
+              }
+            }
+          : undefined
+      }
     >
       {showIcon && iconToShow}
       <span className="digit-tag-text" style={labelStyle}>

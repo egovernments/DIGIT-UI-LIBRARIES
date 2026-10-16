@@ -47,7 +47,7 @@
     "webpack-cli": "^6.0.1"
   },
   "dependencies": {
-    "@egovernments/digit-ui-components": "2.0.0-dev-74",
+    "@egovernments/digit-ui-components": "2.0.0-dev-75",
     "@egovernments/digit-ui-components-css": "2.0.0-dev-15",
     "@egovernments/digit-ui-libraries": "2.0.0-dev-16",
     "@egovernments/digit-ui-svg-components": "2.0.0-dev-11",
