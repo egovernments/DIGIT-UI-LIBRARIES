@@ -46,6 +46,10 @@ class Popup extends StatefulWidget {
   /// The icon to be displayed next to the title.
   final Icon? titleIcon;
 
+  /// Vertical alignment of the title icon with the title text.
+  /// Defaults to CrossAxisAlignment.start (icon aligned to top of text).
+  final CrossAxisAlignment titleIconAlignment;
+
   /// The subheading of the popup.
   final String? subHeading;
 
@@ -84,6 +88,7 @@ class Popup extends StatefulWidget {
     this.width,
     this.height,
     this.titleIcon,
+    this.titleIconAlignment = CrossAxisAlignment.start,
     this.subHeading,
     this.description,
     this.additionalWidgets,
@@ -174,6 +179,7 @@ class _PopupState extends State<Popup> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
+          if (widget.title.isNotEmpty || widget.onCrossTap != null || widget.titleIcon != null)
           Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -194,7 +200,7 @@ class _PopupState extends State<Popup> {
                       : spacer6,
                 ),
                 child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: widget.titleIconAlignment,
                   children: [
                     if (widget.titleIcon != null) widget.titleIcon!,
                     if (widget.titleIcon != null)
@@ -302,47 +308,55 @@ class _PopupState extends State<Popup> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          if (widget.onCrossTap != null)
-            Align(
-              alignment: Alignment.topRight,
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  top: 0,
-                  right: 0,
-                ),
-                child: InkWell(
-                  hoverColor: const DigitColors().transparent,
-                  highlightColor: const DigitColors().transparent,
-                  splashColor: const DigitColors().transparent,
-                  onTap: widget.onCrossTap,
-                  child: Icon(
-                    Icons.close,
-                    size: isMobile
-                        ? spacer6
-                        : isTab
-                        ? spacer6
-                        : spacer7,
-                    color: const DigitColors().light.textPrimary,
+          SizedBox(
+            width: double.infinity,
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: SizedBox(
+                    width: isMobile ? spacer12 : isTab ? spacer13 : spacer14,
+                    height: isMobile ? spacer12 : isTab ? spacer13 : spacer14,
+                    child: ClipRect(
+                      child: FittedBox(
+                        fit: BoxFit.contain,
+                        child: widget.titleIcon ??
+                            Lottie.asset(
+                              themeData.alertAnimation ??
+                                  'assets/animated_json/alert.json',
+                              repeat: false,
+                              fit: BoxFit.cover,
+                            ),
+                      ),
+                    ),
                   ),
                 ),
-              ),
+                if (widget.onCrossTap != null)
+                  Positioned(
+                    top: 0,
+                    right: 0,
+                    child: InkWell(
+                      hoverColor: const DigitColors().transparent,
+                      highlightColor: const DigitColors().transparent,
+                      splashColor: const DigitColors().transparent,
+                      onTap: widget.onCrossTap,
+                      child: Icon(
+                        Icons.close,
+                        size: isMobile
+                            ? spacer6
+                            : isTab
+                            ? spacer6
+                            : spacer7,
+                        color: const DigitColors().light.textPrimary,
+                      ),
+                    ),
+                  ),
+              ],
             ),
-          widget.titleIcon ??
-              Lottie.asset('assets/animated_json/alert.json',
-                  repeat: false,
-                  width: isMobile
-                      ? 56.0
-                      : isTab
-                      ? 64.0
-                      : 72.0,
-                  height: isMobile
-                      ? 56.0
-                      : isTab
-                      ? 64.0
-                      : 72.0,
-                  fit: BoxFit.cover),
+          ),
           const SizedBox(
-            width: spacer2,
+            height: spacer2,
           ),
           RichText(
             textAlign: TextAlign.center,
@@ -403,10 +417,15 @@ class _PopupState extends State<Popup> {
             : spacer6,
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: widget.type == PopUpType.alert
+            ? CrossAxisAlignment.center
+            : CrossAxisAlignment.start,
         children: [
           if (widget.description != null)
             RichText(
+              textAlign: widget.type == PopUpType.alert
+                  ? TextAlign.center
+                  : TextAlign.start,
               text: TextSpan(
                 children: _parseBoldText(
                   widget.description!,
@@ -526,7 +545,9 @@ class _PopupState extends State<Popup> {
                       top: _isOverflowing ||
                           (widget.additionalWidgets != null ||
                               widget.description != null)
-                          ? isMobile
+                          ? widget.type == PopUpType.alert
+                          ? spacer2
+                          : isMobile
                           ? spacer4
                           : isTab
                           ? spacer5

@@ -125,7 +125,7 @@ class _SideBarState extends State<SideBar> {
               ),
               child: DigitButton(
                 size: DigitButtonSize.medium,
-                type: DigitButtonType.secondary,
+                type: DigitButtonType.primary,
                 prefixIcon: Icons.logout,
                 label: widget.logOutDigitButtonLabel,
                 mainAxisSize: MainAxisSize.max,

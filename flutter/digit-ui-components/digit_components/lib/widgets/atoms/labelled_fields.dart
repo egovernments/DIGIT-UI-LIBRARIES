@@ -59,7 +59,8 @@ class LabeledField extends StatelessWidget {
         children: [
           if (label != null)
             Wrap(
-              alignment: WrapAlignment.center,
+              alignment: WrapAlignment.start,
+              crossAxisAlignment: WrapCrossAlignment.center,
               children: [
                 RichText(
                   text: TextSpan(

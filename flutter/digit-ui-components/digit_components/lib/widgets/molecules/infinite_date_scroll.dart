@@ -175,7 +175,7 @@ class DigitDateFormInputState extends BaseDigitFormInputState {
           endDate: _endDate,
           selectedColor: DigitTheme.instance.colorScheme.primary,
           unselectedColor: Colors.white,
-          selectedTextColor: Colors.white,
+          selectedTextColor: Colors.black87,
           unselectedTextColor: Colors.black87,
         ),
       ],

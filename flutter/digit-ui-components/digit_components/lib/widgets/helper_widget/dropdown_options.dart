@@ -163,8 +163,7 @@ class _DropdownOptionState extends State<DropdownOption> {
                           const SizedBox(
                             width: spacer3,
                           ),
-                          SizedBox(
-                            width: widget.width - spacer12 - spacer3,
+                          Expanded(
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.start,

@@ -14,6 +14,10 @@ class Tag extends StatefulWidget {
   final TextStyle? customTextStyle;
   final TagThemeData? themeData;
 
+  /// Overrides the border color drawn when [isStroke] is true.
+  /// Falls back to the tag's text/icon color when not provided.
+  final Color? borderColor;
+
   const Tag({
     super.key,
     required this.label,
@@ -24,6 +28,7 @@ class Tag extends StatefulWidget {
     this.customIcon,
     this.customTextStyle,
     this.themeData,
+    this.borderColor,
   });
 
   @override
@@ -93,7 +98,7 @@ class _TagState extends State<Tag> {
               defaultTagThemeData.borderRadius,
           border: widget.isStroke
               ? Border.all(
-              color: textColor,
+              color: widget.borderColor ?? textColor,
               width: tagThemeData?.borderWidth ??
                   defaultTagThemeData.borderWidth!)
               : null,
