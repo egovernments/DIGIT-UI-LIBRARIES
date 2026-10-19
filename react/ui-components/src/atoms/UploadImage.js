@@ -315,7 +315,10 @@ const UploadImage = ({
               aria-label="Image upload options"
             >
               <div className="upload-options" style={{ display: "flex" }}>
-                <label
+                {/* Not <label>: ARIA allows no role on it, so role="button" here is invalid markup
+                    (axe aria-allowed-role). Neither of these labels a form control - they are the
+                    camera buttons - so <span> is both valid and the accurate element. */}
+                <span
                   onClick={() => toggleWebcam()}
                   // style={{ cursor: "pointer" }}
                   role="button"
@@ -330,8 +333,8 @@ const UploadImage = ({
                     width={"40px"}
                     height={"40px"}
                   />
-                </label>
-                <label
+                </span>
+                <span
                   onClick={() => toggleWebcam()}
                   className={"upload-options-label"}
                   role="button"
@@ -341,7 +344,7 @@ const UploadImage = ({
                   }}
                 >
                   Camera
-                </label>
+                </span>
               </div>
               <div className="upload-options" style={{ display: "flex" }}>
                 <label for="file" style={{ cursor: "pointer" }}>
