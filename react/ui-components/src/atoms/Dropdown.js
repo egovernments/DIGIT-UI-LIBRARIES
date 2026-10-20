@@ -898,7 +898,19 @@ const Dropdown = (props) => {
 
         // Use portal only if not disabled and document exists
         if (!props.disablePortal && typeof document !== "undefined") {
-          return createPortal(dropdownContent, document.body);
+          // Portalled to <body>, the options card sits outside every landmark, so axe's `region`
+          // rule reports it as content no landmark covers. This wrapper is that landmark - the
+          // same treatment MultiSelectDropdown already gives its own portalled panel, which is
+          // why the boundary screen's dropdowns already pass. `display: contents` means it
+          // generates no box at all: it cannot become a flex/grid item and cannot be a containing
+          // block, so the absolutely positioned card inside still resolves its top/left and its
+          // z-index exactly as it does today. It shares the listbox's name, so it is a named region.
+          return createPortal(
+            <div role="region" style={{ display: "contents" }} {...listboxNameProps}>
+              {dropdownContent}
+            </div>,
+            document.body
+          );
         }
         return dropdownContent;
       })()}

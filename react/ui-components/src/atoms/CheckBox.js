@@ -57,10 +57,13 @@ const CheckBox = ({
           <label
             htmlFor={fieldId}
             className={`label ${props?.labelClassName} `}
-            style={{ maxWidth: "100%", width: "auto", marginRight: "0rem" }}
+            // No role: <label> permits none at all, so role="button" was an aria-allowed-role
+            // violation. The tab stop and the key handler stay, so behaviour is unchanged; the
+            // explicit cursor replaces the pointer that Tailwind's preflight was giving this
+            // element purely through its [role="button"] rule.
+            style={{ maxWidth: "100%", width: "auto", marginRight: "0rem", cursor: "pointer" }}
             onClick={props?.onLabelClick}
             tabIndex={0}
-            role={"button"}
             onKeyDown={(e) => {
               if (e.key === "Enter" || e.key === " ") {
                 e.preventDefault();
@@ -143,10 +146,13 @@ const CheckBox = ({
           <label
             htmlFor={fieldId}
             className={`label ${props?.labelClassName} `}
-            style={{ maxWidth: "100%", width: "100%", marginRight: "0rem" }}
+            // No role: <label> permits none at all, so role="button" was an aria-allowed-role
+            // violation. The tab stop and the key handler stay, so behaviour is unchanged; the
+            // explicit cursor replaces the pointer that Tailwind's preflight was giving this
+            // element purely through its [role="button"] rule.
+            style={{ maxWidth: "100%", width: "100%", marginRight: "0rem", cursor: "pointer" }}
             onClick={props?.onLabelClick}
             tabIndex={0}
-            role={"button"}
             onKeyDown={(e) => {
               if (e.key === "Enter" || e.key === " ") {
                 e.preventDefault();
