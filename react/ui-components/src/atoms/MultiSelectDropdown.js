@@ -694,6 +694,10 @@ const MultiSelectDropdown = ({
       >
         <input
           type="checkbox"
+          // Not a tab stop: this checkbox sits inside role="option", and a focusable descendant of a
+          // widget role is a control inside a control (axe nested-interactive). Selection state is
+          // already exposed by aria-selected, and the listbox is driven by arrows + Enter on the combobox.
+          tabIndex={-1}
           value={option.code}
           checked={isFrozen || isSelected ? true : false}
           onChange={(e) => {
@@ -764,6 +768,10 @@ const MultiSelectDropdown = ({
     >
       <input
         type="checkbox"
+        // Not a tab stop: this checkbox sits inside role="option", and a focusable descendant of a
+        // widget role is a control inside a control (axe nested-interactive). Selection state is
+        // already exposed by aria-selected, and the listbox is driven by arrows + Enter on the combobox.
+        tabIndex={-1}
         checked={selectAllChecked}
         onChange={handleSelectAll}
         aria-label={`Select all options: ${selectAllLabel ? selectAllLabel : t("SELECT_ALL")}`}
@@ -834,6 +842,10 @@ const MultiSelectDropdown = ({
                     </div>
                     <input
                       type="checkbox"
+                      // Not a tab stop: this checkbox sits inside role="option", and a focusable descendant of a
+                      // widget role is a control inside a control (axe nested-interactive). Selection state is
+                      // already exposed by aria-selected, and the listbox is driven by arrows + Enter on the combobox.
+                      tabIndex={-1}
                       checked={
                         selectAllChecked || categorySelected[option?.code]
                       }
