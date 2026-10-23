@@ -3,7 +3,7 @@
 This guide explains:
 
 1. what was wrong with the components' accessibility,
-2. what was fixed in **2.0.0-dev-76** (with **`@egovernments/digit-ui-components-css` 2.0.0-dev-15**),
+2. what was fixed in **2.0.0-dev-77** (with **`@egovernments/digit-ui-components-css` 2.0.0-dev-15**),
 3. how to use the components so your product's accessibility score goes up, not down.
 
 It is for anyone building a DIGIT product with this library.
@@ -95,7 +95,7 @@ The remaining violations are listed in [§5](#5-known-limitations).
 ## 3. Upgrade
 
 ```json
-"@egovernments/digit-ui-components": "2.0.0-dev-76",
+"@egovernments/digit-ui-components": "2.0.0-dev-77",
 "@egovernments/digit-ui-components-css": "2.0.0-dev-15"
 ```
 
