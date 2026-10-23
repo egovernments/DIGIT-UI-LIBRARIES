@@ -24,7 +24,22 @@ Each page starts at 100 and loses points for every issue it finds:
 | Medium | −4 | −30 |
 | Low | −1 | −30 |
 
-The site score is the average of all page scores. HCM Console (UAT, 21 Sep 2026) scored **40 / 100**.
+The site score is the average of all page scores. HCM Console (UAT, 21 Sep 2026) scored **40 / 100** with 22
+distinct issues.
+
+After adopting these library fixes — together with product-side fixes in HCM Console itself — the same scan on
+**23 Oct 2026** reported:
+
+| | 21 Sep 2026 | 23 Oct 2026 |
+|---|---:|---:|
+| Score | 40 / 100 | **92 / 100** |
+| Distinct issues | 22 | **4** |
+| Severe | — | **0** |
+| Medium | — | **0** |
+| Adherence (WCAG / GIGW / SesMag / ADA) | 77% | **95%** |
+
+The shared-component fixes in this library were the largest single contributor. Product-specific work was still
+needed — see [§4](#4-how-to-use-the-components-accessibly) for what the library cannot fix on your behalf.
 
 A component bug shows up on **every page that renders that component, in every product**. Fixing it once in the library
 removes it everywhere. Library fixes cannot repair markup that products write themselves, though. Section 4 shows how to use
@@ -67,6 +82,8 @@ changes. The only exception is the new **opt-in** `showLabel` feature, which ren
 | **Banner**, **CollapseAndExpandGroups**, **ConnectingCheckPoints** | Message and group text used `<header>`, which counts as a page banner landmark. | Uses a plain container. |
 | **LinkLabel** | `<label role="button">`, but `<label>` may not carry a role (`aria-allowed-role`). | Rendered as a `<span role="button">`. It looks and behaves the same. |
 | **InboxSearchComposer** results | The sideways-scrolling table could not be reached by keyboard (`scrollable-region-focusable`, High). | Becomes a named, focusable region while it scrolls. |
+| **Dropdown** (open options list) | The list is rendered through a portal onto `<body>`, so it sat outside every landmark and was reported as content no landmark covers (`region`, Medium). | The portalled list is wrapped in a named `role="region"`. The wrapper uses `display: contents`, so it generates no box and layout is unchanged. |
+| **CheckBox** (clickable label) | `<label role="button">`, but `<label>` may not carry a role (`aria-allowed-role`, Low). | Role removed. The label keeps its tab stop and key handler, so behaviour is unchanged, and `cursor: pointer` is now set explicitly (it previously came from Tailwind's `[role="button"]` rule). |
 
 ### 2.4 Measured result
 
@@ -101,8 +118,12 @@ The remaining violations are listed in [§5](#5-known-limitations).
 
 Upgrade **both packages together**, because the `showLabel` layout uses CSS from the new CSS package.
 
-Many issues in older scans come from an outdated library version (for example, HCM Console runs 2.0.0-dev-66). Upgrading
-alone clears them.
+Many issues in older scans come from an outdated library version. Upgrading alone clears them — HCM Console moved
+from 2.0.0-dev-66 to 2.0.0-dev-77 over this work, and several rules disappeared from its report on the upgrade
+without any product code changing.
+
+**Check for forked components before you assume an upgrade landed.** HCM Console's only Severe issue survived
+every library fix because one screen imported a *local copy* of `MultiSelectDropdown` rather than this package.
 
 ---
 
@@ -264,12 +285,18 @@ These issues are still open. Each needs a behaviour or structure change, so each
 
 | Component | Issue | Workaround |
 |---|---|---|
-| MultiSelectDropdown | Each option contains a focusable checkbox (`nested-interactive`). | none yet |
-| CheckBox | The clickable label is `<label role="button">` (`aria-allowed-role`, Low). | none yet |
-| Chip, Timeline ("view details") | A control nested inside another control. | none yet |
+| MultiSelectDropdown | Each option contains a checkbox. The checkboxes are out of the tab order (`tabindex="-1"`), but they remain programmatically focusable, so `nested-interactive` can still be reported. | none yet |
+| Timeline ("view details") | The wrapper is a control containing a Button (`nested-interactive`). Fixing it removes a tab stop. | none yet |
 | Menu (searchable), TreeSelect, TreeDropdown / TreeMultiselect | Invalid list structure, unnamed checkboxes. | prefer the non-tree variants |
 | Header profile menu | Needs a name when the profile is only an image. | pass `ariaLabel` |
-| Tag | Always focusable with `role="button"`, even without `onClick`. | avoid putting Tags inside clickable Cards |
+
+### Fixed since this table was first written
+
+| Component | Was | Now |
+|---|---|---|
+| **CheckBox** | `<label role="button">` (`aria-allowed-role`, Low) | Role removed in **dev-77**; tab stop and cursor preserved |
+| **Chip** | The wrapper was a control containing the remove button (`nested-interactive`) | The wrapper is a plain container; "open" and "remove" are now sibling controls |
+| **Tag** | Always focusable with `role="button"`, even without `onClick` | Focusable only when `onClick` is passed. This also fixed a **crash**: pressing Enter on a decorative Tag previously threw, because the key handler called `onClick` without checking it existed |
 
 ---
 
