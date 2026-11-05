@@ -316,6 +316,7 @@ export const {
     DocPdfUpload,
     DocdocUpload,
     AddIconNew,
+    NaturePeople
 } = CustomSVG;
 
 import {
