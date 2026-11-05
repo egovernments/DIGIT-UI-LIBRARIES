@@ -3,7 +3,7 @@
 This guide explains:
 
 1. what was wrong with the components' accessibility,
-2. what was fixed in **2.0.0-dev-77** (with **`@egovernments/digit-ui-components-css` 2.0.0-dev-15**),
+2. what was fixed in **2.0.0-dev-78** (with **`@egovernments/digit-ui-components-css` 2.0.0-dev-15**),
 3. how to use the components so your product's accessibility score goes up, not down.
 
 It is for anyone building a DIGIT product with this library.
@@ -112,14 +112,14 @@ The remaining violations are listed in [§5](#5-known-limitations).
 ## 3. Upgrade
 
 ```json
-"@egovernments/digit-ui-components": "2.0.0-dev-77",
+"@egovernments/digit-ui-components": "2.0.0-dev-78",
 "@egovernments/digit-ui-components-css": "2.0.0-dev-15"
 ```
 
 Upgrade **both packages together**, because the `showLabel` layout uses CSS from the new CSS package.
 
 Many issues in older scans come from an outdated library version. Upgrading alone clears them — HCM Console moved
-from 2.0.0-dev-66 to 2.0.0-dev-77 over this work, and several rules disappeared from its report on the upgrade
+from 2.0.0-dev-66 to 2.0.0-dev-78 over this work, and several rules disappeared from its report on the upgrade
 without any product code changing.
 
 **Check for forked components before you assume an upgrade landed.** HCM Console's only Severe issue survived

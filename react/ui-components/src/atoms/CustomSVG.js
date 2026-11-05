@@ -1,5 +1,29 @@
 import React from "react";
 
+const NaturePeople = ({
+  className,
+  style = {},
+  fill = "#C84C0E",
+  width = "24",
+  height = "24",
+}) => (
+  <svg
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+    width={width}
+    height={height}
+    fill="none"
+    className={className}
+    style={style}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fill={fill}
+      d="M22.17 9.17c0-3.91-3.19-7.06-7.11-7-3.83.06-6.99 3.37-6.88 7.19.09 3.38 2.58 6.16 5.83 6.7V20H6v-3h1v-4c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v4h1v5h16v-2h-3v-3.88c3.47-.41 6.17-3.36 6.17-6.95zM4.5 11c.83 0 1.5-.67 1.5-1.5S5.33 8 4.5 8 3 8.67 3 9.5 3.67 11 4.5 11z"
+    ></path>
+  </svg>
+);
+
 const CreateEstimateIcon = ({ className, style = {}, fill = "#C84C0E",width = '18',height ='18' }) => (
   <svg
     width={width}
@@ -4134,6 +4158,7 @@ const FlowUnfilled = ({ width = "24", height = "24", fill = "#C84C0E" }) => (
 );
 
 export const CustomSVG = {
+    NaturePeople,
     Microsoft,
     VariableAdd,
     FlowFilled,
