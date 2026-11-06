@@ -1,3 +1,6 @@
+## 0.3.3
+* Added the `NaturePeople` icon (`Icons.nature_people`) to the icon mapping, used for the outside household place card.
+
 ## 0.3.2
 * Fixed dropdown option RenderFlex overflow by replacing fixed-width SizedBox with Expanded.
 
