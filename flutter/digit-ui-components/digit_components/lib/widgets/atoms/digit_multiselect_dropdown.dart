@@ -808,24 +808,25 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                         _isInteractingWithDropdown = false;
                       });
                     },
-                    child: Material(
-                      borderRadius: Base.radius,
-                      shadowColor: null,
-                      clipBehavior: Clip.antiAlias,
-                      child: Container(
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        borderRadius: Base.radius,
+                        boxShadow: [
+                          if (_filteredOptions.isNotEmpty)
+                            const BoxShadow(
+                              offset: Offset(0, 2),
+                              blurRadius: 6,
+                              spreadRadius: 0,
+                              color: Color(0x1F000000),
+                            ),
+                        ],
+                      ),
+                      child: Material(
+                        borderRadius: Base.radius,
+                        shadowColor: null,
+                        clipBehavior: Clip.antiAlias,
+                        child: Container(
                         width: size.width,
-                        decoration: BoxDecoration(
-                          borderRadius: Base.radius,
-                          boxShadow: [
-                            if (_filteredOptions.isNotEmpty)
-                              const BoxShadow(
-                                offset: Offset(0, 1),
-                                blurRadius: 4.4,
-                                spreadRadius: 0,
-                                color: Color(0x26000000), // #00000026
-                              ),
-                          ],
-                        ),
                         child: ClipRRect(
                           borderRadius: Base.radius,
                           child: Column(
@@ -853,6 +854,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                       ),
                     ),
                   ),
+                ),
                 ),
               ],
             ),

@@ -52,7 +52,7 @@ class DigitPopupTheme extends ThemeExtension<DigitPopupTheme> {
       margin: isMobile ? const EdgeInsets.symmetric(horizontal: 16) : isTab ? const EdgeInsets.symmetric(horizontal: 100) : const EdgeInsets.symmetric(horizontal: 400),
       padding: EdgeInsets.all(isMobile ? 16 : isTab ? 20 : 24),
       titleTextStyle: textTheme.headingL.copyWith(
-          color: theme.colorTheme.text.primary),
+          color: theme.colorTheme.primary.primary2),
       subHeadingTextStyle: textTheme.captionS.copyWith(
           color: theme.colorTheme.text.primary),
       descriptionTextStyle: textTheme.bodyL.copyWith(

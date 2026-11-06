@@ -41,6 +41,8 @@ class PanelThemeData extends ThemeExtension<PanelThemeData> {
       titleTextStyle: textTheme.headingXl.copyWith(color: theme.colorTheme.paper.primary),
       successBackgroundColor: theme.colorTheme.alert.success,
       errorBackgroundColor: theme.colorTheme.alert.error,
+      // radius4 (12px) so the success/error panel follows the card radius of
+      // its PanelCard wrapper instead of showing square corners inside it.
       radiusGeometry: BorderRadius.circular(radius4),
       successAnimationSize: isMobile ? 80.0 : isTab ? 100.0 : 120.0,
       errorAnimationSize: isMobile ? 56.0 : isTab ? 64.0 : 74.0,

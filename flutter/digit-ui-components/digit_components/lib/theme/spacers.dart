@@ -12,4 +12,9 @@ const double spacer9 = 36.0;
 const double spacer10 = 40.0;
 const double spacer11 = 44.0;
 const double spacer12 = 48.0;
+const double spacer13 = 52.0;
+const double spacer14 = 56.0;
+const double spacer15 = 60.0;
+const double spacer16 = 64.0;
+const double spacer17 = 68.0;
 

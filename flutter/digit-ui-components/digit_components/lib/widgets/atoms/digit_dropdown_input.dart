@@ -546,33 +546,35 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                   offset: Offset(0, size.height),
                   link: this._layerLink,
                   showWhenUnlinked: false,
-                  child: Material(
-                    elevation: 0,
-                    borderRadius: Base.radius,
-                    color: const DigitColors().light.paperPrimary,
-                    clipBehavior: Clip.antiAlias,
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints(
-                        maxHeight:
-                        MediaQuery.of(context).size.height - topOffset - 15,
-                      ),
-                      child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: Base.radius,
-                            boxShadow: [
-                              if (filteredItems.isNotEmpty)
-                                const BoxShadow(
-                                  offset: Offset(0, 1),
-                                  blurRadius: 4.4,
-                                  spreadRadius: 0,
-                                  color: Color(0x26000000), // #00000026
-                                ),
-                            ],
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      borderRadius: Base.radius,
+                      boxShadow: [
+                        if (filteredItems.isNotEmpty)
+                          const BoxShadow(
+                            offset: Offset(0, 2),
+                            blurRadius: 6,
+                            spreadRadius: 0,
+                            color: Color(0x1F000000),
                           ),
-                          child: ClipRRect(
+                      ],
+                    ),
+                    child: Material(
+                      elevation: 0,
+                      borderRadius: Base.radius,
+                      color: const DigitColors().light.paperPrimary,
+                      clipBehavior: Clip.antiAlias,
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(
+                          maxHeight:
+                          MediaQuery.of(context).size.height - topOffset - 15,
+                        ),
+                        child: Container(
+                            child: ClipRRect(
                             borderRadius: Base.radius,
                             child: _buildDropdownListView(size.width),
                           )),
+                      ),
                     ),
                   ),
                 ),

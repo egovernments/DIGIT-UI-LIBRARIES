@@ -29,6 +29,7 @@ class DigitSyncDialog {
     bool barrierDismissible = false,
     required DialogType type,
     String? label,
+    String? description,
     DigitDialogActions? primaryAction,
     DigitDialogActions? secondaryAction,
   }) async {
@@ -39,6 +40,7 @@ class DigitSyncDialog {
       builder: (context) => DigitSyncDialogContent(
           type: type,
           label: label,
+          description: description,
           primaryAction: primaryAction,
           secondaryAction: secondaryAction),
     );
@@ -47,6 +49,7 @@ class DigitSyncDialog {
 
 class DigitSyncDialogContent extends StatelessWidget {
   final String? label;
+  final String? description;
   final DialogType type;
 
   final DigitDialogActions? primaryAction;
@@ -55,6 +58,7 @@ class DigitSyncDialogContent extends StatelessWidget {
   const DigitSyncDialogContent({
     super.key,
     this.label,
+    this.description,
     required this.type,
     this.primaryAction,
     this.secondaryAction,
@@ -75,7 +79,7 @@ class DigitSyncDialogContent extends StatelessWidget {
         labelStyle = textTheme.headingM;
         break;
       case DialogType.complete:
-        icon = Icons.check_circle_outline;
+        icon = Icons.check_circle;
         color = theme.colorTheme.alert.success;
         labelStyle = textTheme.headingM;
         break;
@@ -110,29 +114,33 @@ class DigitSyncDialogContent extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(icon, size: 32, color: color),
+                // Material glyphs pad ~2/24 of the em-box per side; 38.4
+                // renders a visually 32dp mark (32 * 24/20).
+                Icon(icon, size: 38.4, color: color),
                 if (label != null && label !="") ...[
                   const SizedBox(height: spacer4),
-                  Text(label!, style: labelStyle.copyWith(color: color)),
+                  Text(
+                    label!,
+                    textAlign: TextAlign.center,
+                    style: labelStyle.copyWith(
+                      // Success dialogs pair the green check with the primary
+                      // heading color; in-progress/failed keep the icon color.
+                      color: type == DialogType.complete
+                          ? theme.colorTheme.primary.primary2
+                          : color,
+                    ),
+                  ),
+                ],
+                if (description != null && description != '') ...[
+                  const SizedBox(height: spacer2),
+                  Text(
+                    description!,
+                    style: textTheme.bodyS,
+                    textAlign: TextAlign.center,
+                  ),
                 ],
                 if (primaryAction != null || secondaryAction != null) ...[
                   const SizedBox(height: spacer4),
-                  if (secondaryAction != null)
-                    DigitButton(
-                      type: DigitButtonType.secondary,
-                      size: DigitButtonSize.medium,
-                      label: secondaryAction!.label,
-                      onPressed: () {
-                        if (secondaryAction!.action != null) {
-                          secondaryAction!.action!(context);
-                        } else {
-                          Navigator.of(context).pop();
-                        }
-                      },
-                      mainAxisSize: MainAxisSize.max,
-                    ),
-                  if(primaryAction != null && secondaryAction != null)
-                    const SizedBox(height: spacer4),
                   if (primaryAction != null)
                     DigitButton(
                       label: primaryAction!.label,
@@ -145,6 +153,22 @@ class DigitSyncDialogContent extends StatelessWidget {
                       },
                       size: DigitButtonSize.medium,
                       type: DigitButtonType.primary,
+                      mainAxisSize: MainAxisSize.max,
+                    ),
+                  if (primaryAction != null && secondaryAction != null)
+                    const SizedBox(height: spacer4),
+                  if (secondaryAction != null)
+                    DigitButton(
+                      type: DigitButtonType.secondary,
+                      size: DigitButtonSize.medium,
+                      label: secondaryAction!.label,
+                      onPressed: () {
+                        if (secondaryAction!.action != null) {
+                          secondaryAction!.action!(context);
+                        } else {
+                          Navigator.of(context).pop();
+                        }
+                      },
                       mainAxisSize: MainAxisSize.max,
                     ),
                 ],
