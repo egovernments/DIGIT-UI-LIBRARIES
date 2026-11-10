@@ -679,9 +679,9 @@ input[type="number"] {
 }
 
 *:focus-visible {
-    outline: 2px solid #b91900 !important;
+    outline: 2px solid var(--digitv2-lightTheme-focus-visible-color);
 }
 
 .spanWrapper .submit-bar:focus-visible{
-    outline: 2px solid #b91900 !important;
+    outline: 2px solid var(--digitv2-lightTheme-focus-visible-color);
 }

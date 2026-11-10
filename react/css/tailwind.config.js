@@ -123,6 +123,7 @@ module.exports = {
         "generic-inputborder": "#505A5F",
         "paper-primary": "#FFFFFF",
         "paper-secondary": "#FAFAFA",
+        "focus-visible-color":"#b91900"
       },
       alert: {
         error: "#D4351C",
