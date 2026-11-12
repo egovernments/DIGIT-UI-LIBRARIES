@@ -920,7 +920,7 @@ const MultiSelectDropdown = ({
                 ? `${variant === "treemultiselect"
                   ? countFinalChildOptions(alreadyQueuedSelectedState)
                   : alreadyQueuedSelectedState.length} 
-                   ${defaultUnit} Selected`
+                   ${defaultUnit} ${t("MULTISELECT_SELECTED")}`
                 : defaultLabel
             }
             id="dropdown-description"
@@ -931,13 +931,13 @@ const MultiSelectDropdown = ({
                 {alreadyQueuedSelectedState.length > 0
                   ? `${countFinalChildOptions(
                     alreadyQueuedSelectedState
-                  )} ${defaultUnit} Selected`
+                  )} ${defaultUnit} ${t("MULTISELECT_SELECTED")}`
                   : defaultLabel}
               </p>
             ) : (
               <p>
                 {alreadyQueuedSelectedState.length > 0
-                  ? `${alreadyQueuedSelectedState.length} ${defaultUnit} Selected`
+                  ? `${alreadyQueuedSelectedState.length} ${defaultUnit} ${t("MULTISELECT_SELECTED")}`
                   : defaultLabel}
               </p>
             )}
