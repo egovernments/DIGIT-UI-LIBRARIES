@@ -62,8 +62,12 @@ module.exports = (env, argv) => {
             options: {
               presets: [
                 ["@babel/preset-env", {
+                  // Match this package's own browserslist (package.json) instead of a
+                  // broader hardcoded list - the old targets left IE9/10/11 in scope,
+                  // which made core-js inject polyfills Lighthouse flags as "Legacy
+                  // JavaScript" for browsers this app doesn't actually support.
                   targets: {
-                    browsers: ["> 1%", "last 2 versions", "not ie <= 8"]
+                    browsers: [">0.2%", "not dead", "not op_mini all"]
                   },
                   modules: false, // Let webpack handle modules
                   useBuiltIns: "usage",
