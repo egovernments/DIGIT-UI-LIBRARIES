@@ -112,7 +112,7 @@ The remaining violations are listed in [§5](#5-known-limitations).
 ## 3. Upgrade
 
 ```json
-"@egovernments/digit-ui-components": "2.0.0-dev-79",
+"@egovernments/digit-ui-components": "2.0.0-dev-80",
 "@egovernments/digit-ui-components-css": "2.0.0-dev-16"
 ```
 
