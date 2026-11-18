@@ -761,7 +761,9 @@ import { ViewSidebar } from "./svg/ViewSidebar";
 import { ViewStream } from "./svg/ViewStream";
 import { ViewWeek } from "./svg/ViewWeek";
 import { Visibility } from "./svg/Visibility";
+import { VisibilityNew } from "./svg/VisibilityNew";
 import { VisibilityOff } from "./svg/VisibilityOff";
+import { VisibilityOffNew } from "./svg/VisibilityOffNew";
 import { Voicemail } from "./svg/Voicemail";
 import { VoiceOverOff } from "./svg/VoiceOverOff";
 import { VolunteerActivism } from "./svg/VolunteerActivism";
@@ -1624,7 +1626,9 @@ export {
   ViewStream,
   ViewWeek,
   Visibility,
+  VisibilityNew,
   VisibilityOff,
+  VisibilityOffNew,
   Voicemail,
   VoiceOverOff,
   VolunteerActivism,
